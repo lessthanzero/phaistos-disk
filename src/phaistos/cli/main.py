@@ -2261,6 +2261,97 @@ def hagia_gallery_cmd():
     console.print("[dim]Launch `phaistos workbench` to experience live teleprompter image synchronization.[/dim]\n")
 
 
+@app.command("homology-breakdown")
+def homology_breakdown_cmd(
+    group: str = typer.Option("A16", help="Group ID to inspect (e.g. A16, B08, A01)"),
+):
+    """Display sign-by-sign Hagia Triada realia breakdown for any Phaistos Disc group."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.ritual.homology_breakdown import build_group_breakdown
+
+    corpus = load_transcription()
+    all_groups = list(corpus.side_a.groups) + list(corpus.side_b.groups)
+    target_group = next((g for g in all_groups if g.id.upper() == group.upper()), None)
+
+    if not target_group:
+        console.print(f"[bold red]Group {group} not found in canonical corpus.[/bold red]")
+        raise typer.Exit(code=1)
+
+    bd = build_group_breakdown(target_group, corpus)
+
+    console.print(
+        Panel(
+            f"[bold cyan]The Rosetta Split: Homology Breakdown for Group {bd.group_id}[/bold cyan]\n"
+            f"[dim]{bd.act_title} • {bd.primary_scene_title}[/dim]\n"
+            f"[yellow]Action:[/yellow] {bd.action_narrative}",
+            expand=False,
+        )
+    )
+
+    table = Table(title=f"Sign-by-Sign Fresco Realia Mapping for {bd.group_id}", show_header=True)
+    table.add_column("Sign", style="bold cyan", justify="center")
+    table.add_column("Realia Element / Fresco Motif", style="bold")
+    table.add_column("Sarcophagus Scene", style="dim")
+    table.add_column("Confidence", justify="center")
+    table.add_column("Scholarly Rationale & Citation")
+
+    for sm in bd.sign_matches:
+        if sm["has_realia_match"]:
+            conf_style = "bold green" if sm["confidence_tier"] == "PRIMARY_ARCHETYPE" else "magenta"
+            table.add_row(
+                f"{sm['emoji']} #{sm['sign_id']}\n[dim]{sm['short_name']}[/dim]",
+                f"[bold]{sm['crop_title']}[/bold]\n{sm['fresco_element']}",
+                sm["scene_title"].split(":")[0],
+                f"[{conf_style}]{sm['confidence_tier'].replace('_', ' ')}[/{conf_style}]",
+                sm["rationale"],
+            )
+        else:
+            table.add_row(
+                f"{sm['emoji']} #{sm['sign_id']}\n[dim]{sm['short_name']}[/dim]",
+                "[dim]Phonetic Connective[/dim]",
+                "-",
+                "[dim]PHONETIC MORA[/dim]",
+                sm["rationale"],
+            )
+
+    console.print(table)
+
+
+@app.command("ritual-clauses")
+def ritual_clauses_cmd():
+    """Display the 14 Minoan formulaic liturgical clauses across Side A and Side B."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.ritual.clause_parser import parse_liturgical_clauses
+
+    corpus = load_transcription()
+    clauses = parse_liturgical_clauses(corpus)
+
+    table = Table(title="Phaistos Disc 14 Liturgical Clauses (Formulaic Syntax)", show_header=True)
+    table.add_column("Clause", style="bold cyan", justify="center")
+    table.add_column("Side", justify="center")
+    table.add_column("Groups", style="bold")
+    table.add_column("Morae", justify="center")
+    table.add_column("Terminal Stroke", justify="center")
+    table.add_column("Syntactic Template", style="magenta")
+    table.add_column("Ceremonial Action Narrative")
+
+    for c in clauses:
+        stroke_str = "[bold green]YES (Rest)[/bold green]" if c.has_terminal_stroke else "[dim]None[/dim]"
+        groups_str = " ".join(c.group_ids)
+        table.add_row(
+            c.clause_id,
+            c.side,
+            groups_str,
+            str(c.total_morae),
+            stroke_str,
+            c.syntactic_template,
+            c.reconstructed_action,
+        )
+
+    console.print(table)
+    console.print(f"\n[bold green]Total reconstructed clauses:[/bold green] {len(clauses)} (7 on Side A, 7 on Side B)\n")
+
+
 if __name__ == "__main__":
     app()
 
