@@ -111,13 +111,16 @@ def analyze_keftiu_phonology(texts: Optional[List[KeftiuText]] = None) -> Keftiu
     top_syls = sorted(syl_counts.items(), key=lambda x: x[1], reverse=True)
     sorted_bigrams = sorted([(k[0], k[1], v) for k, v in bigrams.items()], key=lambda x: x[2], reverse=True)
 
+    open_count = sum(1 for s in all_syllables if s.lower().strip()[-1] in "aeiou")
+    open_rate = (open_count / len(all_syllables) * 100.0) if all_syllables else 0.0
+
     return KeftiuPhonologySummary(
         total_words=len(texts),
         total_syllables=len(all_syllables),
         distinct_syllables=len(syl_counts),
         consonant_inventory=sorted(list(consonants)),
         vowel_inventory=sorted(list(vowels)),
-        open_syllable_rate_pct=100.0,  # Strictly open CV / V structure
+        open_syllable_rate_pct=round(open_rate, 2),  # Dynamically computed; reflects Egyptian syllabic group-writing
         reduplication_instance_count=redup_count,
         top_syllables=top_syls[:10],
         syllable_bigrams=sorted_bigrams[:10],

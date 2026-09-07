@@ -5,7 +5,7 @@ When operating within the Phaistos Disc Lab, agents must uphold strict scientifi
 ## 1. The Skeptic Rule
 Before any hypothesis is considered supported:
 * It **must** be evaluated against a randomized control corpus (fully shuffled, frequency-preserving, and Markov-preserving).
-* It **must** be evaluated against the unicity distance limit. If the model degrees of freedom exceed the information content of 241 signs, report the result as unconstrained / overfit.
+* It **must** be evaluated against the unicity distance limit. If the model degrees of freedom exceed the information content of 242 signs (930.3 bits), report the result as unconstrained / overfit.
 * The agent acting as **Skeptic** must attempt to falsify the result.
 
 ## 2. Immutability of Evidence

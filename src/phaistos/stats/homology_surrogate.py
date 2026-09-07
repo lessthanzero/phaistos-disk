@@ -30,7 +30,7 @@ def evaluate_homology_significance(
     """Run Monte Carlo null permutation test evaluating the significance of the Hagia Triada matches."""
     rng = np.random.default_rng(seed)
 
-    # The 18 Phaistos signs with direct physical counterparts on the Hagia Triada Sarcophagus
+    # The 19 Phaistos signs with direct physical counterparts on the Hagia Triada Sarcophagus
     OBSERVED_HOMOLOGY_SIGNS = {
         "02", "06", "12", "16", "21", "23", "24", "26", "27",
         "28", "30", "31", "32", "35", "37", "38", "39", "41", "44",
@@ -59,9 +59,12 @@ def evaluate_homology_significance(
     if p_val < 0.0001:
         verdict = (
             f"REJECT NULL HYPOTHESIS (Z = +{z:.2f}, p < 0.0001). The concentration of "
-            f"{k_observed} shared ritual realia (libation hydria, labrys, phorminx, trussed bull, aulos, "
-            f"galley model, griffin chariot) on the Phaistos Disc cannot be explained by random "
-            f"Aegean iconographic drift. Direct liturgical and cultural homology is statistically proven."
+            f"{k_observed} shared ritual realia (libation hydria, labrys double axe, twin reed pipes/aulos, "
+            f"horns of consecration, bull offering, sacred shield, rosette frieze, epiphany birds, foliage branch) "
+            f"on the Phaistos Disc exceeds the random Aegean baseline (null mean {null_mean:.2f} ± {null_std:.2f}). "
+            f"Skeptic Demarcation: Because sign identifications rely on visual-iconographic interpretation, "
+            f"this permutation test demonstrates high thematic coherence with the Hagia Triada cultic repertoire, "
+            f"not an independent bilingual decipherment."
         )
     else:
         verdict = f"FAIL TO REJECT NULL (Z = {z:.2f}, p = {p_val:.4f}). Unconstrained overlap."

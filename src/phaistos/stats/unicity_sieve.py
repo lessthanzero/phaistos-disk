@@ -1,9 +1,11 @@
-"""Shannon Unicity Sieve & Mathematical Degrees-of-Freedom Gatekeeper.
+"""Information-Theoretic Model Parsimony & Degrees-of-Freedom Sieve.
 
-Enforces Claude Shannon's unicity distance theorem (Shannon 1949) to prevent
-pseudo-decipherment and statistical self-deception in the Phaistos Disc investigation.
-Evaluates whether any hypothesized phonetic mapping has fewer degrees of freedom
-than the total information content of the 241-sign corpus.
+Evaluates whether any hypothesized phonetic and lexical decipherment model has fewer
+degrees of freedom (parameter bits) than the empirical information capacity of the
+242-token Phaistos Disc corpus (930.3 bits).
+
+Grounds the Skeptic Rule (AGENTS.md) in information-theoretic bounds: any model introducing
+more parameter bits than the text possesses is mathematically underdetermined and overfit.
 """
 
 from dataclasses import dataclass
@@ -18,7 +20,7 @@ from phaistos.stats.frequency import compute_sign_frequencies
 
 @dataclass
 class UnicityEvaluationResult:
-    """Rigorous evaluation of a decipherment model against the Shannon unicity bound."""
+    """Rigorous evaluation of a decipherment model against information-theoretic parsimony bounds."""
     model_name: str
     mapped_signs_count: int
     total_disc_signs: int
@@ -42,7 +44,7 @@ def evaluate_model_unicity(
     corpus: Optional[DiscCorpus] = None,
 ) -> UnicityEvaluationResult:
     """
-    Evaluate whether a phonetic decipherment model is mathematically constrained.
+    Evaluate whether a phonetic/lexical decipherment model is mathematically constrained.
 
     Parameters
     ----------
@@ -57,7 +59,7 @@ def evaluate_model_unicity(
         corpus = load_transcription()
 
     freqs = compute_sign_frequencies(corpus)
-    total_tokens = sum(freqs.values())  # 241
+    total_tokens = sum(freqs.values())  # 242
     num_unique_signs = len(freqs)  # 45
 
     # 1. Compute empirical Shannon entropy of the sign distribution
@@ -69,11 +71,11 @@ def evaluate_model_unicity(
     redundancy_rate = 1.0 - (h_symbol / max_h)  # ~0.073 unigram redundancy
 
     # For natural language written in a syllabary, language redundancy R_L is typically ~0.70
-    # The effective information distance D_L = R_L * log2(|A|) ~ 0.70 * 5.49 ~ 3.84 bits/symbol
+    # The effective information distance D_L = R_L * log2(|A|) ~ 0.70 * 5.49 ~ 3.844 bits/symbol
     d_l = 0.70 * max_h
-    total_capacity = total_tokens * d_l  # ~929.3 bits
+    total_capacity = total_tokens * d_l  # 242 * 3.844 ~ 930.3 bits
 
-    # 2. Model Degrees of Freedom (Key Space Entropy H(K))
+    # 2. Model Degrees of Freedom (Parameter Key Space Entropy H(K))
     # Phonetic mapping DoF: choosing 1 syllable out of N choices for each mapped sign
     bits_per_phonetic_choice = math.log2(candidate_syllables_per_sign) if candidate_syllables_per_sign > 1 else 1.0
     phonetic_dof = mapped_signs_count * bits_per_phonetic_choice
@@ -84,7 +86,7 @@ def evaluate_model_unicity(
 
     total_dof = phonetic_dof + lexical_dof
 
-    # 3. Shannon Unicity Distance U = H(K) / D_L
+    # 3. Parsimony / Unicity Bound U = DoF / D_L
     unicity_distance = total_dof / d_l if d_l > 0 else float("inf")
     ratio = total_dof / total_capacity if total_capacity > 0 else float("inf")
 
@@ -92,20 +94,20 @@ def evaluate_model_unicity(
 
     if ratio <= 0.20:
         verdict = (
-            f"STRICTLY CONSTRAINED (Ratio={ratio:.2f}, U={unicity_distance:.0f} signs < {total_tokens}). "
+            f"STRICTLY CONSTRAINED (Ratio={ratio:.2f}, Required={unicity_distance:.0f} signs < {total_tokens}). "
             f"The model degrees of freedom ({total_dof:.1f} bits) are far below the corpus information "
-            f"capacity ({total_capacity:.1f} bits). The phonetic anchors are mathematically verifiable."
+            f"capacity ({total_capacity:.1f} bits). The parameter space is mathematically verifiable."
         )
     elif ratio < 1.0:
         verdict = (
-            f"BORDERLINE CONSTRAINED (Ratio={ratio:.2f}, U={unicity_distance:.0f} signs). "
+            f"BORDERLINE CONSTRAINED (Ratio={ratio:.2f}, Required={unicity_distance:.0f} signs). "
             f"The hypothesis does not exceed total information content, but leaves narrow statistical margin."
         )
     else:
         verdict = (
-            f"UNCONSTRAINED OVERFIT / PSEUDO-DECIPHERMENT (Ratio={ratio:.2f} > 1.0, U={unicity_distance:.0f} signs > {total_tokens}). "
-            f"The model introduces {total_dof:.1f} degrees of freedom, exceeding the corpus capacity ({total_capacity:.1f} bits). "
-            f"Under Shannon's theorem, this model CANNOT be uniquely proven; any apparent language match is a mathematical illusion."
+            f"UNCONSTRAINED OVERFIT / PSEUDO-DECIPHERMENT (Ratio={ratio:.2f} > 1.0, Required={unicity_distance:.0f} signs > {total_tokens}). "
+            f"The model introduces {total_dof:.1f} parameter bits, exceeding the corpus capacity ({total_capacity:.1f} bits). "
+            f"Under information-theoretic parsimony bounds, any apparent reading is an underdetermined mathematical artifact."
         )
 
     return UnicityEvaluationResult(
