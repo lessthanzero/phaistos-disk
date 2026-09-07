@@ -78,3 +78,14 @@ class GeneralizationResult(BaseModel):
     target_language_admissibility: Dict[str, float]
     skeptic_verdict: str
 
+
+class CrossMatrixResult(BaseModel):
+    corpora_analyzed: List[str]
+    total_signs_in_network: int
+    shared_glyph_parallels: Dict[str, List[str]]
+    linear_a_lexical_matches: List[str]
+    combinatorial_satisfaction_pct: float
+    phonotactic_conflict_count: int
+    skeptic_verdict: str
+
+

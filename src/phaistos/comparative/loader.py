@@ -62,3 +62,12 @@ def load_tablet_ph1(corpus_dir: Optional[Path] = None) -> Dict:
         return yaml.safe_load(f)
 
 
+def load_malia_altar(corpus_dir: Optional[Path] = None) -> Dict:
+    """Load Malia Altar stone inscription."""
+    base_dir = corpus_dir or get_default_corpus_dir()
+    file_path = base_dir / "comparative" / "malia_altar.yaml"
+    with open(file_path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+
+
