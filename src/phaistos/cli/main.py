@@ -169,6 +169,192 @@ def render_svg_cmd(
     console.print(f"  • Side B: [cyan]{path_b}[/cyan]")
 
 
+@app.command("ngrams")
+def ngrams_cmd(n: int = typer.Option(2, help="N-gram length (default 2 for bigrams)"), top: int = 15):
+    """List most frequent intra-group n-grams."""
+    from phaistos.stats.ngrams import extract_group_ngrams
+
+    corpus = load_transcription("godart_1995")
+    ngrams = extract_group_ngrams(corpus, n=n)
+    sign_map = {s.evans_id: s for s in corpus.signs_catalogue}
+
+    table = Table(title=f"Top {top} Intra-Group {n}-Grams", show_header=True)
+    table.add_column(f"{n}-Gram (Evans)", style="bold cyan")
+    table.add_column("Glyphs", justify="center")
+    table.add_column("Frequency", justify="center")
+    table.add_column("Percentage", justify="right")
+
+    total = sum(ngrams.values())
+    for gram, cnt in ngrams.most_common(top):
+        glyphs = "".join(sign_map[s].unicode_char for s in gram if s in sign_map)
+        pct = (cnt / total) * 100
+        table.add_row("-".join(gram), glyphs, str(cnt), f"{pct:.1f}%")
+
+    console.print(table)
+
+
+@app.command("repetitions")
+def repetitions_cmd():
+    """List identical group repetitions, affixes, and edit-distance near-matches."""
+    from phaistos.stats.repetitions import (
+        find_identical_groups,
+        find_common_affixes,
+        find_near_identical_groups,
+    )
+
+    corpus = load_transcription("godart_1995")
+    sign_map = {s.evans_id: s for s in corpus.signs_catalogue}
+
+    identical = find_identical_groups(corpus)
+    table_id = Table(title="Exact Repeated Groups", show_header=True)
+    table_id.add_column("Sign Sequence", style="bold cyan")
+    table_id.add_column("Glyphs", justify="center")
+    table_id.add_column("Occurrences", justify="center")
+    table_id.add_column("Group IDs")
+
+    for seq, g_ids in sorted(identical.items(), key=lambda x: len(x[1]), reverse=True):
+        glyphs = "".join(sign_map[s].unicode_char for s in seq.split("-") if s in sign_map)
+        table_id.add_row(seq, glyphs, str(len(g_ids)), ", ".join(g_ids))
+    console.print(table_id)
+
+    # Prefixes
+    affixes = find_common_affixes(corpus, min_len=2)
+    table_pref = Table(title="Common Prefixes (Length >= 2)", show_header=True)
+    table_pref.add_column("Prefix", style="bold cyan")
+    table_pref.add_column("Glyphs", justify="center")
+    table_pref.add_column("Count", justify="center")
+
+    for pref, cnt in affixes["prefixes"].most_common(8):
+        if cnt > 1:
+            glyphs = "".join(sign_map[s].unicode_char for s in pref.split("-") if s in sign_map)
+            table_pref.add_row(pref, glyphs, str(cnt))
+    console.print(table_pref)
+
+    # Near matches
+    near = find_near_identical_groups(corpus, max_distance=1)
+    table_near = Table(title="Near-Identical Groups (Edit Distance = 1)", show_header=True)
+    table_near.add_column("Group Pair", style="bold cyan")
+    table_near.add_column("Distance", justify="center")
+    table_near.add_column("Sequences Comparison")
+
+    for g1, g2, d in near[:8]:
+        s1 = "-".join(next(g.signs for g in corpus.all_groups() if g.id == g1))
+        s2 = "-".join(next(g.signs for g in corpus.all_groups() if g.id == g2))
+        table_near.add_row(f"{g1} ↔ {g2}", str(d), f"{s1} vs {s2}")
+    console.print(table_near)
+
+
+@app.command("entropy")
+def entropy_cmd():
+    """Display information theoretic metrics: unigram entropy, conditional entropy, compressibility."""
+    from phaistos.stats.entropy import (
+        compute_unigram_entropy,
+        compute_bigram_joint_and_conditional_entropy,
+        compute_compressibility_metrics,
+    )
+
+    corpus = load_transcription("godart_1995")
+    h_uni = compute_unigram_entropy(corpus)
+    h_joint, h_cond, mi = compute_bigram_joint_and_conditional_entropy(corpus)
+    comp = compute_compressibility_metrics(corpus)
+
+    console.print(Panel("[bold cyan]Information Theory & Compressibility[/bold cyan]"))
+    console.print(f"Unigram Entropy $H(X)$: [bold yellow]{h_uni:.4f} bits[/bold yellow] (Max: 5.4919 bits)")
+    console.print(f"Bigram Joint Entropy $H(X, Y)$: [bold yellow]{h_joint:.4f} bits[/bold yellow]")
+    console.print(f"Bigram Conditional Entropy $H(Y|X)$: [bold yellow]{h_cond:.4f} bits[/bold yellow]")
+    console.print(f"Mutual Information $I(X; Y)$: [bold green]{mi:.4f} bits[/bold green]")
+    console.print(f"\nCompressibility:")
+    console.print(f"  • Raw Size: {comp['raw_bytes']:.0f} bytes")
+    console.print(f"  • Zlib Compressed: {comp['zlib_bytes']:.0f} bytes (ratio: {comp['zlib_ratio']:.3f})")
+    console.print(f"  • LZMA Compressed: {comp['lzma_bytes']:.0f} bytes (ratio: {comp['lzma_ratio']:.3f})")
+
+
+@app.command("permutations")
+def permutations_cmd(iterations: int = typer.Option(200, help="Number of Monte Carlo iterations")):
+    """Run Anti-Bullshit Monte Carlo tests against randomized null controls."""
+    from phaistos.stats.permutations import (
+        run_monte_carlo_test,
+        generate_frequency_preserving_corpus,
+        metric_repeated_groups_count,
+        metric_bigram_collisions,
+        metric_conditional_entropy,
+    )
+
+    corpus = load_transcription("godart_1995")
+    console.print(Panel(f"[bold cyan]Running Anti-Bullshit Controls ({iterations} iterations)...[/bold cyan]"))
+
+    mc_rep = run_monte_carlo_test(
+        corpus, metric_repeated_groups_count, generate_frequency_preserving_corpus, iterations=iterations
+    )
+    mc_bi = run_monte_carlo_test(
+        corpus, metric_bigram_collisions, generate_frequency_preserving_corpus, iterations=iterations
+    )
+    mc_ent = run_monte_carlo_test(
+        corpus, metric_conditional_entropy, generate_frequency_preserving_corpus, iterations=iterations
+    )
+
+    table = Table(title="Monte Carlo Permutation Tests vs Frequency-Preserving Null", show_header=True)
+    table.add_column("Metric", style="bold cyan")
+    table.add_column("Observed", justify="center")
+    table.add_column("Null Mean (μ)", justify="center")
+    table.add_column("Null Std (σ)", justify="center")
+    table.add_column("Z-Score", justify="center")
+    table.add_column("p-value", justify="center")
+    table.add_column("Skeptic Assessment")
+
+    def assess(p, z):
+        if p < 0.01:
+            return "[bold green]Significant (Non-Random Structure)[/bold green]"
+        elif p < 0.05:
+            return "[green]Weakly Significant[/green]"
+        return "[dim red]Consistent with Chance (Null)[/dim red]"
+
+    table.add_row(
+        "Repeated Groups",
+        f"{mc_rep['observed']:.0f}",
+        f"{mc_rep['null_mean']:.2f}",
+        f"{mc_rep['null_std']:.2f}",
+        f"{mc_rep['z_score']:+.2f}",
+        f"{mc_rep['p_value']:.4f}",
+        assess(mc_rep['p_value'], mc_rep['z_score']),
+    )
+    table.add_row(
+        "Bigram Collisions",
+        f"{mc_bi['observed']:.0f}",
+        f"{mc_bi['null_mean']:.2f}",
+        f"{mc_bi['null_std']:.2f}",
+        f"{mc_bi['z_score']:+.2f}",
+        f"{mc_bi['p_value']:.4f}",
+        assess(mc_bi['p_value'], mc_bi['z_score']),
+    )
+    table.add_row(
+        "Conditional Entropy",
+        f"{mc_ent['observed']:.4f}",
+        f"{mc_ent['null_mean']:.4f}",
+        f"{mc_ent['null_std']:.4f}",
+        f"{mc_ent['z_score']:+.2f}",
+        f"{mc_ent['p_value']:.4f}",
+        assess(mc_ent['p_value'], mc_ent['z_score']),
+    )
+
+    console.print(table)
+
+
+@app.command("baseline-report")
+def baseline_report_cmd(output_file: str = typer.Option("reports/baseline-structural-analysis.md")):
+    """Generate comprehensive scientific baseline report in Markdown."""
+    from pathlib import Path
+    from phaistos.reports.baseline import generate_baseline_structural_report
+
+    corpus = load_transcription("godart_1995")
+    out_path = Path(output_file)
+    with console.status("[bold cyan]Compiling Baseline Structural Report...[/bold cyan]"):
+        generate_baseline_structural_report(corpus, out_path)
+
+    console.print(f"[bold green]Report successfully generated at:[/bold green] [cyan]{out_path}[/cyan]")
+
+
 if __name__ == "__main__":
     app()
+
 
