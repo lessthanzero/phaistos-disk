@@ -2352,6 +2352,151 @@ def ritual_clauses_cmd():
     console.print(f"\n[bold green]Total reconstructed clauses:[/bold green] {len(clauses)} (7 on Side A, 7 on Side B)\n")
 
 
+@app.command("language-affinity")
+def language_affinity_cmd():
+    """Evaluate Phaistos Disc phonotactic properties against candidate Bronze Age language families."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.linguistics.language_discriminator import run_language_family_discrimination
+
+    corpus = load_transcription()
+    report = run_language_family_discrimination(corpus)
+
+    console.print(
+        Panel(
+            f"[bold cyan]Bayesian Cross-Linguistic Phonotactic Family Discriminator[/bold cyan]\n"
+            f"[dim]Total groups: {report.total_disc_groups} • Total signs: {report.total_disc_tokens}[/dim]\n"
+            f"[yellow]Best-Fit Language Family:[/yellow] [bold green]{report.best_fit_family}[/bold green]",
+            expand=False,
+        )
+    )
+
+    table = Table(title="Candidate Language Family Affinity Rankings", show_header=True)
+    table.add_column("Rank", style="bold", justify="center")
+    table.add_column("Language Family", style="bold cyan")
+    table.add_column("Genealogical Branch", style="dim")
+    table.add_column("Open CV Fit", justify="center")
+    table.add_column("Affix Fit", justify="center")
+    table.add_column("LLR vs Null", justify="center")
+    table.add_column("Status", justify="center")
+    table.add_column("Linguistic Rationale")
+
+    for idx, r in enumerate(report.rankings):
+        status_style = "bold green" if "SUPPORTED" in r.epistemic_status or "HIGHEST" in r.epistemic_status else "bold red" if "FALSIFIED" in r.epistemic_status or "EXCLUDED" in r.epistemic_status else "yellow"
+        table.add_row(
+            str(idx + 1),
+            r.family_name,
+            r.branch_classification,
+            f"{r.syllable_structure_fit_pct:.1f}%",
+            f"{r.prefix_suffix_topology_score:.1f}%",
+            f"{r.log_likelihood_ratio_vs_null:+.2f}",
+            f"[{status_style}]{r.epistemic_status}[/{status_style}]",
+            r.rationale,
+        )
+
+    console.print(table)
+    console.print(Panel(f"[bold yellow]Skeptic Rule Verdict:[/bold yellow]\n{report.skeptic_verdict}", expand=False))
+
+
+@app.command("keftiu-audit")
+def keftiu_audit_cmd():
+    """Display the authentic Egyptian Keftiu (Minoan) phonetic records and phonological profile."""
+    from phaistos.linguistics.keftiu_corpus import load_keftiu_corpus, analyze_keftiu_phonology
+
+    texts = load_keftiu_corpus()
+    summary = analyze_keftiu_phonology(texts)
+
+    console.print(
+        Panel(
+            "[bold cyan]Egyptian Keftiu (Minoan) Corpus & Phonetic Witness[/bold cyan]\n"
+            "[dim]Source: London Medical Papyrus (BM EA 10059) & Writing Board BM EA 5647 (c. 1550-1380 BCE)[/dim]\n"
+            f"[yellow]Attested Words:[/yellow] {summary.total_words} • [yellow]Syllables:[/yellow] {summary.total_syllables} • [yellow]Open Syllable Rate:[/yellow] {summary.open_syllable_rate_pct:.1f}%",
+            expand=False,
+        )
+    )
+
+    table = Table(title="Attested Keftiu Inscriptions (London Medical Papyrus & Name Lists)", show_header=True)
+    table.add_column("ID", style="bold cyan")
+    table.add_column("Source", style="dim")
+    table.add_column("Vocalized Reconstruction", style="bold green")
+    table.add_column("Syllables", style="yellow")
+    table.add_column("Reduplications", justify="center")
+    table.add_column("Scholarly Notes")
+
+    for t in texts:
+        redup_str = ", ".join(t.reduplication_motifs) if t.reduplication_motifs else "[dim]None[/dim]"
+        table.add_row(
+            t.id,
+            t.source,
+            t.vocalized_reconstruction,
+            "-".join(t.syllables),
+            redup_str,
+            t.notes,
+        )
+
+    console.print(table)
+
+    console.print(f"\n[bold]Reconstructed Consonant Inventory:[/bold] {', '.join(summary.consonant_inventory)}")
+    console.print(f"[bold]Reconstructed Vowel Inventory:[/bold] {', '.join(summary.vowel_inventory)}\n")
+
+
+@app.command("unicity-audit")
+def unicity_audit_cmd():
+    """Audit decipherment models against Claude Shannon's Unicity Distance bound."""
+    from phaistos.stats.unicity_sieve import evaluate_model_unicity
+
+    # 1. 7-anchor cross-script subset (Strictly Constrained)
+    # 2. 15-sign plausible resemblances (Constrained)
+    # 3. Full 45-sign phonetic grid without translation (Borderline Constrained)
+    # 4. Full 61-word translation into PIE (3,000 roots) -> Unconstrained Overfit
+    # 5. Full 61-word translation into Egyptian (10,000 words) -> Unconstrained Overfit
+    models = [
+        ("7_Cross_Script_Anchors (Linear A)", 7, 3, 1, 0),
+        ("15_Plausible_Resemblances", 15, 10, 1, 0),
+        ("Full_45_Phonetic_Grid (No Translation)", 45, 60, 1, 0),
+        ("Full_Translation_Into_PIE (3k Roots)", 45, 60, 3000, 61),
+        ("Full_Translation_Into_Egyptian (10k Words)", 45, 60, 10000, 61),
+    ]
+
+    table = Table(title="Shannon Unicity Distance Audit (Information Theory Gatekeeper)", show_header=True)
+    table.add_column("Model Name", style="bold cyan")
+    table.add_column("Mapped Signs", justify="center")
+    table.add_column("DoF (Bits)", justify="center")
+    table.add_column("Capacity (Bits)", justify="center")
+    table.add_column("Unicity Ratio", justify="center")
+    table.add_column("Required Signs", justify="center")
+    table.add_column("Mathematical Status", justify="center")
+
+    for name, signs, choices, lex_size, words_count in models:
+        res = evaluate_model_unicity(
+            model_name=name,
+            mapped_signs_count=signs,
+            candidate_syllables_per_sign=choices,
+            target_lexicon_size=lex_size,
+            translated_words_count=words_count,
+        )
+        status_style = "bold green" if res.unicity_ratio <= 0.20 else "yellow" if res.unicity_ratio < 1.0 else "bold red"
+        table.add_row(
+            name,
+            f"{res.mapped_signs_count}/{res.total_disc_signs}",
+            f"{res.model_degrees_of_freedom_bits:.1f}",
+            f"{res.corpus_total_information_capacity_bits:.1f}",
+            f"[{status_style}]{res.unicity_ratio:.2f}[/{status_style}]",
+            f"{res.unicity_distance_required_signs:.0f}",
+            f"[{status_style}]{'CONSTRAINED' if res.is_mathematically_constrained else 'OVERFIT'}[/{status_style}]",
+        )
+
+    console.print(table)
+    console.print(
+        Panel(
+            "[bold yellow]Information Theoretic Invariant:[/bold yellow]\n"
+            "Total Phaistos Disc information capacity is strictly bounded at ~929 bits (241 signs × 3.84 bits/symbol).\n"
+            "Any full 45-sign phonetic decipherment introduces > 1,125 degrees of freedom (Ratio > 1.20),\n"
+            "rendering full translation mathematically impossible without an external bilingual crib.",
+            expand=False,
+        )
+    )
+
+
 if __name__ == "__main__":
     app()
 

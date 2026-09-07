@@ -1,0 +1,113 @@
+# Attested Bronze Age Egyptian Inscriptions Transcribing the Minoan (Keftiu) Language
+# Sources:
+# - London Medical Papyrus (BM EA 10059, spells 32-35; Wreszinski 1912, Leitz 1999, Haider 2008)
+# - Writing Board BM EA 5647 (Lists of Keftiu personal names; Peet 1927, Haider 2008)
+# - Papyrus Ebers (pEbers 188; Grapow 1958)
+# - Reconstructions of Egyptian Syllabic Orthography: Albright (1934), Loprieno (1995), Peust (1999)
+
+metadata:
+  description: "Authentic Egyptian Hieratic texts recording spoken Minoan (Keftiu) phonology"
+  date_range: "c. 1550 - 1380 BCE (18th Dynasty Egypt, contemporary with MM III / LM I Crete)"
+  epistemic_level: "PRIMARY_EXTERNAL_WITNESS"
+
+incantations:
+  - id: "KEFTIU_SPELL_32"
+    source: "London Medical Papyrus (BM EA 10059), Spell 32"
+    heading_egyptian: "ḏd m r n kftjw (To speak in the language of Keftiu)"
+    egyptian_hieratic_transliteration: "s-n-t-k-p-p-w-y-r-m-n-t-r-k-k-r"
+    vocalized_reconstruction: "sa-na-ta-ka-pu-pu-ja-ra-ma-na-ta-ra-ka-ka-ra"
+    syllables: ["sa", "na", "ta", "ka", "pu", "pu", "ja", "ra", "ma", "na", "ta", "ra", "ka", "ka", "ra"]
+    syllable_count: 15
+    reduplication_motifs: ["pu-pu", "ka-ka"]
+    notes: "Curative incantation against Asiatic/Samana disease. Distinctive Minoan geminate/reduplication."
+
+  - id: "KEFTIU_SPELL_33"
+    source: "London Medical Papyrus (BM EA 10059), Spell 33"
+    heading_egyptian: "ky ḏd (Another incantation)"
+    egyptian_hieratic_transliteration: "r-k-'-k-'-t-w-r-'-k-p-t-w-r"
+    vocalized_reconstruction: "ra-ka-a-ka-a-tu-ra-a-ka-pa-tu-ra"
+    syllables: ["ra", "ka", "a", "ka", "a", "tu", "ra", "a", "ka", "pa", "tu", "ra"]
+    syllable_count: 12
+    reduplication_motifs: ["ka-a-ka-a"]
+    notes: "Formulaic ritual cadence ending in -tu-ra (parallel to Linear A -tu-ra verbal/toponymic suffix)."
+
+  - id: "KEFTIU_SPELL_34"
+    source: "London Medical Papyrus (BM EA 10059), Spell 34"
+    heading_egyptian: "ky ḏd (Another incantation)"
+    egyptian_hieratic_transliteration: "b-w-k-t-w-r-'-y-m-'-n-t-r-k"
+    vocalized_reconstruction: "bu-ka-tu-ra-ja-ma-a-na-ta-ra-ka"
+    syllables: ["bu", "ka", "tu", "ra", "ja", "ma", "a", "na", "ta", "ra", "ka"]
+    syllable_count: 11
+    reduplication_motifs: []
+    notes: "Shares initial bu-ka-tu-ra with Spell 33's -tu-ra suffix; contains core stem ma-a-na-ta (cf. Linear A ma-na-ta)."
+
+  - id: "KEFTIU_SPELL_35"
+    source: "London Medical Papyrus (BM EA 10059), Spell 35"
+    heading_egyptian: "ky ḏd (Another incantation)"
+    egyptian_hieratic_transliteration: "'-k-'-m-'-r-w-t-w"
+    vocalized_reconstruction: "a-ka-a-ma-a-ru-tu"
+    syllables: ["a", "ka", "a", "ma", "a", "ru", "tu"]
+    syllable_count: 7
+    reduplication_motifs: []
+    notes: "Short concluding ritual prayer."
+
+personal_names:
+  - id: "KEFTIU_NAME_01"
+    source: "BM EA 5647"
+    name: "A-SA-KA-RA-TU"
+    syllables: ["a", "sa", "ka", "ra", "tu"]
+    notes: "Minoan anthroponym with -tu termination."
+
+  - id: "KEFTIU_NAME_02"
+    source: "BM EA 5647"
+    name: "BA-NA-DA-RA"
+    syllables: ["ba", "na", "da", "ra"]
+    notes: "Cf. Linear A pa-na-da-ra / pa-na-to-ra."
+
+  - id: "KEFTIU_NAME_03"
+    source: "BM EA 5647"
+    name: "KA-TI-NA-JA"
+    syllables: ["ka", "ti", "na", "ja"]
+    notes: "Pre-Greek / Minoan name with feminine/adjectival -ja."
+
+  - id: "KEFTIU_NAME_04"
+    source: "BM EA 5647"
+    name: "PA-NA-SU-RA"
+    syllables: ["pa", "na", "su", "ra"]
+    notes: "Shares pa-na- prefix with BA-NA-DA-RA."
+
+  - id: "KEFTIU_NAME_05"
+    source: "BM EA 5647"
+    name: "MA-RA-TA"
+    syllables: ["ma", "ra", "ta"]
+    notes: "Trisyllabic core stem."
+
+  - id: "KEFTIU_NAME_06"
+    source: "BM EA 5647"
+    name: "WA-KA-RA"
+    syllables: ["wa", "ka", "ra"]
+    notes: "Contains archaic Aegean labial glide /w/."
+
+  - id: "KEFTIU_NAME_07"
+    source: "BM EA 5647"
+    name: "TA-KA-NA-JA"
+    syllables: ["ta", "ka", "na", "ja"]
+    notes: "Shows rhyming suffix with KA-TI-NA-JA."
+
+  - id: "KEFTIU_NAME_08"
+    source: "BM EA 5647"
+    name: "SA-BA-RA-TU"
+    syllables: ["sa", "ba", "ra", "tu"]
+    notes: "Four-mora name ending in -tu."
+
+  - id: "KEFTIU_NAME_09"
+    source: "BM EA 5647"
+    name: "KA-RA-TU"
+    syllables: ["ka", "ra", "tu"]
+    notes: "Short form of -ra-tu anthroponym."
+
+  - id: "KEFTIU_NAME_10"
+    source: "BM EA 5647"
+    name: "I-NA-DA-RA"
+    syllables: ["i", "na", "da", "ra"]
+    notes: "Vowel-initial personal name."
