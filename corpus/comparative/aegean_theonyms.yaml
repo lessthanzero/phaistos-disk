@@ -1,0 +1,148 @@
+# Attested Bronze Age Aegean Theonyms & Religious Titles
+# Sources:
+# - Linear A: GORILA (Godart & Olivier 1976-1985), Younger (2000) Linear A texts
+# - Linear B: Ventris & Chadwick (1973) Documents in Mycenaean Greek, Knossos tablets (KN V 52, KN Fp 1, KN Gg 705)
+
+theonyms:
+  - id: "TH_01"
+    name: "JA-SA-SA-RA-ME"
+    script: "Linear A"
+    attested_forms: ["JA-SA-SA-RA-ME", "A-SA-SA-RA-ME"]
+    syllable_count: 5
+    skeleton: "A-B-B-C-D"
+    has_geminate: true
+    case: "Dative / Dedicated Title"
+    interpretation: "Great Minoan Mother Goddess / 'Our Lady' (cf. Luwian ashasara / Semitic Asherah)"
+    epigraphic_findspots: ["Psychro Cave (PS Za 2)", "Mount Juktas (IO Za 2)", "Palaikastro (PK Za 11)"]
+
+  - id: "TH_02"
+    name: "PA-JA-WO-NE"
+    script: "Linear B"
+    attested_forms: ["PA-JA-WO-NE", "PA-JA-WO"]
+    syllable_count: 4
+    skeleton: "A-B-C-D"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Paiawon / Paean (Minoan/Mycenaean divine physician & deliverer; namesake of the Paean hymn)"
+    epigraphic_findspots: ["Knossos (KN V 52)"]
+
+  - id: "TH_03"
+    name: "PO-TI-NI-JA"
+    script: "Linear B"
+    attested_forms: ["PO-TI-NI-JA"]
+    syllable_count: 4
+    skeleton: "A-B-C-D"
+    has_geminate: false
+    case: "Nominative / Dative"
+    interpretation: "Potnia ('Mistress' / Supreme Minoan-Mycenaean female deity)"
+    epigraphic_findspots: ["Knossos (KN Gg 705)", "Mycenae", "Pylos"]
+
+  - id: "TH_04"
+    name: "DI-KA-TE"
+    script: "Linear A"
+    attested_forms: ["DI-KA-TE", "DI-KA-TA-O"]
+    syllable_count: 3
+    skeleton: "A-B-C"
+    has_geminate: false
+    case: "Locative / Divine Mount"
+    interpretation: "Dictaean deity / Sacred Mount Dikte"
+    epigraphic_findspots: ["Psychro Cave", "Palaikastro"]
+
+  - id: "TH_05"
+    name: "I-DA-MA-TE"
+    script: "Linear A"
+    attested_forms: ["I-DA-MA-TE"]
+    syllable_count: 4
+    skeleton: "A-B-C-D"
+    has_geminate: false
+    case: "Dative / Title"
+    interpretation: "Mother of Mount Ida / Idaean Demeter"
+    epigraphic_findspots: ["Arkhanes", "Mount Juktas"]
+
+  - id: "TH_06"
+    name: "DA-MA-TE"
+    script: "Linear A"
+    attested_forms: ["DA-MA-TE"]
+    syllable_count: 3
+    skeleton: "A-B-C"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Demeter / Earth Mother (attested on KY Za 2)"
+    epigraphic_findspots: ["Kythera (KY Za 2)"]
+
+  - id: "TH_07"
+    name: "E-RE-U-TI-JA"
+    script: "Linear B"
+    attested_forms: ["E-RE-U-TI-JA", "E-LE-U-TI-JA"]
+    syllable_count: 5
+    skeleton: "A-B-C-D-E"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Eileithyia (Goddess of childbirth, cave at Amnisos)"
+    epigraphic_findspots: ["Knossos (KN Gg 705)", "Amnisos cave offerings"]
+
+  - id: "TH_08"
+    name: "DI-WE"
+    script: "Linear B"
+    attested_forms: ["DI-WE"]
+    syllable_count: 2
+    skeleton: "A-B"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Diwei / Zeus"
+    epigraphic_findspots: ["Knossos (KN Fp 1)", "Pylos"]
+
+  - id: "TH_09"
+    name: "DI-WO-NU-SO"
+    script: "Linear B"
+    attested_forms: ["DI-WO-NU-SO"]
+    syllable_count: 4
+    skeleton: "A-B-C-D"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Dionysos"
+    epigraphic_findspots: ["Chania (KH Gg 5)"]
+
+  - id: "TH_10"
+    name: "QE-RA-SI-JA"
+    script: "Linear B"
+    attested_forms: ["QE-RA-SI-JA"]
+    syllable_count: 4
+    skeleton: "A-B-C-D"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Therasia / Pre-Greek Minoan divine name"
+    epigraphic_findspots: ["Knossos (KN Fp 1)"]
+
+  - id: "TH_11"
+    name: "PI-PI-TU-NA"
+    script: "Linear B"
+    attested_forms: ["PI-PI-TU-NA"]
+    syllable_count: 4
+    skeleton: "A-A-B-C"
+    has_geminate: true
+    case: "Dative"
+    interpretation: "Pipituna (Indigenous Minoan goddess, reduplicated name)"
+    epigraphic_findspots: ["Knossos (KN Fp 13)"]
+
+  - id: "TH_12"
+    name: "E-NE-SI-DA-O-NE"
+    script: "Linear B"
+    attested_forms: ["E-NE-SI-DA-O-NE"]
+    syllable_count: 6
+    skeleton: "A-B-C-D-E-B"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Enesidaon (Earth-Shaker / Poseidon epithet)"
+    epigraphic_findspots: ["Knossos (KN M 719)"]
+
+  - id: "TH_13"
+    name: "A-TA-I-NO-WA-JA"
+    script: "Linear A"
+    attested_forms: ["A-TA-I-NO-WA-JA"]
+    syllable_count: 6
+    skeleton: "A-B-C-D-E-F"
+    has_geminate: false
+    case: "Libation Formula Header"
+    interpretation: "Sacred invocation / deity title in the Minoan Libation Formula"
+    epigraphic_findspots: ["Mount Juktas", "Psychro", "Prassas"]

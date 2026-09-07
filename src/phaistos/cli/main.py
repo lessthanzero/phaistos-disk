@@ -1160,8 +1160,60 @@ def deep_six_cmd(source: str = "godart_1995", surrogates: int = 1000):
     console.print(f"[bold green]Synthesized Audio:[/bold green] {f['acoustic']['audio_file_path']}\n")
 
 
+@app.command("theonym-sieve")
+def theonym_sieve_cmd(source: str = "godart_1995", surrogates: int = 1000):
+    """Execute the Skeptical Theonym Structural Sieve across attested Aegean theonyms."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.comparative.theonym_sieve import execute_theonym_sieve
+
+    console.print(Panel("[bold magenta]Skeptical Theonym Structural Sieve[/bold magenta]"))
+    console.print(f"Analyzing source: [bold cyan]{source}[/bold cyan] | Surrogates: [bold yellow]{surrogates}[/bold yellow]\n")
+
+    corpus = load_transcription(source)
+    res = execute_theonym_sieve(corpus, num_surrogates=surrogates)
+
+    table_skel = Table(title=f"Structural Skeleton Matches ({len(res.skeleton_matches)} total)", show_header=True)
+    table_skel.add_column("Theonym Name", style="bold cyan")
+    table_skel.add_column("Matched Group", justify="center", style="bold yellow")
+    table_skel.add_column("Side", justify="center")
+    table_skel.add_column("Signs")
+    table_skel.add_column("Epistemic Match Notes")
+
+    for m in res.skeleton_matches[:12]:
+        table_skel.add_row(
+            m.theonym_name,
+            m.group_id,
+            m.side,
+            "-".join(m.group_signs),
+            m.notes,
+        )
+    console.print(table_skel)
+
+    table_phon = Table(title="Global Phonotactic Propagation Trials", show_header=True)
+    table_phon.add_column("Theonym", style="bold cyan")
+    table_phon.add_column("Target Group", justify="center")
+    table_phon.add_column("Bound Values")
+    table_phon.add_column("Coverage", justify="center")
+    table_phon.add_column("Satisfaction", justify="center", style="bold green")
+    table_phon.add_column("Skeptic Assessment")
+
+    for t in res.phonotactic_trials:
+        bind_str = ", ".join(f"{s}={v}" for s, v in t.bound_signs.items())
+        table_phon.add_row(
+            t.theonym_name,
+            t.target_group_id,
+            bind_str,
+            f"{t.corpus_coverage_pct}%",
+            f"{t.phonotactic_satisfaction_score}%",
+            t.notes,
+        )
+    console.print(table_phon)
+    console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan] {res.skeptic_verdict}\n")
+
+
 if __name__ == "__main__":
     app()
+
 
 
 
