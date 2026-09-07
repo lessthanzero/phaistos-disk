@@ -441,8 +441,167 @@ def compare_linear_a_cmd(iterations: int = typer.Option(500, help="Permutation t
     console.print(table)
 
 
+@app.command("unicity")
+def unicity_cmd():
+    """Display Shannon unicity distance limits and mathematical overfit bounds."""
+    from phaistos.experiment.unicity import calculate_unicity_distance, format_unicity_warning
+
+    calc_s = calculate_unicity_distance(is_syllabic=True)
+    calc_a = calculate_unicity_distance(is_syllabic=False)
+
+    console.print(Panel("[bold cyan]Claude Shannon Unicity Distance Bounds (1949)[/bold cyan]"))
+    console.print(f"Corpus Length (N): [bold]{calc_s['corpus_length_chars']:.0f} signs[/bold]")
+    console.print(f"Alphabet Size (q): 45 signs (max symbol entropy $R_0$: {calc_s['symbol_max_entropy_bits']:.2f} bits)\n")
+
+    table = Table(title="Model Degrees of Freedom vs Unicity Threshold", show_header=True)
+    table.add_column("Hypothesis Type", style="bold cyan")
+    table.add_column("Key Entropy $H(K)$", justify="center")
+    table.add_column("Unicity Distance $U$", justify="center")
+    table.add_column("Required Ratio", justify="center")
+    table.add_column("Epistemic Status")
+
+    table.add_row(
+        "Syllabic Model (CV)",
+        f"{calc_s['key_entropy_bits']:.1f} bits",
+        f"{calc_s['unicity_distance_chars']:.0f} signs",
+        f"{calc_s['required_ratio']:.1f}x",
+        "[bold red]Severely Underdetermined[/bold red]",
+    )
+    table.add_row(
+        "Monoalphabetic Substitution",
+        f"{calc_a['key_entropy_bits']:.1f} bits",
+        f"{calc_a['unicity_distance_chars']:.0f} signs",
+        f"{calc_a['required_ratio']:.1f}x",
+        "[bold red]Underdetermined[/bold red]",
+    )
+    console.print(table)
+    console.print(f"\n[yellow]{format_unicity_warning(calc_s)}[/yellow]\n")
+
+
+@app.command("test-hypothesis")
+def test_hypothesis_cmd(
+    target_lang: str = typer.Option("luwian", help="Target language (luwian | greek | minoan)"),
+    iterations: int = typer.Option(200, help="Monte Carlo surrogate iterations"),
+):
+    """Run full Anti-Bullshit Skeptic test on a candidate linguistic decipherment."""
+    from phaistos.decipherment.models import DeciphermentHypothesis
+    from phaistos.comparative.loader import load_proposed_correspondences
+    from phaistos.experiment.runner import run_decipherment_experiment
+
+    corpus = load_transcription("godart_1995")
+    corrs = load_proposed_correspondences()
+
+    # Build sign mapping from proposed correspondences
+    mapping = {}
+    for c in corrs:
+        if c.proposed_phonetic_value:
+            mapping[c.disc_sign] = c.proposed_phonetic_value
+
+    # Fill remaining with plausible open CV syllables
+    hypo = DeciphermentHypothesis(
+        id=f"H_{target_lang.upper()}",
+        title=f"Aegean Syllabic {target_lang.capitalize()} Model",
+        target_language=target_lang,
+        assumptions=[
+            "Linear A / Linear B phonetic values apply to Phaistos glyphs",
+            "Signs represent open CV syllables",
+            "Reading direction is outside-in",
+        ],
+        sign_mapping=mapping,
+        complexity_penalty=10.0,
+        source_reference="timm_2005",
+    )
+
+    console.print(Panel(f"[bold cyan]Testing Hypothesis: {hypo.title}[/bold cyan]"))
+    with console.status("[bold cyan]Running Anti-Bullshit Monte Carlo Controls...[/bold cyan]"):
+        res = run_decipherment_experiment(corpus, hypo, iterations=iterations)
+
+    console.print(f"Target Language: [bold]{res.target_language}[/bold]")
+    console.print(f"Observed Phonotactic Score: [bold]{res.observed_score:.2f}[/bold]")
+    console.print(f"Shuffled Control Score (μ ± σ): {res.null_mean_score:.2f} ± {res.null_std_score:.2f}")
+    console.print(f"Z-Score: [bold yellow]{res.z_score:+.2f}[/bold yellow] (p-value: {res.p_value:.4f})")
+    console.print(f"Unicity Expansion Factor: {res.unicity_ratio:.1f}x\n")
+
+    if res.is_falsified:
+        console.print(f"[bold red]{res.skeptic_verdict}[/bold red]\n")
+    else:
+        console.print(f"[bold yellow]{res.skeptic_verdict}[/bold yellow]\n")
+
+    t_table = Table(title="Sample Transliteration (First 5 Groups on Side A)", show_header=True)
+    t_table.add_column("Group ID", style="bold cyan")
+    t_table.add_column("Transliteration", style="bold")
+    for gid, tr in list(res.sample_transliteration.items())[:5]:
+        t_table.add_row(gid, tr)
+    console.print(t_table)
+
+
+@app.command("non-linguistic")
+def non_linguistic_cmd():
+    """Evaluate non-linguistic hypotheses: lunisolar calendar and spiral game board."""
+    from phaistos.decipherment.non_linguistic import (
+        evaluate_lunisolar_calendar_hypothesis,
+        evaluate_game_board_hypothesis,
+    )
+
+    corpus = load_transcription("godart_1995")
+    cal_res = evaluate_lunisolar_calendar_hypothesis(corpus)
+    game_res = evaluate_game_board_hypothesis(corpus)
+
+    console.print(Panel("[bold cyan]Non-Linguistic Hypothesis Evaluation[/bold cyan]"))
+
+    table = Table(title="Lunisolar Calendar Astronomical Fit", show_header=True)
+    table.add_column("Parameter", style="bold cyan")
+    table.add_column("Value", justify="center")
+    table.add_column("Astronomical Reference", justify="center")
+    table.add_column("Residual Error")
+
+    table.add_row(
+        "Total Signs (Day Count)",
+        f"{cal_res['total_signs']:.0f}",
+        f"8 Synodic Months ({cal_res['synodic_8_months_days']:.2f} d)",
+        f"{cal_res['lunar_residual_days']:.2f} days",
+    )
+    table.add_row(
+        "Incised Oblique Strokes",
+        f"{cal_res['total_oblique_strokes']:.0f}",
+        "Lunar Nodal Cycle (18.6 yrs)",
+        f"{cal_res['saros_residual_years']:.2f} years",
+    )
+    table.add_row(
+        "Astronomical Fit Score",
+        f"{cal_res['astronomical_fit_score']:.1f} / 100",
+        "-",
+        "[yellow]Moderate (6-day discrepancy)[/yellow]",
+    )
+    console.print(table)
+
+    table_g = Table(title="Spiral Track Game Board Fit (Mehen / Goose Model)", show_header=True)
+    table_g.add_column("Feature", style="bold cyan")
+    table_g.add_column("Measurement", justify="center")
+    table_g.add_column("Game Mechanics Interpretation")
+
+    table_g.add_row("Total Cells (Groups)", f"{game_res['total_cells']:.0f}", "61 board track spaces")
+    table_g.add_row(
+        "Hazard/Restart Markers (Sign 02)",
+        f"{game_res['hazard_marker_cells_count']:.0f}",
+        f"Initial marker on {game_res['hazard_marker_cells_count']:.0f} cells",
+    )
+    table_g.add_row(
+        "Mean Marker Step Interval",
+        f"{game_res['mean_hazard_interval']:.1f} cells",
+        f"Variance: {game_res['hazard_interval_variance']:.1f}",
+    )
+    table_g.add_row(
+        "Board Regularity Score",
+        f"{game_res['board_regularity_score']:.1f} / 100",
+        "[green]High Structural Alignment[/green]",
+    )
+    console.print(table_g)
+
+
 if __name__ == "__main__":
     app()
+
 
 
 

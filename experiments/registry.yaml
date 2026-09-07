@@ -1,1 +1,8 @@
-experiments: []
+experiments:
+- hypothesis_id: H_LUWIAN
+  is_falsified: true
+  p_value: 0.15
+  run_id: 20260907_033303_H_LUWIAN
+  target_language: luwian
+  timestamp: '20260907_033303'
+  z_score: 1.1164737066917039
