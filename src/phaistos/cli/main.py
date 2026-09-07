@@ -151,5 +151,24 @@ def groups_cmd(side: Optional[str] = typer.Option(None, help="Filter by side A o
     console.print(table)
 
 
+@app.command("render-svg")
+def render_svg_cmd(
+    output_dir: str = typer.Option("reports/visuals", help="Output directory for generated SVG files"),
+    source: str = "godart_1995",
+):
+    """Render programmatic publication-quality SVG vector diagrams for Sides A & B."""
+    from pathlib import Path
+    from phaistos.geometry.svg import export_disc_svgs
+
+    corpus = load_transcription(source)
+    out_path = Path(output_dir)
+    path_a, path_b = export_disc_svgs(corpus, out_path)
+
+    console.print(f"[bold green]Successfully generated SVG diagrams:[/bold green]")
+    console.print(f"  • Side A: [cyan]{path_a}[/cyan]")
+    console.print(f"  • Side B: [cyan]{path_b}[/cyan]")
+
+
 if __name__ == "__main__":
     app()
+
