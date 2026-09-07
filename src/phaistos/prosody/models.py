@@ -20,6 +20,24 @@ class TriadRefrain(BaseModel):
     is_strictly_periodic: bool
 
 
+class StropheMetricalProfile(BaseModel):
+    strophe_name: str
+    group_ids: List[str]
+    morae_per_group: List[int]
+    total_morae: int
+    has_periodic_refrain: bool
+    metric_scheme: str
+
+
+class HymnMetricReconstruction(BaseModel):
+    triad_strophes: List[StropheMetricalProfile]
+    strophic_mora_equality: bool
+    verse_distich_substitution: str
+    joint_triad_p_value: float
+    lyric_genre: str
+    meter_analysis: str
+
+
 class StrophicAnalysisResult(BaseModel):
     total_groups: int
     side_a_groups: int
@@ -31,4 +49,6 @@ class StrophicAnalysisResult(BaseModel):
     dactylic_fit_score: float
     anapestic_fit_score: float
     paeonic_fit_score: float
+    hymn_reconstruction: Optional[HymnMetricReconstruction] = None
     skeptic_verdict: str
+

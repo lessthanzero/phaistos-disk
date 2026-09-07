@@ -45,4 +45,10 @@ def test_full_prosody_analysis():
     assert result.total_groups == 61
     assert result.triad_refrain is not None
     assert result.periodicity_p_value < 0.05
+    assert result.hymn_reconstruction is not None
+    assert result.hymn_reconstruction.strophic_mora_equality is True
+    assert len(result.hymn_reconstruction.triad_strophes) == 3
+    for strophe in result.hymn_reconstruction.triad_strophes:
+        assert strophe.total_morae == 14
     assert "PROSODIC HYMN ANALYSIS" in result.skeptic_verdict
+

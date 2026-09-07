@@ -1001,8 +1001,96 @@ def lateral_campaign_cmd(
     console.print(f"\n[bold green]Report saved to:[/bold green] {summary['saved_path']}\n")
 
 
+@app.command("prosody")
+def prosody_cmd(source: str = "godart_1995", surrogates: int = 2000):
+    """Analyze strophic hymn structure, mora measures, and triad responsion."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.prosody.meter import analyze_prosody
+
+    corpus = load_transcription(source)
+    res = analyze_prosody(corpus, num_surrogates=surrogates)
+
+    console.print(Panel("[bold cyan]Prosodic Strophic Hymn Analysis[/bold cyan]"))
+    console.print(f"Total groups: {res.total_groups} | Mean morae per group: {res.mean_morae_per_group:.2f}")
+
+    if res.hymn_reconstruction:
+        rec = res.hymn_reconstruction
+        table = Table(title="Central Lyric Triad Responsion (A14-A22)", show_header=True)
+        table.add_column("Strophe", style="bold cyan")
+        table.add_column("Group Sequence")
+        table.add_column("Mora Measures")
+        table.add_column("Total Morae", justify="center", style="bold green")
+        table.add_column("Metric Scheme")
+
+        for s in rec.triad_strophes:
+            table.add_row(
+                s.strophe_name,
+                " -> ".join(s.group_ids),
+                str(s.morae_per_group),
+                str(s.total_morae),
+                s.metric_scheme,
+            )
+        console.print(table)
+        console.print(f"\n• [bold]Strophic Mora Equality:[/bold] {rec.strophic_mora_equality} (14 = 14 = 14)")
+        console.print(f"• [bold]Catalectic Distich Substitution:[/bold] {rec.verse_distich_substitution}")
+        console.print(f"• [bold]Triad Joint Probability:[/bold] p = {rec.joint_triad_p_value:.6f} ({surrogates} runs)")
+        console.print(f"\n[dim]{rec.meter_analysis}[/dim]\n")
+
+
+@app.command("epigraphy")
+def epigraphy_cmd(source: str = "godart_1995"):
+    """Inspect microscopic stamp collision points, palimpsests, and radial deformation."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.epigraphy.overlap_micro import evaluate_epigraphic_microscopy
+
+    corpus = load_transcription(source)
+    res = evaluate_epigraphic_microscopy(corpus)
+
+    console.print(Panel("[bold cyan]Microscopic Epigraphy & Stamp Collision Analysis[/bold cyan]"))
+    console.print(f"Total Overlaps Cataloged: [bold green]{res.total_overlaps_cataloged}[/bold green]")
+    console.print(f"Outside-In Stamping Consistency: [bold green]{res.outside_in_consistency_pct}%[/bold green]")
+    console.print(f"Stylus Incision Sequence: [bold]{res.stroke_incision_sequence}[/bold]")
+    console.print(f"Modern Forgery Falsification Score: [bold green]{res.forgery_falsification_score}%[/bold green]\n")
+
+    table = Table(title="Primary Palimpsests & Real-Time Clay Erasures", show_header=True)
+    table.add_column("Group", style="bold cyan", justify="center")
+    table.add_column("Side", justify="center")
+    table.add_column("Erasure Technique")
+    table.add_column("Final Sequence")
+    table.add_column("Consensus Sources")
+
+    for p in res.palimpsests_cataloged:
+        table.add_row(
+            p.group_id,
+            p.side,
+            p.erasure_technique,
+            "-".join(p.final_stamped_signs),
+            p.epigrapher_consensus,
+        )
+    console.print(table)
+
+    table_comp = Table(title="Radial Track Height & Crowding Gradient", show_header=True)
+    table_comp.add_column("Coil #", justify="center")
+    table_comp.add_column("Side", justify="center")
+    table_comp.add_column("Track Height (mm)", justify="center")
+    table_comp.add_column("Sign Spacing (mm)", justify="center")
+    table_comp.add_column("Crowding Factor", justify="center")
+
+    for s in res.radial_compression_gradient:
+        table_comp.add_row(
+            f"Coil {s.coil_number}",
+            s.side,
+            f"{s.mean_track_height_mm:.1f}",
+            f"{s.mean_sign_spacing_mm:.1f}",
+            f"{s.crowding_factor:.2f}x",
+        )
+    console.print(table_comp)
+    console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan] {res.skeptic_verdict}\n")
+
+
 if __name__ == "__main__":
     app()
+
 
 
 
