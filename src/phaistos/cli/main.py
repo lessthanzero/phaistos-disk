@@ -2497,6 +2497,58 @@ def unicity_audit_cmd():
     )
 
 
+@app.command("align-liturgies")
+def align_liturgies_cmd():
+    """Align the 14 liturgical clauses against Bronze Age sacred corpora (Linear A, Hurrian H6, Arkalochori)."""
+    from phaistos.comparative.libation_alignment import align_liturgical_clauses
+
+    report = align_liturgical_clauses()
+
+    console.print(
+        Panel(
+            "[bold cyan]Bronze Age Liturgical Alignment Report[/bold cyan]\n"
+            f"[yellow]Linear A Libation Formula Concordance:[/yellow] {report.linear_a_formula_concordance_pct:.1f}%\n"
+            f"[yellow]Hurrian Hymn H6 Cadence Concordance:[/yellow] {report.hurrian_h6_cadence_concordance_pct:.1f}%\n"
+            f"[yellow]Arkalochori Votive Axe Concordance:[/yellow] {report.arkalochori_chiasmus_concordance_pct:.1f}%\n"
+            f"[dim]Monte Carlo Null Permutation: Z = +{report.null_surrogate_z_score:.2f}, p = {report.null_surrogate_p_value:.4f}[/dim]",
+            expand=False,
+        )
+    )
+
+    table = Table(title="Top Liturgical Clause Structural Alignments", show_header=True)
+    table.add_column("Disc Clause", style="bold cyan")
+    table.add_column("Act Title", style="dim")
+    table.add_column("Comparator Liturgy", style="bold")
+    table.add_column("Aligned Sacred Unit", style="yellow")
+    table.add_column("Score", justify="center")
+    table.add_column("Epistemic Rationale")
+
+    for a in report.top_alignments:
+        table.add_row(
+            a.disc_clause_id,
+            a.disc_act_title.split(":")[0],
+            a.comparator_name,
+            a.aligned_comparator_unit,
+            f"{a.structural_similarity_score * 100.0:.0f}%",
+            a.epistemic_rationale,
+        )
+
+    console.print(table)
+    console.print(Panel(f"[bold yellow]Skeptic Verdict:[/bold yellow]\n{report.skeptic_verdict}", expand=False))
+
+
+@app.command("generate-monograph")
+def generate_monograph_cmd():
+    """Generate the definitive publication-grade academic monograph for the Phaistos Disc."""
+    from phaistos.report.monograph_generator import generate_comprehensive_monograph
+
+    console.print("[bold cyan]Compiling exhaustive epigraphic and computational monograph...[/bold cyan]")
+    out_path = generate_comprehensive_monograph()
+    size_kb = out_path.stat().st_size / 1024.0
+    console.print(f"[bold green]Monograph successfully published to:[/bold green] {out_path} ({size_kb:.1f} KB)")
+    console.print("[dim]Open in your preferred markdown viewer or render to PDF via pandoc/typst.[/dim]\n")
+
+
 if __name__ == "__main__":
     app()
 

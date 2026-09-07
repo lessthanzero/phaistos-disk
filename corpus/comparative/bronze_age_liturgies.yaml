@@ -1,0 +1,139 @@
+# Attested Bronze Age Mediterranean Liturgical & Hymnic Corpora
+# Comparative baselines for evaluating the 14 liturgical clauses of the Phaistos Disc
+# Sources:
+# - Linear A Libation Formula: Godart & Olivier (GORILA 1976-1985), Younger (2000), Davis (2014)
+# - Hurrian Hymn to Nikkal (H6): Ugarit text RS 15.30 + 49 + 17.387; Laroche (1968), West (1994), Kilmer (1974)
+# - Arkalochori Votive Axe: Heraklion Museum HM 584; Marinatos (1935), Boufidis (1953)
+# - Luwian Cult Invocations: Boğazköy KBo IV 11, Starke (1985), Melchert (2003)
+
+metadata:
+  title: "Bronze Age Comparative Liturgical Text Corpus"
+  description: "Standardized transcriptions of contemporary 2nd-millennium BCE Mediterranean hymns and ritual formulas"
+  date_range: "c. 1700 - 1300 BCE"
+
+liturgies:
+  - id: "LIT_LINEAR_A_LIBATION"
+    name: "Linear A Libation Formula"
+    script: "Linear A"
+    provenance: "Mount Juktas (IO Za 2), Psychro Cave (PS Za 2), Palaikastro (PK Za 11)"
+    cultural_context: "Peak sanctuary and cave libation stone vessels (cups, ladles, tables)"
+    canonical_formula_words:
+      - word: "JA-SA-SA-RA-ME"
+        morae: 5
+        role: "Divine epithet / Goddess of the Sacred Sanctuary (Our Lady)"
+        prefix: "JA-"
+        geminate: true
+      - word: "U-NA-KA-NA-SI"
+        morae: 5
+        role: "Verbal dedicatory formula ('she has offered / may she accept')"
+        prefix: "U-"
+        geminate: false
+      - word: "I-PI-NA-MA"
+        morae: 4
+        role: "Cultic offering / libation substance descriptor"
+        prefix: "I-"
+        geminate: false
+      - word: "SI-RU-TE"
+        morae: 3
+        role: "Sanctuary title / locative priest designation"
+        prefix: ""
+        geminate: false
+      - word: "JA-TA-I-NO-U-JA"
+        morae: 6
+        role: "Cadential ritual closing prayer"
+        prefix: "JA-"
+        geminate: false
+    structural_syntax: "[DIVINE_INVOCATION] + [DEDICATION_VERB] + [LIBATION_OFFERING] + [PRIESTLY_TITLE] + [CLOSING_CADENCE]"
+    cadence_type: "TERMINAL_PRAYER"
+
+  - id: "LIT_HURRIAN_HYMN_H6"
+    name: "Hurrian Hymn to Nikkal (H6)"
+    script: "Hurrian Cuneiform with Hurrian musical notation"
+    provenance: "Royal Palace of Ugarit (Ras Shamra), Tablet RS 15.30"
+    cultural_context: "The oldest known complete notated cultic hymn (c. 1400 BCE), dedicated to the orchard goddess Nikkal"
+    canonical_formula_words:
+      - word: "NIR-SHU-UZ-ZI"
+        morae: 4
+        role: "Opening invocation of the divine spouse"
+        prefix: ""
+        geminate: true
+      - word: "MA-AL-LI-TI"
+        morae: 3
+        role: "Offering of sweet fruits and honey"
+        prefix: ""
+        geminate: true
+      - word: "QAB-LI-TE"
+        morae: 3
+        role: "Musical interval / Cadential rest marker (Middle interval)"
+        prefix: ""
+        geminate: false
+      - word: "NI-IK-KA-AL"
+        morae: 3
+        role: "Divine recipient (Goddess Nikkal)"
+        prefix: ""
+        geminate: true
+      - word: "SHA-ASH-SHUR-RI"
+        morae: 4
+        role: "Womb blessing petition"
+        prefix: ""
+        geminate: true
+      - word: "TI-DI-DA"
+        morae: 3
+        role: "Final choral refrain and cadence"
+        prefix: ""
+        geminate: false
+    structural_syntax: "[VOCATIVE_PRAYER] + [OFFERING] + [MUSICAL_INTERVAL_CADENCE] + [THEONYM] + [CHORAL_REFRAIN]"
+    cadence_type: "NOTATED_MUSICAL_REST"
+
+  - id: "LIT_ARKALOCHORI_AXE"
+    name: "Arkalochori Votive Double Axe"
+    script: "Arkalochori Engraved Script (Aegean Hieroglyphic variant)"
+    provenance: "Arkalochori Sacred Cave, Crete (HM 584)"
+    cultural_context: "Engraved bronze votive double axe with 15 signs in three vertical columns"
+    canonical_formula_words:
+      - word: "COL_I (02-24-02-24-44)"
+        morae: 5
+        role: "Opening column: Reduplicated Plumed Head + Rosette + Labrys"
+        prefix: "02-"
+        geminate: true
+      - word: "COL_II (02-44-24-02-44)"
+        morae: 5
+        role: "Central column: Chiasmic responsion of Labrys and Plumed Head"
+        prefix: "02-"
+        geminate: false
+      - word: "COL_III (02-12-24-44-02)"
+        morae: 5
+        role: "Closing column: Plumed Head + Shield + Rosette + Labrys"
+        prefix: "02-12-"
+        geminate: false
+    structural_syntax: "[INVOCATION_COLUMN_I] + [CHIASMIC_RESPONSION_II] + [CARTOUCHE_CADENCE_III]"
+    cadence_type: "SYMMETRICAL_TRICOLON"
+
+  - id: "LIT_LUWIAN_RITUAL"
+    name: "Luwian Cultic Purificatory Incantation"
+    script: "Cuneiform / Hieroglyphic Luwian"
+    provenance: "Boğazköy (Hattusa), KBo IV 11"
+    cultural_context: "MM / LM contemporary Anatolian purificatory rite of the Great Sea Goddess"
+    canonical_formula_words:
+      - word: "TI-WA-TA-NI"
+        morae: 4
+        role: "Sun-God invocation header"
+        prefix: ""
+        geminate: false
+      - word: "A-AN-NA-RA-UM-MI"
+        morae: 6
+        role: "Divine Mother title"
+        prefix: ""
+        geminate: true
+      - word: "PA-AR-NA-AL-LA"
+        morae: 4
+        role: "Temple threshold purification"
+        prefix: ""
+        geminate: true
+      - word: "A-A-SHI-HA-AN-TI"
+        morae: 5
+        role: "Enclitic closing blessing"
+        prefix: ""
+        geminate: false
+    structural_syntax: "[DEITY_HEADER] + [DIVINE_TITLE] + [PURIFICATION_ACTION] + [CADENTIAL_BLESSING]"
+    cadence_type: "ENCLITIC_CADENCE"
