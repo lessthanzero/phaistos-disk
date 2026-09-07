@@ -1211,8 +1211,226 @@ def theonym_sieve_cmd(source: str = "godart_1995", surrogates: int = 1000):
     console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan] {res.skeptic_verdict}\n")
 
 
+@app.command("strokes")
+def strokes_cmd(source: str = "godart_1995"):
+    """Epigraphic & metric audit of the 18 oblique strokes (Virama vs Musical Ictus)."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.epigraphy.strokes import evaluate_oblique_strokes
+
+    corpus = load_transcription(source)
+    res = evaluate_oblique_strokes(corpus)
+
+    console.print(Panel("[bold cyan]Frontier A: The 18 Oblique Strokes Epigraphic & Metric Audit[/bold cyan]"))
+    console.print(f"Total Strokes: [bold green]{res.total_strokes}[/bold green] (Side A: {res.side_a_strokes}, Side B: {res.side_b_strokes})")
+    console.print(f"Terminal Attachment: [bold green]{res.virama_eval.terminal_position_rate * 100:.1f}%[/bold green] (Outside-In)")
+    console.print(f"Textual Coverage: [bold yellow]{res.virama_eval.textual_coverage_pct:.1f}%[/bold yellow] (18 / 61 groups)\n")
+
+    table = Table(title="18 Incised Oblique Strokes Catalog", show_header=True)
+    table.add_column("Group", style="bold cyan", justify="center")
+    table.add_column("Side", justify="center")
+    table.add_column("Terminal Sign")
+    table.add_column("Sign Name")
+    table.add_column("Context")
+
+    for occ in res.occurrences:
+        ctx = []
+        if occ.is_lyric_triad_cadence:
+            ctx.append("[magenta]Triad Cadence[/magenta]")
+        if occ.is_stanza_final:
+            ctx.append("[green]Stanza Closing[/green]")
+        ctx_str = " & ".join(ctx) if ctx else "[dim]medial group[/dim]"
+
+        table.add_row(
+            occ.group_id,
+            occ.side,
+            occ.sign_evans_id,
+            occ.sign_name,
+            ctx_str,
+        )
+    console.print(table)
+
+    console.print(f"\n• [bold red]Virama Hypothesis:[/bold red] {res.virama_eval.falsification_verdict}")
+    console.print(f"• [bold green]Musical Ictus Hypothesis:[/bold green] {res.ictus_eval.support_verdict}")
+    console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan]\n{res.skeptic_verdict}\n")
+
+
+@app.command("grid-factorization")
+def grid_factorization_cmd(
+    source: str = "godart_1995",
+    consonants: int = 5,
+    vowels: int = 4,
+    null_iter: int = 50,
+):
+    """Kober-Ventris Grid Factorization via SVD and Hierarchical Clustering."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.linguistics.grid_factorization import factorize_kober_grid
+
+    corpus = load_transcription(source)
+    res = factorize_kober_grid(
+        corpus,
+        n_consonants=consonants,
+        n_vowels=vowels,
+        n_null_iterations=null_iter,
+    )
+
+    console.print(Panel("[bold magenta]Frontier C: Kober-Ventris Grid Factorization (SVD)[/bold magenta]"))
+    console.print(f"Signs Factorized: [bold green]{res.n_signs}[/bold green] | Consonant Classes: [bold cyan]{res.n_consonant_classes}[/bold cyan] | Vowel Classes: [bold yellow]{res.n_vowel_classes}[/bold yellow]")
+    console.print(f"Top Singular Vector Variance: [bold green]{res.metrics.explained_variance_ratio_svd[0]*100:.1f}%[/bold green]")
+    console.print(f"Structure Z-Score vs Null: [bold green]+{res.metrics.structure_z_score:.2f}[/bold green] (p = {res.metrics.structure_p_value:.4f})\n")
+
+    table = Table(title="Objective 2D Consonant-Vowel Phonetic Grid (Zero Target-Language Bias)", show_header=True)
+    table.add_column("Consonant Class", style="bold cyan")
+    for v in range(1, res.n_vowel_classes + 1):
+        table.add_column(f"Vowel V{v}", justify="center")
+
+    for c_name in sorted(res.grid.keys()):
+        row = [f"[bold]{c_name}[/bold]"]
+        for v in range(1, res.n_vowel_classes + 1):
+            v_name = f"V{v}"
+            signs = res.grid[c_name].get(v_name, [])
+            row.append(", ".join(signs) if signs else "[dim]-[/dim]")
+        table.add_row(*row)
+    console.print(table)
+    console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan]\n{res.skeptic_verdict}\n")
+
+
+@app.command("suffix-correspondence")
+def suffix_correspondence_cmd(source: str = "godart_1995"):
+    """Evaluate terminal sign correspondence against Linear A (GORILA corpus)."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.comparative.suffix_analyzer import analyze_suffix_correspondence
+
+    corpus = load_transcription(source)
+    res = analyze_suffix_correspondence(corpus)
+
+    console.print(Panel("[bold yellow]Frontier B: Linear A Suffix Correspondence (GORILA)[/bold yellow]"))
+    console.print(f"Total Groups Evaluated: [bold green]{res.total_groups}[/bold green]")
+    console.print(f"Likelihood Ratio (Sign 35 = TE vs ME): [bold green]{res.likelihood_ratio_te_vs_me:.1e}[/bold green]\n")
+
+    table = Table(title="Phaistos Disc Top Terminal Suffixes vs Linear A", show_header=True)
+    table.add_column("Sign", style="bold cyan", justify="center")
+    table.add_column("Terminal Count", justify="center")
+    table.add_column("Terminal Rate", justify="center")
+    table.add_column("Corpus Share", justify="center")
+
+    for s in res.top_terminal_signs:
+        table.add_row(
+            s.sign_id,
+            str(s.count),
+            f"{s.terminal_rate * 100:.1f}%",
+            f"{s.corpus_share_pct:.1f}%",
+        )
+    console.print(table)
+
+    table_comp = Table(title="Aegean Phonetic Suffix Hypothesis Sieve", show_header=True)
+    table_comp.add_column("Sign", justify="center")
+    table_comp.add_column("Tested Value", justify="center")
+    table_comp.add_column("Linear A Counterpart", justify="center")
+    table_comp.add_column("Expected Rate", justify="center")
+    table_comp.add_column("Observed Rate", justify="center")
+    table_comp.add_column("Binomial P", justify="center")
+    table_comp.add_column("Verdict")
+
+    # Add ME test first
+    me = res.sign_35_me_test
+    table_comp.add_row(
+        me.sign_id,
+        f"[red]{me.tested_value}[/red]",
+        me.linear_a_counterpart,
+        f"{me.expected_rate*100:.2f}%",
+        f"{me.observed_rate*100:.1f}%",
+        f"{me.binomial_p_value:.2e}",
+        f"[red]{me.verdict}[/red]",
+    )
+
+    for c in res.aegean_correspondences:
+        style_val = "[green]" if "SUPPORTED" in c.verdict else "[yellow]"
+        table_comp.add_row(
+            c.sign_id,
+            f"{style_val}{c.tested_value}[/]",
+            c.linear_a_counterpart,
+            f"{c.expected_rate*100:.1f}%",
+            f"{c.observed_rate*100:.1f}%",
+            f"{c.likelihood:.3f}",
+            f"{style_val}{c.verdict}[/]",
+        )
+    console.print(table_comp)
+    console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan]\n{res.skeptic_verdict}\n")
+
+
+@app.command("shrinkage")
+def shrinkage_cmd(
+    source: str = "godart_1995",
+    drying: float = 4.9,
+    firing: float = 3.6,
+):
+    """3D ceramic clay thermal shrinkage reversal and original punch reconstruction."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.typometry.shrinkage_model import reconstruct_punches_and_shrinkage
+
+    corpus = load_transcription(source)
+    res = reconstruct_punches_and_shrinkage(
+        corpus,
+        drying_shrinkage_pct=drying,
+        firing_shrinkage_pct=firing,
+    )
+
+    console.print(Panel("[bold green]Frontier D: 3D Ceramic Shrinkage & Punch Reconstruction[/bold green]"))
+    p = res.shrinkage_profile
+    console.print(f"Clay Matrix: [bold cyan]{p.clay_type}[/bold cyan]")
+    console.print(f"Total Linear Shrinkage: [bold green]{p.total_linear_shrinkage_pct:.2f}%[/bold green] (Drying: {p.drying_shrinkage_pct}%, Firing: {p.firing_shrinkage_pct}%)")
+    console.print(f"Disc Fired Diameter: {p.disc_fired_diameter_mm:.1f} mm &rarr; Wet Diameter: [bold green]{p.disc_wet_diameter_mm:.1f} mm[/bold green]")
+    console.print(f"Original Punch Expansion Factor: [bold green]+{(res.mean_expansion_factor - 1.0)*100:.1f}%[/bold green]")
+    console.print(f"Mean Indentation Force: [bold green]{res.mean_stamping_force_newtons:.1f} N[/bold green] ({res.mean_stamping_force_newtons / 9.81:.1f} kgf)\n")
+
+    table = Table(title="Master Punch Dimensions Reconstructed (Sample)", show_header=True)
+    table.add_column("Sign", justify="center")
+    table.add_column("Name")
+    table.add_column("Fired Dimensions (mm)", justify="center")
+    table.add_column("Original Punch (mm)", justify="center")
+    table.add_column("Stamping Force", justify="center")
+
+    for punch in res.punches[:10]:
+        table.add_row(
+            punch.sign_id,
+            punch.name,
+            f"{punch.fired_width_mm:.1f} × {punch.fired_height_mm:.1f}",
+            f"[green]{punch.reconstructed_punch_width_mm:.1f} × {punch.reconstructed_punch_height_mm:.1f}[/green]",
+            f"{punch.estimated_stamping_force_newtons:.1f} N",
+        )
+    console.print(table)
+    console.print(f"\n• [bold yellow]Punch Material:[/bold yellow] {res.punch_material_verdict}")
+    console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan]\n{res.skeptic_verdict}\n")
+
+
+@app.command("workbench")
+def workbench_cmd(
+    source: str = "godart_1995",
+    output: str = "reports/workbench.html",
+    open_browser: bool = True,
+):
+    """Generate and launch the interactive audio-epigraphic research workbench."""
+    from pathlib import Path
+    import webbrowser
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.visualizer.workbench import generate_workbench_html
+
+    corpus = load_transcription(source)
+    out_file = Path(output)
+    generate_workbench_html(corpus, output_path=out_file)
+
+    console.print(Panel("[bold green]Frontier E: Interactive Audio-Epigraphic Workbench[/bold green]"))
+    console.print(f"Generated standalone research workbench: [bold cyan]{out_file.resolve()}[/bold cyan]")
+    console.print(f"File Size: [bold green]{out_file.stat().st_size / 1024:.1f} KB[/bold green]")
+
+    if open_browser:
+        console.print("[dim]Opening in default browser...[/dim]")
+        webbrowser.open(f"file://{out_file.resolve()}")
+
+
 if __name__ == "__main__":
     app()
+
 
 
 

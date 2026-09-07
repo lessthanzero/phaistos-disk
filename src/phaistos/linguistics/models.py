@@ -27,3 +27,26 @@ class MorphologicalAnalysisResult(BaseModel):
     monte_carlo_compression_p_value: float
     is_statistically_agglutinative: bool
     skeptic_verdict: str
+
+
+class GridClusteringMetrics(BaseModel):
+    consonant_silhouette_score: float
+    vowel_silhouette_score: float
+    explained_variance_ratio_svd: List[float]
+    frobenius_reconstruction_error: float
+    null_control_reconstruction_error_mean: float
+    null_control_reconstruction_error_std: float
+    structure_z_score: float
+    structure_p_value: float
+
+
+class KoberGridResult(BaseModel):
+    n_signs: int
+    n_consonant_classes: int
+    n_vowel_classes: int
+    grid: Dict[str, Dict[str, List[str]]]
+    sign_consonant_map: Dict[str, str]
+    sign_vowel_map: Dict[str, str]
+    metrics: GridClusteringMetrics
+    skeptic_verdict: str
+
