@@ -1428,8 +1428,55 @@ def workbench_cmd(
         webbrowser.open(f"file://{out_file.resolve()}")
 
 
+@app.command("ecology")
+def ecology_cmd(source: str = "godart_1995"):
+    """Evaluate signs against Bronze Age Cretan ecology, archaeobotany, and zooarchaeology."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.geography.ecological_constraints import evaluate_ecological_constraints
+
+    corpus = load_transcription(source)
+    res = evaluate_ecological_constraints(corpus)
+
+    console.print(Panel("[bold green]Phaistos Disc Ecological & Geographic Constraint Layer[/bold green]"))
+    console.print(f"Total Signs Analyzed: [bold green]{res.total_signs_analyzed}[/bold green]")
+    console.print(f"Anthropogenic Landscape Score: [bold cyan]{res.anthropogenic_landscape_score}%[/bold cyan] (Managed agro-pastoral ecosystem)")
+    console.print(f"Bayesian Mean Plausibility: [bold green]{res.bayesian_mean_confidence*100:.1f}%[/bold green]\n")
+
+    table = Table(title="7 Bronze Age Cretan Ecological Domains", show_header=True)
+    table.add_column("Domain", style="bold cyan")
+    table.add_column("Signs", justify="center")
+    table.add_column("Tokens", justify="center")
+    table.add_column("Share", justify="center")
+    table.add_column("Key Signs")
+
+    for d in res.domain_distribution:
+        table.add_row(
+            d.domain,
+            str(d.sign_count),
+            str(d.token_count),
+            f"{d.share_of_corpus_pct}%",
+            ", ".join(d.key_signs),
+        )
+    console.print(table)
+
+    table_fals = Table(title="Key Ecological Falsifications Audit", show_header=True)
+    table_fals.add_column("Sign", justify="center")
+    table_fals.add_column("Name")
+    table_fals.add_column("Falsified Claim / Ecological Anachronism")
+
+    for f in res.falsification_audit[:6]:
+        table_fals.add_row(
+            f["sign_id"],
+            f["name"],
+            f"[red]{f['falsified_claim']}[/red]",
+        )
+    console.print(table_fals)
+    console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan]\n{res.skeptic_verdict}\n")
+
+
 if __name__ == "__main__":
     app()
+
 
 
 
