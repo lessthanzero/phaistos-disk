@@ -771,6 +771,132 @@ def skeptic_cmd(
     console.print(f"\n[dim]Epistemic Category: {review_record.category.value} | Provenance: {review_record.source_ref}[/dim]\n")
 
 
+@app.command("geo-network")
+def geo_network_cmd():
+    """Display archaeological regional network of South-Central Crete centered on Phaistos."""
+    from phaistos.geography.loader import load_messara_network
+    from phaistos.geography.network_matcher import compare_network_topologies
+
+    network = load_messara_network()
+    corpus = load_transcription("godart_1995")
+
+    console.print(Panel(f"[bold cyan]Minoan Regional Network: {network.region}[/bold cyan]"))
+    console.print(f"Hub Origin: [bold yellow]{network.hub_site}[/bold yellow] | Total Archaeological Sites: [bold]{len(network.sites)}[/bold] | Attested Routes: [bold]{len(network.routes)}[/bold]\n")
+
+    table = Table(title="Regional Sites (Distance & Bearing from Phaistos Palace)", show_header=True)
+    table.add_column("Site ID", style="bold cyan")
+    table.add_column("Site Name")
+    table.add_column("Type")
+    table.add_column("Distance (km)", justify="center")
+    table.add_column("Bearing (°)", justify="center")
+    table.add_column("Elevation (m)", justify="center")
+    table.add_column("Sector", justify="center")
+
+    for s in network.sites:
+        table.add_row(
+            s.id,
+            s.name,
+            s.type.replace("_", " ").title(),
+            f"{s.distance_km:.1f}",
+            f"{s.azimuth_deg:.0f}°",
+            str(s.elevation_m),
+            s.cardinal_sector,
+        )
+    console.print(table)
+
+    # Topology comparison
+    topo = compare_network_topologies(corpus, network)
+    t_table = Table(title="Topological Graph Invariants Comparison", show_header=True)
+    t_table.add_column("Invariant Metric", style="bold cyan")
+    t_table.add_column("Messara Regional Network", justify="center")
+    t_table.add_column("Phaistos Disc Sign Graph", justify="center")
+
+    t_table.add_row("Nodes Count", f"{topo['geo_sites_count']:.0f}", f"{topo['disc_sign_nodes_count']:.0f}")
+    t_table.add_row("Network Density", f"{topo['geo_network_density']:.3f}", f"{topo['disc_network_density']:.3f}")
+    t_table.add_row("Clustering Coefficient", f"{topo['geo_average_clustering']:.3f}", f"{topo['disc_average_clustering']:.3f}")
+    t_table.add_row("Hub Prominence Ratio", f"{topo['geo_hub_prominence_ratio']:.2f}x", f"{topo['disc_hub_prominence_ratio']:.2f}x")
+    console.print(t_table)
+
+
+@app.command("geo-matching")
+def geo_matching_cmd():
+    """Evaluate whether the Disc resembles radial spatial encoding vs 12 structural genres."""
+    from phaistos.geography.typology import classify_disc_genre
+
+    corpus = load_transcription("godart_1995")
+    res = classify_disc_genre(corpus)
+
+    console.print(Panel("[bold cyan]Structural Typology Classifier: 12 Structural Genres Comparison[/bold cyan]"))
+
+    table = Table(title="Ranked Typological Similarity to Phaistos Disc Profile", show_header=True)
+    table.add_column("Rank", justify="center")
+    table.add_column("Structural Genre", style="bold cyan")
+    table.add_column("Distance", justify="center")
+    table.add_column("Similarity Score", justify="center")
+    table.add_column("Genre Description")
+
+    for rank, g in enumerate(res.ranked_genres, start=1):
+        color = "bold green" if rank <= 3 else ("dim" if rank >= 10 else "")
+        sim_str = f"[{color}]{g.similarity_percentage:.1f}%[/{color}]" if color else f"{g.similarity_percentage:.1f}%"
+        table.add_row(
+            str(rank),
+            g.genre_name.replace("_", " ").title(),
+            f"{g.distance:.2f}",
+            sim_str,
+            g.description[:60] + "...",
+        )
+    console.print(table)
+    console.print(f"\n[bold]Skeptic Ruling:[/bold]\n{res.skeptic_verdict}\n")
+
+
+@app.command("geo-radial-test")
+def geo_radial_test_cmd(
+    sign: Optional[str] = typer.Option("02", help="Sign ID to test for directional ray clustering, or 'all'"),
+    iterations: int = typer.Option(1000, help="Monte Carlo surrogate iterations"),
+):
+    """Test whether sign occurrences cluster along specific radial rays / cardinal bearings."""
+    from phaistos.geography.radial_coords import evaluate_angular_ray_clustering
+
+    corpus = load_transcription("godart_1995")
+    target_sign = None if sign == "all" else sign
+
+    console.print(Panel(f"[bold cyan]Radial Ray & Cardinal Bearing Clustering Test (Sign {sign})[/bold cyan]"))
+
+    res_a = evaluate_angular_ray_clustering(corpus.side_a, target_sign_id=target_sign, iterations=iterations)
+    res_b = evaluate_angular_ray_clustering(corpus.side_b, target_sign_id=target_sign, iterations=iterations)
+
+    table = Table(title="Rayleigh Circular Uniformity Test vs Archimedean Spiral Layout", show_header=True)
+    table.add_column("Disc Side", justify="center")
+    table.add_column("Sign Occurrences", justify="center")
+    table.add_column("Rayleigh Statistic", justify="center")
+    table.add_column("Z-Score", justify="center")
+    table.add_column("Empirical p-value", justify="center")
+    table.add_column("Alignment Status", justify="center")
+
+    for r in [res_a, res_b]:
+        status = "[bold green]Ray Clustered[/bold green]" if r.is_clustered else "[dim]Uniform (No Ray)[/dim]"
+        table.add_row(
+            f"Side {r.side}",
+            str(r.total_signs_analyzed),
+            f"{r.observed_rayleigh_statistic:.2f}",
+            f"{r.z_score:+.2f}",
+            f"{r.p_value:.4f}",
+            status,
+        )
+    console.print(table)
+    console.print(f"\n• [bold cyan]Side A Verdict:[/bold cyan] {res_a.skeptic_verdict}")
+    console.print(f"• [bold cyan]Side B Verdict:[/bold cyan] {res_b.skeptic_verdict}\n")
+
+
+@app.command("geo-skeptic")
+def geo_skeptic_cmd():
+    """Run Skeptic critical audit on geospatial and radial map hypotheses (GEO-01 to GEO-08)."""
+    from phaistos.geography.skeptic_geo import conduct_geospatial_skeptic_audit
+
+    audit = conduct_geospatial_skeptic_audit()
+    console.print(audit.data)
+
+
 if __name__ == "__main__":
     app()
 

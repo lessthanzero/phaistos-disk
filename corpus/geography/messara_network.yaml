@@ -1,0 +1,210 @@
+# Archaeological Regional Network of South-Central Crete (Messara Plain & Coast)
+# Period: Middle Minoan II - Late Minoan I (c. 1800-1500 BC)
+# Origin Point: Phaistos Palace (Lat 35.0514° N, Lon 24.8142° E, Elev 95m)
+# Sources: UNESCO Serial Nomination Dossier (Minoan Palaces), Watrous (2004), Shaw (2006)
+
+metadata:
+  region: "Messara Plain & Western Asterousia, South-Central Crete"
+  hub_site: "Phaistos Palace"
+  period: "Middle Minoan III - Late Minoan I"
+  description: "Settlement, harbor, cemetery, and peak/cave sanctuary network centered on the palatial hill of Phaistos."
+
+sites:
+  - id: "PHA"
+    name: "Phaistos"
+    type: "palace_hub"
+    elevation_m: 95
+    distance_km: 0.0
+    azimuth_deg: 0.0
+    cardinal_sector: "center"
+    description: "Palatial administrative centre on the Kastri ridge overlooking the Messara plain."
+    prominence_rank: 1
+
+  - id: "AYT"
+    name: "Ayia Triada"
+    type: "royal_villa"
+    elevation_m: 45
+    distance_km: 2.8
+    azimuth_deg: 295.0
+    cardinal_sector: "WNW"
+    description: "Major administrative villa and coastal plain gateway; linked to Phaistos by raised ceremonial causeway."
+    prominence_rank: 2
+
+  - id: "KOM"
+    name: "Kommos"
+    type: "palatial_harbor"
+    elevation_m: 10
+    distance_km: 5.8
+    azimuth_deg: 245.0
+    cardinal_sector: "WSW"
+    description: "The primary maritime port of Phaistos on the Libyan Sea; monumental civic buildings and ship-sheds."
+    prominence_rank: 2
+
+  - id: "KAM_SET"
+    name: "Kamilari"
+    type: "tholos_settlement"
+    elevation_m: 60
+    distance_km: 2.1
+    azimuth_deg: 225.0
+    cardinal_sector: "SW"
+    description: "Prominent tholos tomb and settlement midway between Phaistos and the coast."
+    prominence_rank: 3
+
+  - id: "MAT"
+    name: "Matala"
+    type: "cove_anchorage"
+    elevation_m: 5
+    distance_km: 7.5
+    azimuth_deg: 235.0
+    cardinal_sector: "SW"
+    description: "Protected natural cove and secondary southern anchorage."
+    prominence_rank: 4
+
+  - id: "VOR"
+    name: "Voroi"
+    type: "valley_settlement"
+    elevation_m: 40
+    distance_km: 2.5
+    azimuth_deg: 5.0
+    cardinal_sector: "N"
+    description: "Agricultural community directly north of the Phaistos ridge near the Yeropotamos river."
+    prominence_rank: 3
+
+  - id: "KAM_CAV"
+    name: "Kamares Cave"
+    type: "cave_sanctuary"
+    elevation_m: 1720
+    distance_km: 10.5
+    azimuth_deg: 5.0
+    cardinal_sector: "N"
+    description: "Sacred cult cave on the southern flank of Mt. Ida; prominent source of palatial Kamares ware."
+    prominence_rank: 2
+
+  - id: "IDA_PEAK"
+    name: "Mount Ida (Psiloritis)"
+    type: "peak_sanctuary"
+    elevation_m: 2456
+    distance_km: 14.0
+    azimuth_deg: 355.0
+    cardinal_sector: "N"
+    description: "The dominant mountain peak commanding the northern horizon of Phaistos."
+    prominence_rank: 2
+
+  - id: "GOR"
+    name: "Gortyn / Kannia (Mitropolis)"
+    type: "agricultural_villa"
+    elevation_m: 160
+    distance_km: 11.2
+    azimuth_deg: 85.0
+    cardinal_sector: "E"
+    description: "Rich Minoan agricultural villa and religious centre in the central Messara plain."
+    prominence_rank: 2
+
+  - id: "PLA"
+    name: "Platanos"
+    type: "tholos_necropolis"
+    elevation_m: 120
+    distance_km: 14.5
+    azimuth_deg: 75.0
+    cardinal_sector: "ENE"
+    description: "The largest communal tholos cemetery in the Messara, commanding regional agricultural surplus."
+    prominence_rank: 3
+
+  - id: "KOU"
+    name: "Koumasa"
+    type: "foothill_sanctuary"
+    elevation_m: 240
+    distance_km: 16.8
+    azimuth_deg: 115.0
+    cardinal_sector: "ESE"
+    description: "Prominent tholos cemetery and settlement at the foot of the Asterousia mountains."
+    prominence_rank: 3
+
+  - id: "APE"
+    name: "Apesokari"
+    type: "tholos_sanctuary"
+    elevation_m: 170
+    distance_km: 18.2
+    azimuth_deg: 110.0
+    cardinal_sector: "ESE"
+    description: "Tholos tomb complex with dedicated external cult altar."
+    prominence_rank: 4
+
+  - id: "KOP"
+    name: "Kophinas (Asterousia)"
+    type: "peak_sanctuary"
+    elevation_m: 1231
+    distance_km: 23.0
+    azimuth_deg: 120.0
+    cardinal_sector: "ESE"
+    description: "The supreme peak sanctuary of the Asterousia range, visible from the Phaistos central court."
+    prominence_rank: 2
+
+  - id: "ODI"
+    name: "Moni Odigitria"
+    type: "gorge_sanctuary"
+    elevation_m: 210
+    distance_km: 12.5
+    azimuth_deg: 205.0
+    cardinal_sector: "SSW"
+    description: "Tholos cemetery controlling the Agiofarango gorge route to the Libyan Sea."
+    prominence_rank: 3
+
+  - id: "LEB"
+    name: "Lebena (Lendas)"
+    type: "southern_port"
+    elevation_m: 15
+    distance_km: 21.0
+    azimuth_deg: 155.0
+    cardinal_sector: "SSE"
+    description: "Southern Libyan Sea port and sanctuary across the Asterousia mountains."
+    prominence_rank: 3
+
+routes:
+  - id: "R01"
+    name: "Phaistos - Ayia Triada Processional Way"
+    from_site: "PHA"
+    to_site: "AYT"
+    distance_km: 2.8
+    type: "ceremonial_causeway"
+    description: "Engineered raised road connecting the palace and villa."
+
+  - id: "R02"
+    name: "Phaistos - Kamilari - Kommos Maritime Road"
+    from_site: "PHA"
+    to_site: "KOM"
+    distance_km: 5.8
+    type: "paved_highway"
+    description: "The primary commercial artery connecting Phaistos to its maritime harbor."
+
+  - id: "R03"
+    name: "Phaistos - Voroi - Kamares Sacred Ascent"
+    from_site: "PHA"
+    to_site: "KAM_CAV"
+    distance_km: 10.5
+    type: "mountain_pilgrim_trail"
+    description: "Pilgrimage route ascending the southern slopes of Mt. Ida to the sacred cave."
+
+  - id: "R04"
+    name: "Phaistos - Gortyn - Platanos Messara Plain Artery"
+    from_site: "PHA"
+    to_site: "PLA"
+    distance_km: 14.5
+    type: "plain_thoroughfare"
+    description: "Major east-west agricultural axis following the Yeropotamos basin."
+
+  - id: "R05"
+    name: "Phaistos - Odigitria - Agiofarango Gorge Route"
+    from_site: "PHA"
+    to_site: "ODI"
+    distance_km: 12.5
+    type: "gorge_pass"
+    description: "Access route into the southern gorge leading to coastal anchorages."
+
+  - id: "R06"
+    name: "Messara Plain - Kophinas Peak Pilgrimage"
+    from_site: "KOU"
+    to_site: "KOP"
+    distance_km: 8.5
+    type: "peak_ascent"
+    description: "Sacred ascent into the high Asterousia peak sanctuary."
