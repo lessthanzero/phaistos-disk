@@ -1530,6 +1530,100 @@ def theology_cmd(source: str = "godart_1995", surrogates: int = 1000):
     console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan]\n{res.skeptic_verdict}\n")
 
 
+@app.command("affordance")
+def affordance_cmd():
+    """Evaluate physical affordances, ergonomics, kinematics, tactile acuity, and object function."""
+    from phaistos.affordance.ergonomics import evaluate_grip_postures
+    from phaistos.affordance.layout_comparison import benchmark_candidate_geometries
+    from phaistos.affordance.rotation_kinematics import evaluate_rotation_kinematics
+    from phaistos.affordance.tactile_physics import evaluate_tactile_discrimination
+    from phaistos.affordance.stamping_economics import evaluate_stamping_economics
+    from phaistos.experiment.affordance_runner import generate_ranked_function_matrix
+
+    grips = evaluate_grip_postures()
+    geos = benchmark_candidate_geometries()
+    tactile = evaluate_tactile_discrimination()
+    econ = evaluate_stamping_economics()
+    ranked = generate_ranked_function_matrix()
+
+    console.print(Panel("[bold green]Phaistos Disc Object Function & Material Affordance Laboratory[/bold green]"))
+
+    # Table 1: Ergonomics
+    table_grip = Table(title="Biomechanical Grip Ergonomics (507g Terracotta Disc)", show_header=True)
+    table_grip.add_column("Grip Posture", style="bold cyan")
+    table_grip.add_column("Cantilever Torque", justify="center")
+    table_grip.add_column("Max Hold Limit", justify="center")
+    table_grip.add_column("Rotational Score", justify="center")
+    table_grip.add_column("Feasibility", justify="center")
+
+    for g in grips:
+        status_color = "green" if g.feasibility_rating == "OPTIMAL" else ("yellow" if g.feasibility_rating == "MODERATE" else "red")
+        table_grip.add_row(
+            g.posture.value,
+            f"{g.wrist_cantilever_torque_nm:.3f} N*m",
+            f"{g.sustainable_hold_seconds:.0f}s",
+            f"{g.rotational_dexterity_score:.0f}/100",
+            f"[{status_color}]{g.feasibility_rating}[/{status_color}]",
+        )
+    console.print(table_grip)
+
+    # Table 2: Geometry Benchmark
+    table_geo = Table(title="Geometric Layout Benchmark (242 Signs, 61 Groups)", show_header=True)
+    table_geo.add_column("Layout Topology", style="bold cyan")
+    table_geo.add_column("Density", justify="center")
+    table_geo.add_column("Line Returns", justify="center")
+    table_geo.add_column("Foveal Stability", justify="center")
+    table_geo.add_column("Handheld Score", justify="center")
+
+    for geo in geos:
+        table_geo.add_row(
+            geo.layout_type.value,
+            f"{geo.information_density_signs_per_cm2} s/cm²",
+            str(geo.line_returns_count),
+            f"{geo.foveal_dwell_stability:.2f}",
+            f"{geo.handheld_operability_score:.0f}/100",
+        )
+    console.print(table_geo)
+
+    # Table 3: Tactile Discrimination Falsification Audit
+    table_tact = Table(title="Tactile Acuity & Blind Reading Falsification Audit", show_header=True)
+    table_tact.add_column("Tactile Task", style="bold cyan")
+    table_tact.add_column("Feature Size", justify="center")
+    table_tact.add_column("Weber Threshold", justify="center")
+    table_tact.add_column("P(Detection)", justify="center")
+    table_tact.add_column("Epistemic Status", justify="center")
+
+    for t in tactile:
+        status_color = "red" if t.epistemic_status == "FALSIFIED" else "green"
+        table_tact.add_row(
+            t.task_name,
+            f"{t.feature_size_mm} mm",
+            f"{t.weber_two_point_threshold_mm} mm",
+            f"{t.detection_probability:.3f}",
+            f"[{status_color}]{t.epistemic_status}[/{status_color}]",
+        )
+    console.print(table_tact)
+
+    # Table 4: Ranked Object Function Matrix
+    table_rank = Table(title="Ranked Object Function Synthesis (Surviving Epistemic Falsification)", show_header=True)
+    table_rank.add_column("Rank", justify="center", style="bold yellow")
+    table_rank.add_column("Hypothesis Profile", style="bold cyan")
+    table_rank.add_column("Confidence", justify="center")
+    table_rank.add_column("Strongest Objection / Falsification Key")
+
+    for r in ranked:
+        conf_color = "green" if "HIGH" in r.confidence_grade else ("yellow" if "MODERATE" in r.confidence_grade else "red")
+        table_rank.add_row(
+            str(r.rank),
+            r.title,
+            f"[{conf_color}]{r.confidence_grade}[/{conf_color}]",
+            r.strongest_objection,
+        )
+    console.print(table_rank)
+
+    console.print(f"\n• [bold cyan]Stamping Economics Breakeven:[/bold cyan] {econ.economic_verdict}\n")
+
+
 if __name__ == "__main__":
     app()
 

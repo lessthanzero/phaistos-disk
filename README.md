@@ -1,7 +1,7 @@
 # Phaistos Disc Lab (𐇑𐇛𐇮𐇩)
 
 [![Python 3.12 | 3.13](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/tests-73%2F73%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-81%2F81%20passing-brightgreen.svg)](tests/)
 [![Architecture](https://img.shields.io/badge/compute-macOS%20M1%20%2B%20Fedora%20Linux-orange.svg)](#dual-machine-compute-architecture)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -21,6 +21,9 @@
   - [Social & Material Context Research Brief](docs/social_material_context.md)
   - [Ecological & Geographic Constraint Layer](docs/ecological_geographic_constraints.md)
   - [Bronze Age Cretan Theological Context Layer](docs/theological_context.md)
+- [Object Function & Material Affordance Reports](#object-function--material-affordance-reports)
+  - [Object Function & Cultural Purpose Investigation](reports/object-function.md)
+  - [Material Affordance, Biophysics & Kinematic Analysis](reports/material-affordance.md)
 - [Acoustic Audio Resynthesis](#acoustic-audio-resynthesis)
 - [Repository Architecture](#repository-architecture)
 - [CLI Reference](#cli-reference)
@@ -241,6 +244,9 @@ phaistos ecology
 
 # Bronze Age Cretan Theological Context & Liturgical Syntax Analysis
 phaistos theology --surrogates 1000
+
+# Object Function & Material Affordance Investigation (OFX-01 to OFX-10)
+phaistos affordance
 ```
 
 
