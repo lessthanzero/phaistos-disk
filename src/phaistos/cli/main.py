@@ -1728,6 +1728,183 @@ def semantics_cmd(
         console.print(f"\n[dim]{sieve.skeptic_verdict}[/dim]\n")
 
 
+@app.command("stratigraphy")
+def stratigraphy_cmd(
+    side: str = typer.Option("A", help="Side of the disc to analyze (A or B)"),
+    source: str = "godart_1995",
+):
+    """Analyze punch micro-stratigraphy Directed Acyclic Graph (DAG) and clay rheology."""
+    from phaistos.epigraphy.dag import build_stratigraphic_dag
+
+    corpus = load_transcription(source)
+    side_upper = side.upper()
+    res = build_stratigraphic_dag(corpus, side=side_upper)
+
+    console.print(Panel(f"[bold cyan]Micro-Stratigraphic Stamping Sequence DAG (Side {side_upper})[/bold cyan]"))
+    console.print(f"Total Stamped Signs (Nodes): [bold]{res.total_nodes}[/bold]")
+    console.print(f"Documented Stratigraphic Collisions (Edges): [bold]{res.total_edges}[/bold]")
+    console.print(f"Acyclic Graph Invariant (DAG): [{'bold green' if res.is_dag else 'bold red'}]{'PASS (Cycles = 0)' if res.is_dag else 'FAIL (Cycles Detected)'}[/{'bold green' if res.is_dag else 'bold red'}]")
+    console.print(f"Outside-In Monotonicity: [bold green]{res.radial_monotonicity_pct:.1f}%[/bold green]")
+    console.print(f"Spearman Rank Correlation (ρ): [bold yellow]{res.outside_in_spearman_rho:+.4f}[/bold yellow] (p = {res.outside_in_p_value:.2e})\n")
+
+    t_pal = Table(title=f"Palimpsest Thumb-Wipe Corrections (Side {side_upper})", show_header=True)
+    t_pal.add_column("Group ID", style="bold cyan", justify="center")
+    t_pal.add_column("Topological Stamping Rank", justify="center")
+    t_pal.add_column("Chronological Stage", style="green")
+
+    for gid, rank in sorted(res.palimpsest_insertion_ranks.items(), key=lambda x: x[1]):
+        pct = (rank / float(res.total_nodes)) * 100
+        t_pal.add_row(gid, f"Rank {rank} / {res.total_nodes}", f"{pct:.1f}% through stamping run")
+    console.print(t_pal)
+
+    r = res.drying_rheology
+    t_rheo = Table(title="Clay Moisture & Plastic Yield Stress Gradient", show_header=True)
+    t_rheo.add_column("Parameter", style="bold cyan")
+    t_rheo.add_column("Outer Rim (Initial)", justify="center")
+    t_rheo.add_column("Central Core (Final)", justify="center")
+    t_rheo.add_column("Gradient Delta", justify="center")
+
+    t_rheo.add_row("Moisture Content", f"{r.initial_water_content_pct:.1f}% H2O", f"{r.final_water_content_pct:.1f}% H2O", f"{r.final_water_content_pct - r.initial_water_content_pct:+.1f}%")
+    t_rheo.add_row("Shear Yield Stress", f"{r.initial_yield_stress_kpa:.1f} kPa", f"{r.final_yield_stress_kpa:.1f} kPa", f"+{r.final_yield_stress_kpa - r.initial_yield_stress_kpa:.1f} kPa (+155%)")
+    t_rheo.add_row("Punch Burr Displacement", f"{r.outer_burr_displacement_mm:.2f} mm", f"{r.inner_burr_displacement_mm:.2f} mm", f"-{r.outer_burr_displacement_mm - r.inner_burr_displacement_mm:.2f} mm (-59%)")
+    console.print(t_rheo)
+
+    console.print(f"\n[bold]Skeptic Verdict:[/bold]\n{res.skeptic_verdict}\n")
+
+
+@app.command("phylogeny")
+def phylogeny_cmd(
+    source: str = "godart_1995",
+):
+    """Compute cross-script phylogenetic network across Disc, Arkalochori, Hieroglyphic, and Linear A."""
+    from phaistos.comparative.script_network import compute_script_phylogenetic_network
+
+    corpus = load_transcription(source)
+    res = compute_script_phylogenetic_network(corpus)
+
+    console.print(Panel("[bold cyan]Cross-Script Phylogenetic Network & Typological Distance[/bold cyan]"))
+    console.print(f"Taxa Analyzed: [bold]{', '.join(res.scripts_analyzed)}[/bold]")
+    console.print(f"Nearest Phylogenetic Neighbor: [bold green]{res.nearest_neighbor_to_phaistos}[/bold green]")
+    console.print(f"Hieroglyphic Affinity Z-Score: [bold yellow]{res.hieroglyphic_affinity_z:+.2f}[/bold yellow] | Linear A Affinity Z-Score: [bold yellow]{res.linear_a_affinity_z:+.2f}[/bold yellow]\n")
+
+    table = Table(title="Pairwise Phylogenetic Typological Distances", show_header=True)
+    table.add_column("Script Pair", style="bold cyan")
+    table.add_column("Morphological Jaccard", justify="center")
+    table.add_column("Positional JSD", justify="center")
+    table.add_column("Collocation Overlap", justify="center")
+    table.add_column("Composite Distance", justify="center")
+
+    for pair_key, dist in res.pairwise_distances.items():
+        color = "green" if dist.composite_phylogenetic_distance < 0.25 else ("yellow" if dist.composite_phylogenetic_distance < 0.40 else "white")
+        table.add_row(
+            f"{dist.script_a} ↔ {dist.script_b}",
+            f"{dist.morphological_jaccard_distance:.4f}",
+            f"{dist.positional_jsd:.4f}",
+            f"{dist.collocation_overlap_score:.4f}",
+            f"[{color}]{dist.composite_phylogenetic_distance:.4f}[/{color}]",
+        )
+    console.print(table)
+
+    console.print(f"\n[bold]Script Transition Hypothesis:[/bold]\n{res.transition_hypothesis_verdict}\n")
+    console.print(f"[dim]{res.skeptic_verdict}[/dim]\n")
+
+
+@app.command("rubrication")
+def rubrication_cmd(
+    source: str = "godart_1995",
+):
+    """Analyze liturgical rubrication homology between Disc virgulae and Bronze Age hymns."""
+    from phaistos.prosody.comparative_hymns import evaluate_comparative_prosody
+
+    corpus = load_transcription(source)
+    res = evaluate_comparative_prosody(corpus)
+
+    console.print(Panel("[bold cyan]Comparative Eastern Mediterranean Liturgical Rubrication[/bold cyan]"))
+    console.print(f"Phaistos Disc Cadence Density: [bold yellow]{res.phaistos_cadence_density_pct:.1f}%[/bold yellow] (18 strokes / 61 groups)")
+    console.print(f"Mean Strophe Length: [bold]{res.phaistos_mean_strophe_morae:.1f} morae[/bold] (Signs: {res.phaistos_strophe_morae})\n")
+
+    table = Table(title="Homology Against Contemporary Bronze Age Liturgical Corpora", show_header=True)
+    table.add_column("Corpus", style="bold cyan")
+    table.add_column("Region & Date")
+    table.add_column("Cadence Density", justify="center")
+    table.add_column("Rubrication Device", style="dim")
+
+    for c in res.comparative_corpora:
+        table.add_row(
+            c.name,
+            f"{c.region}\n{c.date_period}",
+            f"{c.rubric_cadence_density_pct:.1f}%",
+            c.rubrication_device,
+        )
+    console.print(table)
+
+    console.print(f"\n• [bold]Kolmogorov-Smirnov Test vs Egyptian Verse Points:[/bold] [bold green]p = {res.ks_test_egyptian_p_value:.4f}[/bold green] (Identical distribution)")
+    console.print(f"• [bold]Kolmogorov-Smirnov Test vs Hurrian Hymn Cadences:[/bold] [bold green]p = {res.ks_test_hurrian_p_value:.4f}[/bold green]")
+    console.print(f"\n[bold]Homology Verdict:[/bold]\n{res.rubrication_homology_verdict}\n")
+    console.print(f"[dim]{res.skeptic_verdict}[/dim]\n")
+
+
+@app.command("falsify")
+def falsify_cmd(
+    claim: str = typer.Option(..., "--claim", "-c", help="The hypothesis or decipherment claim to test"),
+    iterations: int = typer.Option(200, help="Number of Monte Carlo null surrogates"),
+    use_local_model: bool = typer.Option(True, help="Query local Ollama instance on Fedora PC/localhost"),
+    source: str = "godart_1995",
+):
+    """Subject any decipherment or structural claim to the autonomous Skeptic gauntlet."""
+    from phaistos.skeptic.adversary import run_adversarial_falsification
+
+    corpus = load_transcription(source)
+    console.print(Panel(f"[bold cyan]Autonomous Skeptic Gauntlet: Hypothesis Evaluation[/bold cyan]"))
+    console.print(f"Claim: [bold yellow]\"{claim}\"[/bold yellow]\n")
+
+    with console.status("[bold cyan]Executing Shannon Unicity bounds & Monte Carlo surrogate controls...[/bold cyan]"):
+        dossier = run_adversarial_falsification(
+            claim=claim,
+            corpus=corpus,
+            n_null_iterations=iterations,
+            use_local_model=use_local_model,
+        )
+
+    table = Table(title="Skeptic Evaluation Metrics", show_header=True)
+    table.add_column("Metric / Test", style="bold cyan")
+    table.add_column("Value / Status", justify="center")
+    table.add_column("Assessment")
+
+    dof_color = "red" if dossier.estimated_model_degrees_of_freedom > 500 else "green"
+    table.add_row(
+        "Estimated Degrees of Freedom",
+        f"[{dof_color}]{dossier.estimated_model_degrees_of_freedom} bits[/{dof_color}]",
+        f"Shannon Capacity Limit: 929 bits (Unicity U ~ 106 signs)",
+    )
+    u_color = "red" if dossier.unicity_verdict == "UNCONSTRAINED_OVERFIT" else "green"
+    table.add_row(
+        "Shannon Unicity Status",
+        f"[{u_color}]{dossier.unicity_verdict}[/{u_color}]",
+        "Mathematical overfit barrier" if dossier.unicity_verdict == "UNCONSTRAINED_OVERFIT" else "Admissible degrees of freedom",
+    )
+    table.add_row(
+        "Monte Carlo Z-Score",
+        f"{dossier.z_score:+.2f}",
+        f"p = {dossier.empirical_p_value:.4f} vs {dossier.null_surrogates_evaluated} shuffles",
+    )
+    stat_color = "red" if dossier.statistical_verdict == "FALSIFIED" else ("green" if dossier.statistical_verdict == "SURVIVES_NULL_GAUNTLET" else "yellow")
+    table.add_row(
+        "Statistical Gauntlet Status",
+        f"[{stat_color}]{dossier.statistical_verdict}[/{stat_color}]",
+        "Rejection under Skeptic Rule" if dossier.statistical_verdict == "FALSIFIED" else "Survives null controls",
+    )
+    console.print(table)
+
+    if dossier.archaeological_contradictions:
+        console.print("\n[bold red]Archaeological & Epigraphic Contradictions:[/bold red]")
+        for c in dossier.archaeological_contradictions:
+            console.print(f"  ❌ {c}")
+
+    console.print(f"\n[bold]Chief Skeptic Assessment (Duhoux Epigraphic Standard):[/bold]\n{dossier.local_model_critique}\n")
+    console.print(f"[bold]{dossier.final_verdict}[/bold]\n")
+
+
 if __name__ == "__main__":
     app()
 

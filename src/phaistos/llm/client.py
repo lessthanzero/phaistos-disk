@@ -9,9 +9,27 @@ import urllib.error
 class OllamaClient:
     """Client for local Ollama HTTP API (Mac or Fedora PC)."""
 
-    def __init__(self, host: str = "http://localhost:11434", default_model: str = "qwen2.5:3b"):
-        self.host = host.rstrip("/")
+    def __init__(self, host: Optional[str] = None, default_model: str = "qwen2.5:3b"):
+        self.candidate_hosts = [
+            host.rstrip("/") if host else None,
+            "http://localhost:11434",
+            "http://pc:11434",
+            "http://192.168.1.172:11434",
+        ]
+        self.candidate_hosts = [h for h in self.candidate_hosts if h]
+        self.host = self._find_active_host()
         self.default_model = default_model
+
+    def _find_active_host(self) -> str:
+        for candidate in self.candidate_hosts:
+            try:
+                req = urllib.request.Request(f"{candidate}/api/tags", method="GET")
+                with urllib.request.urlopen(req, timeout=1.5) as resp:
+                    if resp.status == 200:
+                        return candidate
+            except Exception:
+                continue
+        return self.candidate_hosts[0]
 
     def is_available(self) -> bool:
         """Check if local Ollama daemon is reachable."""
@@ -21,6 +39,7 @@ class OllamaClient:
                 return resp.status == 200
         except Exception:
             return False
+
 
     def list_models(self) -> List[str]:
         """List available local model tags."""
@@ -37,6 +56,7 @@ class OllamaClient:
         messages: List[Dict[str, str]],
         model: Optional[str] = None,
         temperature: float = 0.2,
+        timeout: float = 15.0,
     ) -> str:
         """Send chat completion request to local Ollama."""
         selected_model = model or self.default_model
@@ -56,10 +76,10 @@ class OllamaClient:
         )
 
         try:
-            with urllib.request.urlopen(req, timeout=180.0) as resp:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
                 res = json.loads(resp.read().decode("utf-8"))
                 return res.get("message", {}).get("content", "")
         except TimeoutError:
-            raise ConnectionError(f"Ollama inference timed out after 180s on {self.host}")
+            raise ConnectionError(f"Ollama inference timed out after {timeout}s on {self.host}")
         except urllib.error.URLError as e:
             raise ConnectionError(f"Failed to connect to local Ollama at {self.host}: {e}")

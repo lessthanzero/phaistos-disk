@@ -89,3 +89,24 @@ class CrossMatrixResult(BaseModel):
     skeptic_verdict: str
 
 
+class ScriptPhylogeneticDistance(BaseModel):
+    script_a: str
+    script_b: str
+    morphological_jaccard_distance: float
+    positional_jsd: float
+    collocation_overlap_score: float
+    composite_phylogenetic_distance: float
+
+
+class ScriptNetworkResult(BaseModel):
+    scripts_analyzed: List[str]
+    total_taxa_signs: Dict[str, int]
+    pairwise_distances: Dict[str, ScriptPhylogeneticDistance]
+    nearest_neighbor_to_phaistos: str
+    transition_hypothesis_verdict: str
+    hieroglyphic_affinity_z: float
+    linear_a_affinity_z: float
+    skeptic_verdict: str
+
+
+

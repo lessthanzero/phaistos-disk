@@ -86,3 +86,49 @@ class StrokeAnalysisResult(BaseModel):
     ictus_eval: MusicalIctusEvaluation
     skeptic_verdict: str
 
+
+class StratigraphicNode(BaseModel):
+    token_id: str
+    group_id: str
+    side: str
+    sign_id: str
+    position_in_group: int
+    turn: int
+    radial_distance_mm: float
+    topological_rank: Optional[int] = None
+
+
+class StratigraphicEdge(BaseModel):
+    source_token_id: str  # Stamped first (underlying / clipped)
+    target_token_id: str  # Stamped second (overlapping / cutting)
+    overlap_type: str     # flange_clip, edge_suppression, partial_overstrike, divider_cut
+    confidence: str
+    notes: str = ""
+
+
+class ClayDryingRheologyProfile(BaseModel):
+    initial_water_content_pct: float = 24.5
+    final_water_content_pct: float = 19.8
+    estimated_session_duration_minutes: float = 38.0
+    initial_yield_stress_kpa: float = 18.2
+    final_yield_stress_kpa: float = 46.5
+    outer_burr_displacement_mm: float = 0.44
+    inner_burr_displacement_mm: float = 0.18
+    rheological_direction_verdict: str
+
+
+class StratigraphicDAGResult(BaseModel):
+    side: str
+    total_nodes: int
+    total_edges: int
+    is_dag: bool
+    has_cycles: bool
+    topological_sequence: List[str]
+    outside_in_spearman_rho: float
+    outside_in_p_value: float
+    radial_monotonicity_pct: float
+    palimpsest_insertion_ranks: Dict[str, int]
+    drying_rheology: ClayDryingRheologyProfile
+    skeptic_verdict: str
+
+
