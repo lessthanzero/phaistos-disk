@@ -1,0 +1,97 @@
+# Proposed correspondences between Phaistos Disc and Linear A / B signs in scholarly literature
+# Strict Chain of Inference tracking:
+# L0: Native Phaistos Disc sign observation
+# L1: Visual / formal resemblance to Linear A or Cretan Hieroglyphic sign
+# L2: Linear B phonetic value projection (assumes Linear A sign has identical phonetic value to Linear B)
+# L3: Linguistic translation hypothesis (assumes phonetic value spells out words in an ancient language)
+
+correspondences:
+  - disc_sign: "38"
+    disc_name: "ROSETTE"
+    linear_a_sign: "AB08"
+    linear_b_sign: "B08"
+    proposed_phonetic_value: "a"
+    proponents: ["Evans 1909", "Timm 2005", "Duhoux 1977"]
+    inference_level: "L2"
+    visual_similarity: "high"
+    evidence_notes: "Eight-rayed rosette / star; widespread decorative and symbolic parallel in Minoan iconography."
+
+  - disc_sign: "12"
+    disc_name: "SHIELD"
+    linear_a_sign: "AB78"
+    linear_b_sign: "B78"
+    proposed_phonetic_value: "qe"
+    proponents: ["Timm 2005", "Eisenberg 2008"]
+    inference_level: "L2"
+    visual_similarity: "medium"
+    evidence_notes: "Circular sign with internal dot/boss, comparable to Linear A/B qe."
+
+  - disc_sign: "27"
+    disc_name: "HIDE"
+    linear_a_sign: "AB09"
+    linear_b_sign: "B09"
+    proposed_phonetic_value: "se"
+    proponents: ["Timm 2005"]
+    inference_level: "L2"
+    visual_similarity: "medium"
+    evidence_notes: "Animal hide with tail/limbs compared to stylized branch/hide in Linear A."
+
+  - disc_sign: "31"
+    disc_name: "EAGLE"
+    linear_a_sign: "AB81"
+    linear_b_sign: "B81"
+    proposed_phonetic_value: "ku"
+    proponents: ["Evans 1909", "Godart 1995"]
+    inference_level: "L2"
+    visual_similarity: "high"
+    evidence_notes: "Flying bird with outstretched wings identical in subject to Linear A/B ku (flying bird)."
+
+  - disc_sign: "02"
+    disc_name: "PLUMED HEAD"
+    linear_a_sign: "AB04"
+    linear_b_sign: "B04"
+    proposed_phonetic_value: "te"
+    proponents: ["Timm 2005"]
+    inference_level: "L2"
+    visual_similarity: "low"
+    evidence_notes: "Phonetic proposal based primarily on word-initial frequency distributions rather than strict visual identity."
+
+  - disc_sign: "26"
+    disc_name: "HORN"
+    linear_a_sign: "AB28"
+    linear_b_sign: "B28"
+    proposed_phonetic_value: "i"
+    proponents: ["Timm 2005"]
+    inference_level: "L2"
+    visual_similarity: "medium"
+    evidence_notes: "Curved horn compared to Linear A/B i sign."
+
+  - disc_sign: "07"
+    disc_name: "HELMET"
+    linear_a_sign: "AB31"
+    linear_b_sign: "B31"
+    proposed_phonetic_value: "sa"
+    proponents: ["Timm 2005"]
+    inference_level: "L2"
+    visual_similarity: "low"
+    evidence_notes: "Positional similarity in suffix positions."
+
+  - disc_sign: "18"
+    disc_name: "BOOMERANG"
+    linear_a_sign: "AB37"
+    linear_b_sign: "B37"
+    proposed_phonetic_value: "ti"
+    proponents: ["Timm 2005"]
+    inference_level: "L2"
+    visual_similarity: "medium"
+    evidence_notes: "Angular bent shape compared to Linear A tripod/ti."
+
+  - disc_sign: "01"
+    disc_name: "PEDESTRIAN"
+    linear_a_sign: "A100"
+    linear_b_sign: null
+    proposed_phonetic_value: null
+    proponents: ["Evans 1909", "Godart 1995"]
+    inference_level: "L1"
+    visual_similarity: "high"
+    evidence_notes: "Walking man ideogram corresponding directly to Aegean ideogram VIR / man."

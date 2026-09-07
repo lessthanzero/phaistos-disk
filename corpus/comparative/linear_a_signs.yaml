@@ -1,0 +1,97 @@
+# Linear A Sign Repertoire based on GORILA (Godart & Olivier 1976-1985) & SigLA
+signs:
+  - id: "AB01"
+    name: "da"
+    category: "syllabogram"
+    description: "Linear A sign AB01"
+    relative_frequency_rank: 6
+  - id: "AB02"
+    name: "ro"
+    category: "syllabogram"
+    description: "Linear A sign AB02"
+    relative_frequency_rank: 8
+  - id: "AB03"
+    name: "pa"
+    category: "syllabogram"
+    description: "Linear A sign AB03"
+    relative_frequency_rank: 12
+  - id: "AB04"
+    name: "te"
+    category: "syllabogram"
+    description: "Linear A sign AB04"
+    relative_frequency_rank: 5
+  - id: "AB05"
+    name: "to"
+    category: "syllabogram"
+    description: "Linear A sign AB05"
+    relative_frequency_rank: 19
+  - id: "AB06"
+    name: "na"
+    category: "syllabogram"
+    description: "Linear A sign AB06"
+    relative_frequency_rank: 11
+  - id: "AB07"
+    name: "di"
+    category: "syllabogram"
+    description: "Linear A sign AB07"
+    relative_frequency_rank: 22
+  - id: "AB08"
+    name: "a"
+    category: "syllabogram"
+    description: "Linear A sign AB08 (rosette / star-like cross)"
+    relative_frequency_rank: 1
+  - id: "AB09"
+    name: "se"
+    category: "syllabogram"
+    description: "Linear A sign AB09 (branch / pelt shape)"
+    relative_frequency_rank: 4
+  - id: "AB26"
+    name: "ru"
+    category: "syllabogram"
+    description: "Linear A sign AB26"
+    relative_frequency_rank: 15
+  - id: "AB27"
+    name: "re"
+    category: "syllabogram"
+    description: "Linear A sign AB27"
+    relative_frequency_rank: 14
+  - id: "AB28"
+    name: "i"
+    category: "syllabogram"
+    description: "Linear A sign AB28"
+    relative_frequency_rank: 3
+  - id: "AB31"
+    name: "sa"
+    category: "syllabogram"
+    description: "Linear A sign AB31"
+    relative_frequency_rank: 7
+  - id: "AB37"
+    name: "ti"
+    category: "syllabogram"
+    description: "Linear A sign AB37 (tripod / angular mark)"
+    relative_frequency_rank: 9
+  - id: "AB54"
+    name: "wa"
+    category: "syllabogram"
+    description: "Linear A sign AB54"
+    relative_frequency_rank: 10
+  - id: "AB78"
+    name: "qe"
+    category: "syllabogram"
+    description: "Linear A sign AB78 (circle with central dot)"
+    relative_frequency_rank: 13
+  - id: "AB81"
+    name: "ku"
+    category: "syllabogram"
+    description: "Linear A sign AB81 (flying bird)"
+    relative_frequency_rank: 2
+  - id: "A100"
+    name: "VIR"
+    category: "ideogram"
+    description: "Linear A man / person ideogram"
+    relative_frequency_rank: 25
+  - id: "A308"
+    name: "ROSETTE"
+    category: "ideogram"
+    description: "Linear A rosette symbol"
+    relative_frequency_rank: 30

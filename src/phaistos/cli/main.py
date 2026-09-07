@@ -354,7 +354,95 @@ def baseline_report_cmd(output_file: str = typer.Option("reports/baseline-struct
     console.print(f"[bold green]Report successfully generated at:[/bold green] [cyan]{out_path}[/cyan]")
 
 
+@app.command("correspondences")
+def correspondences_cmd():
+    """List scholarly cross-script correspondences and Chain of Inference levels."""
+    from phaistos.comparative.loader import load_proposed_correspondences
+
+    corrs = load_proposed_correspondences()
+    corpus = load_transcription("godart_1995")
+    sign_map = {s.evans_id: s for s in corpus.signs_catalogue}
+
+    table = Table(title="Scholarly Cross-Script Correspondences & Chain of Inference", show_header=True)
+    table.add_column("Disc Sign", style="bold cyan", justify="center")
+    table.add_column("Glyph", justify="center")
+    table.add_column("Name", style="bold")
+    table.add_column("Linear A", justify="center")
+    table.add_column("Linear B", justify="center")
+    table.add_column("Phonetic Value", style="bold yellow", justify="center")
+    table.add_column("Inference Level", justify="center")
+    table.add_column("Similarity", justify="center")
+    table.add_column("Proponents")
+
+    for c in corrs:
+        glyph = sign_map[c.disc_sign].unicode_char if c.disc_sign in sign_map else "?"
+        la_str = c.linear_a_sign or "-"
+        lb_str = c.linear_b_sign or "-"
+        phon_str = f"/{c.proposed_phonetic_value}/" if c.proposed_phonetic_value else "[dim]ideogram[/dim]"
+
+        lvl_color = "red" if c.inference_level.value == "L3" else ("yellow" if c.inference_level.value == "L2" else "green")
+        lvl_str = f"[{lvl_color}]{c.inference_level.value}[/{lvl_color}]"
+
+        sim_color = "green" if c.visual_similarity.value == "high" else ("yellow" if c.visual_similarity.value == "medium" else "dim red")
+        sim_str = f"[{sim_color}]{c.visual_similarity.value}[/{sim_color}]"
+
+        table.add_row(
+            c.disc_sign,
+            glyph,
+            c.disc_name,
+            la_str,
+            lb_str,
+            phon_str,
+            lvl_str,
+            sim_str,
+            ", ".join(c.proponents),
+        )
+
+    console.print(table)
+    console.print("\n[dim]Chain of Inference Legend: L0 = Observation | L1 = Formal Resemblance | L2 = Phonetic Projection | L3 = Translation Hypothesis[/dim]\n")
+
+
+@app.command("compare-linear-a")
+def compare_linear_a_cmd(iterations: int = typer.Option(500, help="Permutation test iterations")):
+    """Evaluate statistical correlation of proposed correspondences against Linear A frequencies."""
+    from phaistos.comparative.loader import load_proposed_correspondences, load_linear_a_signs
+    from phaistos.comparative.matcher import evaluate_frequency_rank_correlation
+    from phaistos.comparative.permutations import run_correspondence_permutation_test
+
+    corpus = load_transcription("godart_1995")
+    corrs = load_proposed_correspondences()
+    la_signs = load_linear_a_signs()
+
+    eval_res = evaluate_frequency_rank_correlation(corpus, corrs, la_signs)
+    perm_res = run_correspondence_permutation_test(corpus, corrs, la_signs, iterations=iterations)
+
+    console.print(Panel("[bold cyan]Phaistos vs Linear A Frequency Rank Correlation[/bold cyan]"))
+    console.print(f"Sample Size (Matched Signs): [bold]{eval_res['sample_size']:.0f}[/bold]")
+    console.print(f"Observed Spearman Rank Correlation (ρ): [bold yellow]{eval_res['spearman_rho']:+.4f}[/bold yellow]")
+    console.print(f"Analytical p-value: {eval_res['p_value']:.4f}\n")
+
+    table = Table(title="Permutation Test vs Random Linear A Assignments", show_header=True)
+    table.add_column("Observed ρ", justify="center")
+    table.add_column("Null Mean ρ (μ)", justify="center")
+    table.add_column("Null Std (σ)", justify="center")
+    table.add_column("Z-Score", justify="center")
+    table.add_column("Empirical p-value", justify="center")
+    table.add_column("Skeptic Ruling")
+
+    assessment = "[green]Statistically Significant[/green]" if perm_res["p_value"] < 0.05 else "[yellow]Inconclusive / Weak[/yellow]"
+    table.add_row(
+        f"{perm_res['observed_rho']:+.4f}",
+        f"{perm_res['null_mean_rho']:+.4f}",
+        f"{perm_res['null_std_rho']:.4f}",
+        f"{perm_res['z_score']:+.2f}",
+        f"{perm_res['p_value']:.4f}",
+        assessment,
+    )
+    console.print(table)
+
+
 if __name__ == "__main__":
     app()
+
 
 
