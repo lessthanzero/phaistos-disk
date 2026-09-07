@@ -9,7 +9,7 @@ import urllib.error
 class OllamaClient:
     """Client for local Ollama HTTP API (Mac or Fedora PC)."""
 
-    def __init__(self, host: str = "http://localhost:11434", default_model: str = "qwen2.5-coder:7b"):
+    def __init__(self, host: str = "http://localhost:11434", default_model: str = "qwen2.5:3b"):
         self.host = host.rstrip("/")
         self.default_model = default_model
 

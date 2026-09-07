@@ -6,3 +6,39 @@ experiments:
   target_language: luwian
   timestamp: '20260907_033303'
   z_score: 1.1164737066917039
+- hypothesis_id: H001
+  is_falsified: false
+  p_value: 0.0
+  run_id: 20260907_034618_H001
+  timestamp: '20260907_034618'
+  z_score: 81.14005295192703
+- hypothesis_id: H002
+  is_falsified: true
+  p_value: 0.6333333333333333
+  run_id: 20260907_034618_H002
+  timestamp: '20260907_034618'
+  z_score: -0.5857885676588629
+- hypothesis_id: H003
+  is_falsified: false
+  p_value: 0.04
+  run_id: 20260907_034618_H003
+  timestamp: '20260907_034618'
+  z_score: 2.292936874605056
+- hypothesis_id: H001
+  is_falsified: false
+  p_value: 0.0
+  run_id: 20260907_034634_H001
+  timestamp: '20260907_034634'
+  z_score: 81.14005295192703
+- hypothesis_id: H002
+  is_falsified: true
+  p_value: 0.6333333333333333
+  run_id: 20260907_034634_H002
+  timestamp: '20260907_034634'
+  z_score: -0.5857885676588629
+- hypothesis_id: H003
+  is_falsified: false
+  p_value: 0.04
+  run_id: 20260907_034634_H003
+  timestamp: '20260907_034634'
+  z_score: 2.292936874605056
