@@ -1,0 +1,40 @@
+{
+  "sign_id": "12",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:20:37.722702+00:00",
+  "iconography": {
+    "sign_id": "12",
+    "canonical_name": "Round Shield",
+    "realia_identification": "Circular Bronze Age shield with 7 peripheral/central boss studs",
+    "material_category": "weapon",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_071",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Round Shield."
+  },
+  "phonetics": {
+    "sign_id": "12",
+    "proposed_linear_a_counterpart": "AB77",
+    "proposed_linear_b_counterpart": "AB77",
+    "proposed_phonetic_values": [
+      "/ka/"
+    ],
+    "candidate_acrophonic_roots": [
+      "round"
+    ],
+    "primary_proponents": [
+      "Godart",
+      "Duhoux",
+      "Timm"
+    ],
+    "inference_level": "L2",
+    "phonetic_confidence": "plausible_parallel",
+    "epistemic_warning": "Phonetic value ['/ka/'] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 12 (Round Shield) depicts Circular Bronze Age shield with 7 peripheral/central boss studs. Iconographically, it correlates with Cretan Hieroglyphic CH_071 and Linear A AB77. Proposed phonetic assignments ['/ka/'] remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 12): Physical stamping die observed. Realia classification (Round Shield) is well-supported by Middle Minoan iconography. Phonetic projection ['/ka/'] carries high degrees of freedom and must be treated as a working hypothesis."
+}

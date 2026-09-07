@@ -1,0 +1,40 @@
+{
+  "sign_id": "44",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:11:24.001658+00:00",
+  "iconography": {
+    "sign_id": "44",
+    "canonical_name": "Small Axe",
+    "realia_identification": "Single-bladed ceremonial adze/axe or stylized labrys haft",
+    "material_category": "weapon",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_042",
+    "identification_confidence": "medium",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Small Axe."
+  },
+  "phonetics": {
+    "sign_id": "44",
+    "proposed_linear_a_counterpart": "AB08",
+    "proposed_linear_b_counterpart": "AB08",
+    "proposed_phonetic_values": [
+      "/a/"
+    ],
+    "candidate_acrophonic_roots": [
+      "small"
+    ],
+    "primary_proponents": [
+      "Godart",
+      "Duhoux",
+      "Timm"
+    ],
+    "inference_level": "L2",
+    "phonetic_confidence": "plausible_parallel",
+    "epistemic_warning": "Phonetic value ['/a/'] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 44 (Small Axe) depicts Single-bladed ceremonial adze/axe or stylized labrys haft. Iconographically, it correlates with Cretan Hieroglyphic CH_042 and Linear A AB08. Proposed phonetic assignments ['/a/'] remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 44): Physical stamping die observed. Realia classification (Small Axe) is well-supported by Middle Minoan iconography. Phonetic projection ['/a/'] carries high degrees of freedom and must be treated as a working hypothesis."
+}

@@ -1905,6 +1905,141 @@ def falsify_cmd(
     console.print(f"[bold]{dossier.final_verdict}[/bold]\n")
 
 
+@app.command("consult-sign")
+def consult_sign_cmd(
+    sign: str = typer.Option(..., "--sign", "-s", help="Sign ID (e.g. '02', '12', '44')"),
+    force_refresh: bool = typer.Option(False, "--force-refresh", "-f", help="Bypass local cache and query Codex/Ollama live"),
+):
+    """Consult OpenAI Codex (gpt-6-astra) and local models on a symbol's meaning and phonetics."""
+    from phaistos.consultation.codex_client import CodexClient
+
+    sign_pad = f"{int(sign):02d}" if sign.isdigit() else sign
+    client = CodexClient()
+
+    console.print(Panel(f"[bold cyan]Multi-Model Symbol Consultation: Sign {sign_pad}[/bold cyan]"))
+    with console.status(f"[bold cyan]Querying Codex GPT-6 Astra / epigraphic knowledge base for Sign {sign_pad}...[/bold cyan]"):
+        dossier = client.consult_sign(sign_pad, force_refresh=force_refresh)
+
+    ico = dossier.iconography
+    phon = dossier.phonetics
+
+    console.print(f"Canonical Name: [bold]{ico.canonical_name}[/bold]")
+    console.print(f"Realia Identification: [bold yellow]{ico.realia_identification}[/bold yellow]")
+    console.print(f"Material Domain: [green]{ico.material_category.replace('_', ' ').title()}[/green] | Confidence: [bold]{ico.identification_confidence.upper()}[/bold]")
+    console.print(f"Cretan Hieroglyphic Parallel: [cyan]{ico.cretan_hieroglyphic_parallel or 'None attested'}[/cyan]")
+    console.print(f"Linear A Counterpart: [cyan]{phon.proposed_linear_a_counterpart or 'None attested'}[/cyan] | Linear B: [cyan]{phon.proposed_linear_b_counterpart or 'None'}[/cyan]")
+    console.print(f"Proposed Phonetic Values: [bold magenta]{', '.join(phon.proposed_phonetic_values) if phon.proposed_phonetic_values else 'None (unassigned open CV)'}[/bold magenta] (Inference: [bold]{phon.inference_level}[/bold])")
+    console.print(f"Consultation Model: [bold green]{dossier.model_used}[/bold green] (Cached: {'Yes' if dossier.cached else 'No'})\n")
+
+    console.print(Panel(dossier.expert_synthesis, title="Expert Epigraphic & Archaeological Synthesis"))
+    console.print(f"\n[bold]Skeptic Ruling:[/bold]\n{dossier.skeptic_ruling}\n")
+
+
+@app.command("symbol-dossier")
+def symbol_dossier_cmd(
+    sign: str = typer.Option(..., "--sign", "-s", help="Sign ID (e.g. '02', '12', '44')"),
+    source: str = "godart_1995",
+):
+    """Render the comprehensive physical, iconographic, distributional, and phonetic monograph for a sign."""
+    from phaistos.semantics.sign_dossier import build_sign_dossier
+
+    sign_pad = f"{int(sign):02d}" if sign.isdigit() else sign
+    corpus = load_transcription(source)
+    dossier = build_sign_dossier(sign_pad, corpus=corpus)
+
+    p = dossier.physical
+    d = dossier.distribution
+    c = dossier.comparative
+
+    console.print(Panel(f"[bold cyan]Phaistos Sign Monograph: Sign {dossier.sign_id} ({dossier.canonical_name}) {dossier.unicode_glyph}[/bold cyan]"))
+    
+    t_phy = Table(title="1. Physical Manufacturing & Die Epigraphy", show_header=True)
+    t_phy.add_column("Parameter", style="bold cyan")
+    t_phy.add_column("Value", justify="center")
+    t_phy.add_column("Manufacturing Implications")
+
+    t_phy.add_row("Die Dimensions", f"{p.estimated_width_mm:.1f} x {p.estimated_height_mm:.1f} mm", f"Calculated relief surface area: {p.estimated_area_mm2:.1f} mm²")
+    t_phy.add_row("Relief Stamp Depth", f"{p.relief_depth_mm:.2f} mm", "Deep positive punch into soft alluvial clay")
+    t_phy.add_row("Rotation Variance", f"±{p.rotation_variance_deg:.1f}°", "Consistent hand-held stamping alignment")
+    t_phy.add_row("Distinct Punches", f"{p.distinct_punches_identified}", "Single uniform matrix punch used for all occurrences")
+    console.print(t_phy)
+
+    t_dist = Table(title="2. Distributional Syntax Across 61 Groups", show_header=True)
+    t_dist.add_column("Distribution Metric", style="bold cyan")
+    t_dist.add_column("Count / Rate", justify="center")
+    t_dist.add_column("Syntactic Profile")
+
+    t_dist.add_row("Total Occurrences", f"{d.total_occurrences}", f"Side A: {d.side_a_count} | Side B: {d.side_b_count}")
+    t_dist.add_row("Positional Distribution", f"Init: {d.initial_count} ({d.initial_rate*100:.1f}%) | Med: {d.medial_count} ({d.medial_rate*100:.1f}%) | Fin: {d.final_count} ({d.final_rate*100:.1f}%)", f"Functional Class: [bold yellow]{d.functional_class.replace('_', ' ').title()}[/bold yellow]")
+    t_dist.add_row("Oblique Stroke Co-occurrence", f"{d.stroke_count} times ({d.stroke_rate*100:.1f}%)", "Occurs with terminal liturgical rubric virgula")
+    t_dist.add_row("Top Bigram Collocations", f"{', '.join(d.top_collocations) if d.top_collocations else 'None'}", "Most frequent immediate structural neighbors")
+    console.print(t_dist)
+
+    t_comp = Table(title="3. Iconographic Realia & Comparative Phonetics", show_header=True)
+    t_comp.add_column("Category", style="bold cyan")
+    t_comp.add_column("Identification", justify="center")
+    t_comp.add_column("Epistemic Assessment")
+
+    t_comp.add_row("Material Realia", dossier.realia_identification, f"Domain: {dossier.material_domain.replace('_', ' ').title()}")
+    t_comp.add_row("Archaeological Parallels", ", ".join(dossier.archaeological_parallels), "Direct MM III / LM I Cretan material culture")
+    t_comp.add_row("Cretan Hieroglyphic", f"{c.cretan_hieroglyphic_counterpart or 'Unattested'}", "Sealstone relief archetype parallel")
+    t_comp.add_row("Linear A Counterpart", f"{c.linear_a_counterpart or 'None'}", f"Linear B: {c.linear_b_counterpart or 'None'}")
+    t_comp.add_row("Proposed Phonetic Values", f"{', '.join(c.proposed_phonetic_values) if c.proposed_phonetic_values else 'None'}", f"Confidence: [bold]{c.confidence_tier}[/bold]")
+    console.print(t_comp)
+
+    console.print(f"\n[bold]Skeptic Ruling:[/bold]\n{dossier.skeptic_warning}\n")
+
+
+@app.command("phonetic-lattice")
+def phonetic_lattice_cmd(
+    source: str = "godart_1995",
+):
+    """Display the global Bayesian cross-script phonetic lattice and anchor confidence tiers."""
+    from phaistos.decipherment.phonetic_lattice import build_phonetic_lattice
+
+    corpus = load_transcription(source)
+    res = build_phonetic_lattice(corpus)
+
+    console.print(Panel("[bold cyan]Probabilistic Cross-Script Phonetic Lattice & Bayesian Sieve[/bold cyan]"))
+    console.print(f"Total Signs Analyzed: [bold]{res.total_signs}[/bold] | Secure Cross-Script Anchors: [bold green]{res.secure_anchors_count} signs[/bold green]")
+    console.print(f"Lattice Entropy: [bold yellow]{res.lattice_entropy_bits:.1f} bits[/bold yellow] (Unconstrained Max: {res.max_possible_entropy_bits:.1f} bits, [bold green]-{res.entropy_reduction_pct:.1f}% reduction[/bold green])")
+    console.print(f"Estimated Degrees of Freedom: [bold]{res.estimated_degrees_of_freedom} bits[/bold] | Unicity Limit: [bold]{res.unicity_distance_symbols:.0f} signs (929 bits)[/bold]")
+    console.print(f"Shannon Unicity Status: [bold green]{res.unicity_status}[/bold green]\n")
+
+    table = Table(title="High-Confidence Cross-Script Anchor Nodes (Prior >= 0.50)", show_header=True)
+    table.add_column("Sign", style="bold cyan", justify="center")
+    table.add_column("Canonical Name", style="bold")
+    table.add_column("Top Syllable", style="bold magenta", justify="center")
+    table.add_column("Prior (p)", justify="center")
+    table.add_column("Source Script")
+    table.add_column("Acrophonic Root")
+    table.add_column("Proponents")
+
+    for s_id, node in sorted(res.nodes.items()):
+        if node.is_secure_anchor and node.candidates:
+            top = node.candidates[0]
+            table.add_row(
+                s_id,
+                node.canonical_name,
+                top.syllable,
+                f"{top.prior_probability:.2f}",
+                top.source_script,
+                node.candidate_acrophonic_root or "-",
+                ", ".join(top.proponents),
+            )
+    console.print(table)
+
+    t_trans = Table(title="Sample Strophic Transliteration (Anchor Substitutions on First 5 Groups)", show_header=True)
+    t_trans.add_column("Group ID", style="bold cyan")
+    t_trans.add_column("Anchor Transliteration", style="bold")
+
+    for gid, tr in res.sample_strophic_transliteration.items():
+        t_trans.add_row(gid, tr)
+    console.print(t_trans)
+
+    console.print(f"\n[bold]Skeptic Verdict:[/bold]\n{res.skeptic_verdict}\n")
+
+
 if __name__ == "__main__":
     app()
 

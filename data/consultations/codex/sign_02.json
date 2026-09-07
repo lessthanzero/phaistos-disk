@@ -1,0 +1,41 @@
+{
+  "sign_id": "02",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:09:53.875176+00:00",
+  "iconography": {
+    "sign_id": "02",
+    "canonical_name": "Plumed Head",
+    "realia_identification": "Male head in profile with crested/feathered headdress or helmet",
+    "material_category": "warrior_dress",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_040",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Plumed Head."
+  },
+  "phonetics": {
+    "sign_id": "02",
+    "proposed_linear_a_counterpart": null,
+    "proposed_linear_b_counterpart": null,
+    "proposed_phonetic_values": [
+      "/a\u2082/",
+      "/ku/"
+    ],
+    "candidate_acrophonic_roots": [
+      "plumed"
+    ],
+    "primary_proponents": [
+      "Godart",
+      "Duhoux",
+      "Timm"
+    ],
+    "inference_level": "L2",
+    "phonetic_confidence": "unattested",
+    "epistemic_warning": "Phonetic value ['/a\u2082/', '/ku/'] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 02 (Plumed Head) depicts Male head in profile with crested/feathered headdress or helmet. Iconographically, it correlates with Cretan Hieroglyphic CH_040 and Linear A unattested. Proposed phonetic assignments ['/a\u2082/', '/ku/'] remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 02): Physical stamping die observed. Realia classification (Plumed Head) is well-supported by Middle Minoan iconography. Phonetic projection ['/a\u2082/', '/ku/'] carries high degrees of freedom and must be treated as a working hypothesis."
+}

@@ -1,0 +1,34 @@
+{
+  "sign_id": "19",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:25:39.046640+00:00",
+  "iconography": {
+    "sign_id": "19",
+    "canonical_name": "Yoke / Carpenter's Tool",
+    "realia_identification": "Oxen draft yoke or wood planer",
+    "material_category": "tool",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_015",
+    "identification_confidence": "medium",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Yoke / Carpenter's Tool."
+  },
+  "phonetics": {
+    "sign_id": "19",
+    "proposed_linear_a_counterpart": null,
+    "proposed_linear_b_counterpart": null,
+    "proposed_phonetic_values": [],
+    "candidate_acrophonic_roots": [
+      "yoke"
+    ],
+    "primary_proponents": [],
+    "inference_level": "L1",
+    "phonetic_confidence": "unattested",
+    "epistemic_warning": "Phonetic value [] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 19 (Yoke / Carpenter's Tool) depicts Oxen draft yoke or wood planer. Iconographically, it correlates with Cretan Hieroglyphic CH_015 and Linear A unattested. Proposed phonetic assignments none remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 19): Physical stamping die observed. Realia classification (Yoke / Carpenter's Tool) is well-supported by Middle Minoan iconography. Phonetic projection none carries high degrees of freedom and must be treated as a working hypothesis."
+}

@@ -1,0 +1,41 @@
+{
+  "sign_id": "24",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:29:14.263842+00:00",
+  "iconography": {
+    "sign_id": "24",
+    "canonical_name": "Rosette",
+    "realia_identification": "8-petaled sacred solar/floral palace rosette",
+    "material_category": "sacred_symbol",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_070",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Rosette."
+  },
+  "phonetics": {
+    "sign_id": "24",
+    "proposed_linear_a_counterpart": "AB08",
+    "proposed_linear_b_counterpart": "AB08",
+    "proposed_phonetic_values": [
+      "/ru/",
+      "/ro/"
+    ],
+    "candidate_acrophonic_roots": [
+      "rosette"
+    ],
+    "primary_proponents": [
+      "Godart",
+      "Duhoux",
+      "Timm"
+    ],
+    "inference_level": "L2",
+    "phonetic_confidence": "plausible_parallel",
+    "epistemic_warning": "Phonetic value ['/ru/', '/ro/'] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 24 (Rosette) depicts 8-petaled sacred solar/floral palace rosette. Iconographically, it correlates with Cretan Hieroglyphic CH_070 and Linear A AB08. Proposed phonetic assignments ['/ru/', '/ro/'] remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 24): Physical stamping die observed. Realia classification (Rosette) is well-supported by Middle Minoan iconography. Phonetic projection ['/ru/', '/ro/'] carries high degrees of freedom and must be treated as a working hypothesis."
+}

@@ -1,0 +1,34 @@
+{
+  "sign_id": "15",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:22:46.853921+00:00",
+  "iconography": {
+    "sign_id": "15",
+    "canonical_name": "Mattock / Adze",
+    "realia_identification": "Curved woodworking carpenter adze",
+    "material_category": "tool",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_021",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Mattock / Adze."
+  },
+  "phonetics": {
+    "sign_id": "15",
+    "proposed_linear_a_counterpart": null,
+    "proposed_linear_b_counterpart": null,
+    "proposed_phonetic_values": [],
+    "candidate_acrophonic_roots": [
+      "mattock"
+    ],
+    "primary_proponents": [],
+    "inference_level": "L1",
+    "phonetic_confidence": "unattested",
+    "epistemic_warning": "Phonetic value [] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 15 (Mattock / Adze) depicts Curved woodworking carpenter adze. Iconographically, it correlates with Cretan Hieroglyphic CH_021 and Linear A unattested. Proposed phonetic assignments none remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 15): Physical stamping die observed. Realia classification (Mattock / Adze) is well-supported by Middle Minoan iconography. Phonetic projection none carries high degrees of freedom and must be treated as a working hypothesis."
+}

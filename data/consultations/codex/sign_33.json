@@ -1,0 +1,34 @@
+{
+  "sign_id": "33",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:30:58.931319+00:00",
+  "iconography": {
+    "sign_id": "33",
+    "canonical_name": "Fish / Tunny",
+    "realia_identification": "Mediterranean pelagic fish (tunny / mackerel)",
+    "material_category": "fauna",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_019",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Fish / Tunny."
+  },
+  "phonetics": {
+    "sign_id": "33",
+    "proposed_linear_a_counterpart": null,
+    "proposed_linear_b_counterpart": null,
+    "proposed_phonetic_values": [],
+    "candidate_acrophonic_roots": [
+      "fish"
+    ],
+    "primary_proponents": [],
+    "inference_level": "L1",
+    "phonetic_confidence": "unattested",
+    "epistemic_warning": "Phonetic value [] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 33 (Fish / Tunny) depicts Mediterranean pelagic fish (tunny / mackerel). Iconographically, it correlates with Cretan Hieroglyphic CH_019 and Linear A unattested. Proposed phonetic assignments none remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 33): Physical stamping die observed. Realia classification (Fish / Tunny) is well-supported by Middle Minoan iconography. Phonetic projection none carries high degrees of freedom and must be treated as a working hypothesis."
+}

@@ -1,0 +1,40 @@
+{
+  "sign_id": "35",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:31:20.952554+00:00",
+  "iconography": {
+    "sign_id": "35",
+    "canonical_name": "Branch / Twig",
+    "realia_identification": "Olive or date palm branchlet used in ritual aspersions",
+    "material_category": "flora",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_025",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Branch / Twig."
+  },
+  "phonetics": {
+    "sign_id": "35",
+    "proposed_linear_a_counterpart": "AB04",
+    "proposed_linear_b_counterpart": "AB04",
+    "proposed_phonetic_values": [
+      "/te/"
+    ],
+    "candidate_acrophonic_roots": [
+      "branch"
+    ],
+    "primary_proponents": [
+      "Godart",
+      "Duhoux",
+      "Timm"
+    ],
+    "inference_level": "L2",
+    "phonetic_confidence": "plausible_parallel",
+    "epistemic_warning": "Phonetic value ['/te/'] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 35 (Branch / Twig) depicts Olive or date palm branchlet used in ritual aspersions. Iconographically, it correlates with Cretan Hieroglyphic CH_025 and Linear A AB04. Proposed phonetic assignments ['/te/'] remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 35): Physical stamping die observed. Realia classification (Branch / Twig) is well-supported by Middle Minoan iconography. Phonetic projection ['/te/'] carries high degrees of freedom and must be treated as a working hypothesis."
+}

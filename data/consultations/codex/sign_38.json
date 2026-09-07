@@ -1,0 +1,40 @@
+{
+  "sign_id": "38",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:31:53.116191+00:00",
+  "iconography": {
+    "sign_id": "38",
+    "canonical_name": "Tripartite Shrine / Pagoda",
+    "realia_identification": "Minoan tripartite peak sanctuary or multi-storied shrine",
+    "material_category": "architecture",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_036",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Tripartite Shrine / Pagoda."
+  },
+  "phonetics": {
+    "sign_id": "38",
+    "proposed_linear_a_counterpart": "AB54",
+    "proposed_linear_b_counterpart": "AB54",
+    "proposed_phonetic_values": [
+      "/wa/"
+    ],
+    "candidate_acrophonic_roots": [
+      "tripartite"
+    ],
+    "primary_proponents": [
+      "Godart",
+      "Duhoux",
+      "Timm"
+    ],
+    "inference_level": "L2",
+    "phonetic_confidence": "plausible_parallel",
+    "epistemic_warning": "Phonetic value ['/wa/'] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 38 (Tripartite Shrine / Pagoda) depicts Minoan tripartite peak sanctuary or multi-storied shrine. Iconographically, it correlates with Cretan Hieroglyphic CH_036 and Linear A AB54. Proposed phonetic assignments ['/wa/'] remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 38): Physical stamping die observed. Realia classification (Tripartite Shrine / Pagoda) is well-supported by Middle Minoan iconography. Phonetic projection ['/wa/'] carries high degrees of freedom and must be treated as a working hypothesis."
+}

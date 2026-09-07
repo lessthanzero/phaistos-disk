@@ -1,0 +1,40 @@
+{
+  "sign_id": "01",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:13:27.301083+00:00",
+  "iconography": {
+    "sign_id": "01",
+    "canonical_name": "Pedestrian / Walking Youth",
+    "realia_identification": "Striding male human figure in Minoan loincloth",
+    "material_category": "warrior_dress",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_001",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Pedestrian / Walking Youth."
+  },
+  "phonetics": {
+    "sign_id": "01",
+    "proposed_linear_a_counterpart": "AB01",
+    "proposed_linear_b_counterpart": "AB01",
+    "proposed_phonetic_values": [
+      "/da/"
+    ],
+    "candidate_acrophonic_roots": [
+      "pedestrian"
+    ],
+    "primary_proponents": [
+      "Godart",
+      "Duhoux",
+      "Timm"
+    ],
+    "inference_level": "L2",
+    "phonetic_confidence": "plausible_parallel",
+    "epistemic_warning": "Phonetic value ['/da/'] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 01 (Pedestrian / Walking Youth) depicts Striding male human figure in Minoan loincloth. Iconographically, it correlates with Cretan Hieroglyphic CH_001 and Linear A AB01. Proposed phonetic assignments ['/da/'] remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 01): Physical stamping die observed. Realia classification (Pedestrian / Walking Youth) is well-supported by Middle Minoan iconography. Phonetic projection ['/da/'] carries high degrees of freedom and must be treated as a working hypothesis."
+}

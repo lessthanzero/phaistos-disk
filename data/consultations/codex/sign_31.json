@@ -1,0 +1,34 @@
+{
+  "sign_id": "31",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:30:37.154354+00:00",
+  "iconography": {
+    "sign_id": "31",
+    "canonical_name": "Eagle / Flying Bird",
+    "realia_identification": "Raptor / bird of prey in soaring flight",
+    "material_category": "fauna",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_082",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Eagle / Flying Bird."
+  },
+  "phonetics": {
+    "sign_id": "31",
+    "proposed_linear_a_counterpart": null,
+    "proposed_linear_b_counterpart": null,
+    "proposed_phonetic_values": [],
+    "candidate_acrophonic_roots": [
+      "eagle"
+    ],
+    "primary_proponents": [],
+    "inference_level": "L1",
+    "phonetic_confidence": "unattested",
+    "epistemic_warning": "Phonetic value [] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 31 (Eagle / Flying Bird) depicts Raptor / bird of prey in soaring flight. Iconographically, it correlates with Cretan Hieroglyphic CH_082 and Linear A unattested. Proposed phonetic assignments none remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 31): Physical stamping die observed. Realia classification (Eagle / Flying Bird) is well-supported by Middle Minoan iconography. Phonetic projection none carries high degrees of freedom and must be treated as a working hypothesis."
+}

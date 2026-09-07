@@ -1,0 +1,40 @@
+{
+  "sign_id": "26",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:29:42.606023+00:00",
+  "iconography": {
+    "sign_id": "26",
+    "canonical_name": "Galley / Ship",
+    "realia_identification": "High-prow Aegean merchant or war galley with steering oar",
+    "material_category": "maritime",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_041",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Galley / Ship."
+  },
+  "phonetics": {
+    "sign_id": "26",
+    "proposed_linear_a_counterpart": null,
+    "proposed_linear_b_counterpart": null,
+    "proposed_phonetic_values": [
+      "/na/"
+    ],
+    "candidate_acrophonic_roots": [
+      "galley"
+    ],
+    "primary_proponents": [
+      "Godart",
+      "Duhoux",
+      "Timm"
+    ],
+    "inference_level": "L2",
+    "phonetic_confidence": "unattested",
+    "epistemic_warning": "Phonetic value ['/na/'] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 26 (Galley / Ship) depicts High-prow Aegean merchant or war galley with steering oar. Iconographically, it correlates with Cretan Hieroglyphic CH_041 and Linear A unattested. Proposed phonetic assignments ['/na/'] remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 26): Physical stamping die observed. Realia classification (Galley / Ship) is well-supported by Middle Minoan iconography. Phonetic projection ['/na/'] carries high degrees of freedom and must be treated as a working hypothesis."
+}

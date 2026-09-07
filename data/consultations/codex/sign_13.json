@@ -1,0 +1,34 @@
+{
+  "sign_id": "13",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:21:20.778762+00:00",
+  "iconography": {
+    "sign_id": "13",
+    "canonical_name": "Club",
+    "realia_identification": "Knotted hardwood throwing club or cudgel",
+    "material_category": "weapon",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_012",
+    "identification_confidence": "medium",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Club."
+  },
+  "phonetics": {
+    "sign_id": "13",
+    "proposed_linear_a_counterpart": null,
+    "proposed_linear_b_counterpart": null,
+    "proposed_phonetic_values": [],
+    "candidate_acrophonic_roots": [
+      "club"
+    ],
+    "primary_proponents": [],
+    "inference_level": "L1",
+    "phonetic_confidence": "unattested",
+    "epistemic_warning": "Phonetic value [] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 13 (Club) depicts Knotted hardwood throwing club or cudgel. Iconographically, it correlates with Cretan Hieroglyphic CH_012 and Linear A unattested. Proposed phonetic assignments none remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 13): Physical stamping die observed. Realia classification (Club) is well-supported by Middle Minoan iconography. Phonetic projection none carries high degrees of freedom and must be treated as a working hypothesis."
+}

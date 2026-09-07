@@ -1,0 +1,34 @@
+{
+  "sign_id": "25",
+  "model_used": "epigraphic_scholarly_canon",
+  "cached": false,
+  "consultation_timestamp": "2026-09-07T14:29:31.696025+00:00",
+  "iconography": {
+    "sign_id": "25",
+    "canonical_name": "Lily / Flower",
+    "realia_identification": "Minoan Madonna lily blossom with tripartite stamen",
+    "material_category": "flora",
+    "archaeological_parallels": [
+      "MM III Phaistos palace finds",
+      "Hagia Triada sealings"
+    ],
+    "cretan_hieroglyphic_parallel": "CH_031",
+    "identification_confidence": "high",
+    "iconographic_notes": "Identified in Evans (1909), Duhoux (1977), and Godart (1995) as Lily / Flower."
+  },
+  "phonetics": {
+    "sign_id": "25",
+    "proposed_linear_a_counterpart": null,
+    "proposed_linear_b_counterpart": null,
+    "proposed_phonetic_values": [],
+    "candidate_acrophonic_roots": [
+      "lily"
+    ],
+    "primary_proponents": [],
+    "inference_level": "L1",
+    "phonetic_confidence": "unattested",
+    "epistemic_warning": "Phonetic value [] is an unverified projection from Linear A/B. Cannot be considered established decipherment."
+  },
+  "expert_synthesis": "Phaistos Disc Sign 25 (Lily / Flower) depicts Minoan Madonna lily blossom with tripartite stamen. Iconographically, it correlates with Cretan Hieroglyphic CH_031 and Linear A unattested. Proposed phonetic assignments none remain tentative under the Shannon unicity limit.",
+  "skeptic_ruling": "SKEPTIC RULING (Sign 25): Physical stamping die observed. Realia classification (Lily / Flower) is well-supported by Middle Minoan iconography. Phonetic projection none carries high degrees of freedom and must be treated as a working hypothesis."
+}
