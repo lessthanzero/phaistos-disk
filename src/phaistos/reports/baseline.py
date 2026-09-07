@@ -3,6 +3,7 @@
 from datetime import datetime, timezone
 from pathlib import Path
 from phaistos.core.models import DiscCorpus
+from phaistos.visualizer.glyphs import get_sign_glyph_data
 from phaistos.stats.frequency import (
     compute_sign_frequencies,
     compute_group_length_distribution,
@@ -107,22 +108,24 @@ def generate_baseline_structural_report(corpus: DiscCorpus, output_path: Path) -
 
     md.append("## 3. Repetition & Refrain Structure\n")
     md.append("### 3.1 Identical Groups\n")
-    md.append("| Sign Sequence | Glyphs | Occurrences | Group IDs |")
-    md.append("| :--- | :---: | :---: | :--- |")
+    md.append("| Sign Sequence | Emojis | Glyphs (SMP) | Occurrences | Group IDs |")
+    md.append("| :--- | :---: | :---: | :---: | :--- |")
     for seq, g_ids in sorted(identical.items(), key=lambda x: len(x[1]), reverse=True):
         signs_list = seq.split("-")
+        emojis_str = " ".join(get_sign_glyph_data(s)["emoji"] for s in signs_list)
         glyphs_str = "".join(sign_map[s].unicode_char for s in signs_list if s in sign_map)
-        md.append(f"| `{seq}` | {glyphs_str} | {len(g_ids)} | {', '.join(g_ids)} |")
+        md.append(f"| `{seq}` | {emojis_str} | {glyphs_str} | {len(g_ids)} | {', '.join(g_ids)} |")
 
     md.append("\n### 3.2 Common Prefixes (Length >= 2)\n")
-    md.append("| Prefix | Glyphs | Frequency | Exemplar Groups |")
-    md.append("| :--- | :---: | :---: | :--- |")
+    md.append("| Prefix | Emojis | Glyphs (SMP) | Frequency | Exemplar Groups |")
+    md.append("| :--- | :---: | :---: | :---: | :--- |")
     for pref, count in affixes["prefixes"].most_common(8):
         if count > 1:
             signs_list = pref.split("-")
+            emojis_str = " ".join(get_sign_glyph_data(s)["emoji"] for s in signs_list)
             glyphs_str = "".join(sign_map[s].unicode_char for s in signs_list if s in sign_map)
             ex_groups = [g.id for g in corpus.all_groups() if "-".join(g.signs[: len(signs_list)]) == pref][:5]
-            md.append(f"| `{pref}` | {glyphs_str} | {count} | {', '.join(ex_groups)} |")
+            md.append(f"| `{pref}` | {emojis_str} | {glyphs_str} | {count} | {', '.join(ex_groups)} |")
 
     md.append("\n### 3.3 Near-Identical Groups (Edit Distance = 1)\n")
     md.append("| Pair | Distance | Signs Comparison |")
@@ -133,23 +136,25 @@ def generate_baseline_structural_report(corpus: DiscCorpus, output_path: Path) -
         md.append(f"| `{g1_id}` ↔ `{g2_id}` | {d} | `{'-'.join(g1.signs)}` vs `{'-'.join(g2.signs)}` |")
 
     md.append("\n## 4. Positional Preferences of Frequent Signs\n")
-    md.append("| Evans ID | Glyph | Name | Total Count | $P(\\text{initial})$ | $P(\\text{medial})$ | $P(\\text{final})$ | Positional Bias |")
-    md.append("| :---: | :---: | :--- | :---: | :---: | :---: | :---: | :--- |")
+    md.append("| Evans ID | Emoji | Glyph (SMP) | Name | Total Count | $P(\\text{initial})$ | $P(\\text{medial})$ | $P(\\text{final})$ | Positional Bias |")
+    md.append("| :---: | :---: | :---: | :--- | :---: | :---: | :---: | :---: | :--- |")
     for s_id, cnt in counts.most_common(12):
         st = pos_stats[s_id]
         s_obj = sign_map[s_id]
+        gdata = get_sign_glyph_data(s_id)
         bias = "Initial" if st["p_initial"] > 0.5 else ("Final" if st["p_final"] > 0.5 else "Medial / Balanced")
-        md.append(f"| `{s_id}` | {s_obj.unicode_char} | {s_obj.name} | {cnt} | {st['p_initial']:.2f} | {st['p_medial']:.2f} | {st['p_final']:.2f} | **{bias}** |")
+        md.append(f"| `{s_id}` | {gdata['emoji']} | {s_obj.unicode_char} | {s_obj.name} | {cnt} | {st['p_initial']:.2f} | {st['p_medial']:.2f} | {st['p_final']:.2f} | **{bias}** |")
 
     md.append("\n## 5. Incised Oblique Strokes (Virama / Punctuation)\n")
     md.append("Distribution of signs bearing an incised stroke beneath them:\n")
-    md.append("| Evans ID | Glyph | Name | Stroke Count |")
-    md.append("| :---: | :---: | :--- | :---: |")
+    md.append("| Evans ID | Emoji | Glyph (SMP) | Name | Stroke Count |")
+    md.append("| :---: | :---: | :---: | :--- | :---: |")
     for s_id, s_cnt in oblique_counts.most_common():
         s_obj = sign_map.get(s_id)
         name = s_obj.name if s_obj else "UNKNOWN"
         glyph = s_obj.unicode_char if s_obj else "?"
-        md.append(f"| `{s_id}` | {glyph} | {name} | {s_cnt} |")
+        gdata = get_sign_glyph_data(s_id)
+        md.append(f"| `{s_id}` | {gdata['emoji']} | {glyph} | {name} | {s_cnt} |")
 
     md.append("\n## 6. Information Theoretic Conclusions\n")
     md.append("1. **Information Density:** The Disc's unigram entropy (4.98 bits) is constrained relative to a uniform 45-character alphabet (5.49 bits), matching expected entropy levels for natural language syllabaries.")

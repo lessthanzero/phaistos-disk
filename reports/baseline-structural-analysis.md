@@ -1,6 +1,6 @@
 # Phaistos Disc: Quantitative Structural Baseline Report
 
-> **Generated:** 2026-09-07 03:24:47 UTC
+> **Generated:** 2026-09-07 16:00:40 UTC
 > **Source Edition:** godart_1995
 > **Reading Trajectory:** outside_in
 
@@ -33,28 +33,28 @@ To prevent statistical self-deception, key structural metrics were evaluated aga
 
 ### 3.1 Identical Groups
 
-| Sign Sequence | Glyphs | Occurrences | Group IDs |
-| :--- | :---: | :---: | :--- |
-| `02-12-31-26` | 𐇑𐇛𐇮𐇩 | 3 | A16, A19, A22 |
-| `29-45-07` | 𐇬𐇼𐇖 | 2 | A03, B20 |
-| `02-27-25-10-23-18` | 𐇑𐇪𐇨𐇙𐇦𐇡 | 2 | A14, A20 |
-| `28-01` | 𐇫𐇐 | 2 | A15, A21 |
-| `02-12-27-27-35-37-21` | 𐇑𐇛𐇪𐇪𐇲𐇴𐇤 | 2 | A17, A29 |
-| `10-03-38` | 𐇙𐇒𐇵 | 2 | A28, A31 |
-| `22-29-36-07-08` | 𐇥𐇬𐇳𐇖𐇗 | 2 | B21, B26 |
+| Sign Sequence | Emojis | Glyphs (SMP) | Occurrences | Group IDs |
+| :--- | :---: | :---: | :---: | :--- |
+| `02-12-31-26` | 🪶 🛡️ 🦅 ⛵ | 𐇑𐇛𐇮𐇩 | 3 | A16, A19, A22 |
+| `29-45-07` | 🐱 〰️ 🍼 | 𐇬𐇼𐇖 | 2 | A03, B20 |
+| `02-27-25-10-23-18` | 🪶 🤘 ⚜️ 🏹 🌲 📐 | 𐇑𐇪𐇨𐇙𐇦𐇡 | 2 | A14, A20 |
+| `28-01` | 🥩 🚶 | 𐇫𐇐 | 2 | A15, A21 |
+| `02-12-27-27-35-37-21` | 🪶 🛡️ 🤘 🤘 🌿 🪜 🪈 | 𐇑𐇛𐇪𐇪𐇲𐇴𐇤 | 2 | A17, A29 |
+| `10-03-38` | 🏹 👤 🏛️ | 𐇙𐇒𐇵 | 2 | A28, A31 |
+| `22-29-36-07-08` | 🌾 🐱 🌱 🍼 🥊 | 𐇥𐇬𐇳𐇖𐇗 | 2 | B21, B26 |
 
 ### 3.2 Common Prefixes (Length >= 2)
 
-| Prefix | Glyphs | Frequency | Exemplar Groups |
-| :--- | :---: | :---: | :--- |
-| `02-12` | 𐇑𐇛 | 13 | A01, A05, A08, A10, A12 |
-| `29-45` | 𐇬𐇼 | 2 | A03, B20 |
-| `27-45` | 𐇪𐇼 | 2 | A06, B02 |
-| `31-26` | 𐇮𐇩 | 2 | A09, A25 |
-| `02-27` | 𐇑𐇪 | 2 | A14, A20 |
-| `28-01` | 𐇫𐇐 | 2 | A15, A21 |
-| `10-03` | 𐇙𐇒 | 2 | A28, A31 |
-| `13-01` | 𐇜𐇐 | 2 | A30, B07 |
+| Prefix | Emojis | Glyphs (SMP) | Frequency | Exemplar Groups |
+| :--- | :---: | :---: | :---: | :--- |
+| `02-12` | 🪶 🛡️ | 𐇑𐇛 | 13 | A01, A05, A08, A10, A12 |
+| `29-45` | 🐱 〰️ | 𐇬𐇼 | 2 | A03, B20 |
+| `27-45` | 🤘 〰️ | 𐇪𐇼 | 2 | A06, B02 |
+| `31-26` | 🦅 ⛵ | 𐇮𐇩 | 2 | A09, A25 |
+| `02-27` | 🪶 🤘 | 𐇑𐇪 | 2 | A14, A20 |
+| `28-01` | 🥩 🚶 | 𐇫𐇐 | 2 | A15, A21 |
+| `10-03` | 🏹 👤 | 𐇙𐇒 | 2 | A28, A31 |
+| `13-01` | 🪵 🚶 | 𐇜𐇐 | 2 | A30, B07 |
 
 ### 3.3 Near-Identical Groups (Edit Distance = 1)
 
@@ -71,37 +71,37 @@ To prevent statistical self-deception, key structural metrics were evaluated aga
 
 ## 4. Positional Preferences of Frequent Signs
 
-| Evans ID | Glyph | Name | Total Count | $P(\text{initial})$ | $P(\text{medial})$ | $P(\text{final})$ | Positional Bias |
-| :---: | :---: | :--- | :---: | :---: | :---: | :---: | :--- |
-| `02` | 𐇑 | PLUMED HEAD | 20 | 0.95 | 0.00 | 0.05 | **Initial** |
-| `07` | 𐇖 | HELMET | 18 | 0.22 | 0.33 | 0.44 | **Medial / Balanced** |
-| `12` | 𐇛 | SHIELD | 17 | 0.00 | 0.76 | 0.24 | **Medial / Balanced** |
-| `27` | 𐇪 | HIDE | 15 | 0.33 | 0.53 | 0.13 | **Medial / Balanced** |
-| `18` | 𐇡 | BOOMERANG | 12 | 0.00 | 0.58 | 0.42 | **Medial / Balanced** |
-| `01` | 𐇐 | PEDESTRIAN | 11 | 0.09 | 0.27 | 0.64 | **Final** |
-| `29` | 𐇬 | CAT | 11 | 0.73 | 0.27 | 0.00 | **Initial** |
-| `35` | 𐇲 | PLANE TREE | 11 | 0.00 | 0.36 | 0.64 | **Final** |
-| `23` | 𐇦 | COLUMN | 11 | 0.09 | 0.82 | 0.09 | **Medial / Balanced** |
-| `25` | 𐇨 | SHIP | 7 | 0.00 | 0.57 | 0.43 | **Medial / Balanced** |
-| `13` | 𐇜 | CLUB | 6 | 0.33 | 0.50 | 0.17 | **Medial / Balanced** |
-| `24` | 𐇧 | BEEHIVE | 6 | 0.17 | 0.67 | 0.17 | **Medial / Balanced** |
+| Evans ID | Emoji | Glyph (SMP) | Name | Total Count | $P(\text{initial})$ | $P(\text{medial})$ | $P(\text{final})$ | Positional Bias |
+| :---: | :---: | :---: | :--- | :---: | :---: | :---: | :---: | :--- |
+| `02` | 🪶 | 𐇑 | PLUMED HEAD | 20 | 0.95 | 0.00 | 0.05 | **Initial** |
+| `07` | 🍼 | 𐇖 | HELMET | 18 | 0.22 | 0.33 | 0.44 | **Medial / Balanced** |
+| `12` | 🛡️ | 𐇛 | SHIELD | 17 | 0.00 | 0.76 | 0.24 | **Medial / Balanced** |
+| `27` | 🤘 | 𐇪 | HIDE | 15 | 0.33 | 0.53 | 0.13 | **Medial / Balanced** |
+| `18` | 📐 | 𐇡 | BOOMERANG | 12 | 0.00 | 0.58 | 0.42 | **Medial / Balanced** |
+| `01` | 🚶 | 𐇐 | PEDESTRIAN | 11 | 0.09 | 0.27 | 0.64 | **Final** |
+| `29` | 🐱 | 𐇬 | CAT | 11 | 0.73 | 0.27 | 0.00 | **Initial** |
+| `35` | 🌿 | 𐇲 | PLANE TREE | 11 | 0.00 | 0.36 | 0.64 | **Final** |
+| `23` | 🌲 | 𐇦 | COLUMN | 11 | 0.09 | 0.82 | 0.09 | **Medial / Balanced** |
+| `25` | ⚜️ | 𐇨 | SHIP | 7 | 0.00 | 0.57 | 0.43 | **Medial / Balanced** |
+| `13` | 🪵 | 𐇜 | CLUB | 6 | 0.33 | 0.50 | 0.17 | **Medial / Balanced** |
+| `24` | 🌸 | 𐇧 | BEEHIVE | 6 | 0.17 | 0.67 | 0.17 | **Medial / Balanced** |
 
 ## 5. Incised Oblique Strokes (Virama / Punctuation)
 
 Distribution of signs bearing an incised stroke beneath them:
 
-| Evans ID | Glyph | Name | Stroke Count |
-| :---: | :---: | :--- | :---: |
-| `07` | 𐇖 | HELMET | 4 |
-| `26` | 𐇩 | HORN | 3 |
-| `08` | 𐇗 | GAUNTLET | 3 |
-| `01` | 𐇐 | PEDESTRIAN | 2 |
-| `18` | 𐇡 | BOOMERANG | 1 |
-| `38` | 𐇵 | ROSETTE | 1 |
-| `19` | 𐇢 | CARPENTRY PLANE | 1 |
-| `35` | 𐇲 | PLANE TREE | 1 |
-| `05` | 𐇔 | CHILD | 1 |
-| `43` | 𐇺 | STRAINER | 1 |
+| Evans ID | Emoji | Glyph (SMP) | Name | Stroke Count |
+| :---: | :---: | :---: | :--- | :---: |
+| `07` | 🍼 | 𐇖 | HELMET | 4 |
+| `26` | ⛵ | 𐇩 | HORN | 3 |
+| `08` | 🥊 | 𐇗 | GAUNTLET | 3 |
+| `01` | 🚶 | 𐇐 | PEDESTRIAN | 2 |
+| `18` | 📐 | 𐇡 | BOOMERANG | 1 |
+| `38` | 🏛️ | 𐇵 | ROSETTE | 1 |
+| `19` | 🪵 | 𐇢 | CARPENTRY PLANE | 1 |
+| `35` | 🌿 | 𐇲 | PLANE TREE | 1 |
+| `05` | 👶 | 𐇔 | CHILD | 1 |
+| `43` | 🔺 | 𐇺 | STRAINER | 1 |
 
 ## 6. Information Theoretic Conclusions
 

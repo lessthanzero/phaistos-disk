@@ -2,446 +2,446 @@
   <circle cx="400.0" cy="400.0" r="380.0" fill="#F4EDE2" stroke="#B8977E" stroke-width="3" />
   <circle cx="400.0" cy="400.0" r="81.0" fill="#E8DEC8" stroke="#B8977E" stroke-width="1.5" />
   <text x="400.0" y="35" font-family="system-ui, sans-serif" font-size="22" font-weight="bold" fill="#3D312A" text-anchor="middle">PHAISTOS DISC — SIDE A</text>
-  <text x="400.0" y="60" font-family="system-ui, sans-serif" font-size="13" fill="#7A685D" text-anchor="middle">31 groups | 123 stamped signs | 10 incised strokes</text>
+  <text x="400.0" y="60" font-family="system-ui, sans-serif" font-size="13" fill="#7A685D" text-anchor="middle">31 groups | 123 stamped signs | 10 incised strokes | Mode: Emoji + ID</text>
   <line x1="382.9" y1="58.4" x2="381.1" y2="22.5" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="400.0" y="14.0" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A01</text>
-  <circle cx="400.0" cy="40.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="400.0" y="45.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="400.0" y="52.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="476.2" cy="50.4" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="476.2" y="55.4" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="476.2" y="62.4" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="548.0" cy="76.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="548.0" y="81.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇜</text>
-  <text x="548.0" y="88.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">13</text>
-  <circle cx="612.2" cy="117.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="612.2" y="122.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇐</text>
-  <text x="612.2" y="129.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">01</text>
-  <circle cx="665.9" cy="170.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="665.9" y="175.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇡</text>
-  <text x="665.9" y="182.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">18</text>
+  <circle cx="400.0" cy="40.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="400.0" y="43.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="400.0" y="51.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="476.2" cy="50.4" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="476.2" y="53.9" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="476.2" y="61.9" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="548.0" cy="76.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="548.0" y="80.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪵</text>
+  <text x="548.0" y="88.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">13</text>
+  <circle cx="612.2" cy="117.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="612.2" y="120.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🚶</text>
+  <text x="612.2" y="128.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">01</text>
+  <circle cx="665.9" cy="170.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="665.9" y="173.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">📐</text>
+  <text x="665.9" y="181.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">18</text>
   <line x1="659.9" y1="185.2" x2="671.9" y2="191.2" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="682.8" y1="227.4" x2="713.5" y2="208.6" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="729.7" y="220.7" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A02</text>
-  <circle cx="706.8" cy="233.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="706.8" y="238.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇧</text>
-  <text x="706.8" y="245.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">24</text>
-  <circle cx="733.3" cy="302.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="733.3" y="307.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇷</text>
-  <text x="733.3" y="314.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">40</text>
-  <circle cx="744.2" cy="376.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="744.2" y="381.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="744.2" y="388.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
+  <circle cx="706.8" cy="233.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="706.8" y="236.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌸</text>
+  <text x="706.8" y="244.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">24</text>
+  <circle cx="733.3" cy="302.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="733.3" y="306.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">📜</text>
+  <text x="733.3" y="314.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">40</text>
+  <circle cx="744.2" cy="376.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="744.2" y="379.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="744.2" y="387.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
   <line x1="723.3" y1="431.0" x2="759.2" y2="434.4" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="764.9" y="453.5" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A03</text>
-  <circle cx="739.2" cy="449.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="739.2" y="454.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇬</text>
-  <text x="739.2" y="461.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">29</text>
-  <circle cx="718.8" cy="520.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="718.8" y="525.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇼</text>
-  <text x="718.8" y="532.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">45</text>
-  <circle cx="684.2" cy="584.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="684.2" y="589.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇖</text>
-  <text x="684.2" y="596.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">07</text>
+  <circle cx="739.2" cy="449.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="739.2" y="453.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🐱</text>
+  <text x="739.2" y="461.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">29</text>
+  <circle cx="718.8" cy="520.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="718.8" y="523.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">〰️</text>
+  <text x="718.8" y="531.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">45</text>
+  <circle cx="684.2" cy="584.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="684.2" y="587.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🍼</text>
+  <text x="684.2" y="595.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">07</text>
   <line x1="678.2" y1="599.0" x2="690.2" y2="605.0" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="635.3" y1="614.5" x2="661.9" y2="638.8" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="655.3" y="657.2" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A04</text>
-  <circle cx="637.0" cy="638.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="637.0" y="643.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇬</text>
-  <text x="637.0" y="650.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">29</text>
-  <circle cx="579.5" cy="681.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="579.5" y="686.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇬</text>
-  <text x="579.5" y="693.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">29</text>
-  <circle cx="514.6" cy="711.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="514.6" y="716.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇱</text>
-  <text x="514.6" y="723.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">34</text>
+  <circle cx="637.0" cy="638.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="637.0" y="642.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🐱</text>
+  <text x="637.0" y="650.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">29</text>
+  <circle cx="579.5" cy="681.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="579.5" y="685.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🐱</text>
+  <text x="579.5" y="693.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">29</text>
+  <circle cx="514.6" cy="711.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="514.6" y="715.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🐝</text>
+  <text x="514.6" y="723.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">34</text>
   <line x1="458.3" y1="706.5" x2="465.0" y2="741.8" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="448.9" y="752.6" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A05</text>
-  <circle cx="445.4" cy="726.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="445.4" y="731.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="445.4" y="738.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="374.9" cy="726.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="374.9" y="731.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="374.9" y="738.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="306.5" cy="712.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="306.5" y="717.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇓</text>
-  <text x="306.5" y="724.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">04</text>
-  <circle cx="243.3" cy="683.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="243.3" y="688.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇷</text>
-  <text x="243.3" y="695.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">40</text>
-  <circle cx="188.0" cy="641.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="188.0" y="646.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇰</text>
-  <text x="188.0" y="653.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">33</text>
+  <circle cx="445.4" cy="726.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="445.4" y="730.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="445.4" y="738.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="374.9" cy="726.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="374.9" y="730.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="374.9" y="738.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="306.5" cy="712.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="306.5" y="715.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">⛓️</text>
+  <text x="306.5" y="723.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">04</text>
+  <circle cx="243.3" cy="683.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="243.3" y="686.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">📜</text>
+  <text x="243.3" y="694.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">40</text>
+  <circle cx="188.0" cy="641.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="188.0" y="645.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🐟</text>
+  <text x="188.0" y="653.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">33</text>
   <line x1="166.9" y1="590.8" x2="139.1" y2="613.6" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="122.3" y="605.0" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A06</text>
-  <circle cx="143.2" cy="589.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="143.2" y="594.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="143.2" y="601.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
-  <circle cx="110.7" cy="529.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="110.7" y="534.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇼</text>
-  <text x="110.7" y="541.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">45</text>
-  <circle cx="91.8" cy="464.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="91.8" y="469.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇖</text>
-  <text x="91.8" y="476.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">07</text>
-  <circle cx="87.2" cy="397.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="87.2" y="402.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="87.2" y="409.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
+  <circle cx="143.2" cy="589.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="143.2" y="593.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="143.2" y="601.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
+  <circle cx="110.7" cy="529.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="110.7" y="533.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">〰️</text>
+  <text x="110.7" y="541.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">45</text>
+  <circle cx="91.8" cy="464.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="91.8" y="468.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🍼</text>
+  <text x="91.8" y="476.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">07</text>
+  <circle cx="87.2" cy="397.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="87.2" y="401.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="87.2" y="409.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
   <line x1="111.7" y1="349.9" x2="76.2" y2="343.7" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="71.6" y="325.8" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A07</text>
-  <circle cx="97.0" cy="331.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="97.0" y="336.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="97.0" y="343.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
-  <circle cx="120.5" cy="269.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="120.5" y="274.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇻</text>
-  <text x="120.5" y="281.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">44</text>
-  <circle cx="156.4" cy="214.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="156.4" y="219.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇗</text>
-  <text x="156.4" y="226.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">08</text>
+  <circle cx="97.0" cy="331.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="97.0" y="335.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="97.0" y="343.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
+  <circle cx="120.5" cy="269.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="120.5" y="273.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪓</text>
+  <text x="120.5" y="281.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">44</text>
+  <circle cx="156.4" cy="214.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="156.4" y="217.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🥊</text>
+  <text x="156.4" y="225.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">08</text>
   <line x1="203.9" y1="191.6" x2="179.2" y2="165.3" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="186.0" y="148.5" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A08</text>
-  <circle cx="202.9" cy="168.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="202.9" y="173.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="202.9" y="180.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="257.7" cy="133.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="257.7" y="138.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="257.7" y="145.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="318.3" cy="111.4" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="318.3" y="116.4" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇕</text>
-  <text x="318.3" y="123.4" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">06</text>
-  <circle cx="381.8" cy="102.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="381.8" y="107.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇡</text>
-  <text x="381.8" y="114.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">18</text>
-  <circle cx="445.1" cy="107.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="445.1" y="112.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="445.1" y="119.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
+  <circle cx="202.9" cy="168.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="202.9" y="171.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="202.9" y="179.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="257.7" cy="133.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="257.7" y="137.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="257.7" y="145.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="318.3" cy="111.4" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="318.3" y="114.9" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">👩</text>
+  <text x="318.3" y="122.9" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">06</text>
+  <circle cx="381.8" cy="102.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="381.8" y="106.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">📐</text>
+  <text x="381.8" y="114.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">18</text>
+  <circle cx="445.1" cy="107.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="445.1" y="111.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="445.1" y="119.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
   <line x1="486.1" y1="138.3" x2="497.3" y2="104.1" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="514.9" y="101.9" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A09</text>
-  <circle cx="505.5" cy="126.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="505.5" y="131.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇮</text>
-  <text x="505.5" y="138.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">31</text>
-  <circle cx="560.2" cy="156.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="560.2" y="161.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇩</text>
-  <text x="560.2" y="168.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">26</text>
-  <circle cx="606.8" cy="197.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="606.8" y="202.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇲</text>
-  <text x="606.8" y="209.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">35</text>
+  <circle cx="505.5" cy="126.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="505.5" y="129.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🦅</text>
+  <text x="505.5" y="137.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">31</text>
+  <circle cx="560.2" cy="156.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="560.2" y="160.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">⛵</text>
+  <text x="560.2" y="168.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">26</text>
+  <circle cx="606.8" cy="197.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="606.8" y="201.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌿</text>
+  <text x="606.8" y="209.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">35</text>
   <line x1="620.6" y1="246.0" x2="650.1" y2="225.4" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="665.3" y="233.9" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A10</text>
-  <circle cx="643.3" cy="247.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="643.3" y="252.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="643.3" y="259.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="668.1" cy="303.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="668.1" y="308.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="668.1" y="315.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="680.3" cy="363.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="680.3" y="368.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇸</text>
-  <text x="680.3" y="375.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">41</text>
-  <circle cx="679.6" cy="423.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="679.6" y="428.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇢</text>
-  <text x="679.6" y="435.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">19</text>
-  <circle cx="666.1" cy="482.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="666.1" y="487.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇲</text>
-  <text x="666.1" y="494.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">35</text>
+  <circle cx="643.3" cy="247.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="643.3" y="251.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="643.3" y="259.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="668.1" cy="303.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="668.1" y="307.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="668.1" y="315.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="680.3" cy="363.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="680.3" y="366.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏺</text>
+  <text x="680.3" y="374.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">41</text>
+  <circle cx="679.6" cy="423.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="679.6" y="427.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪵</text>
+  <text x="679.6" y="435.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">19</text>
+  <circle cx="666.1" cy="482.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="666.1" y="485.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌿</text>
+  <text x="666.1" y="493.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">35</text>
   <line x1="631.1" y1="515.5" x2="663.3" y2="531.5" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="663.3" y="548.5" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A11</text>
-  <circle cx="640.7" cy="535.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="640.7" y="540.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇐</text>
-  <text x="640.7" y="547.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">01</text>
-  <circle cx="604.7" cy="582.4" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="604.7" y="587.4" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇸</text>
-  <text x="604.7" y="594.4" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">41</text>
-  <circle cx="559.9" cy="620.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="559.9" y="625.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇷</text>
-  <text x="559.9" y="632.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">40</text>
-  <circle cx="508.5" cy="647.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="508.5" y="652.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇖</text>
-  <text x="508.5" y="659.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">07</text>
+  <circle cx="640.7" cy="535.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="640.7" y="539.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🚶</text>
+  <text x="640.7" y="547.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">01</text>
+  <circle cx="604.7" cy="582.4" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="604.7" y="585.9" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏺</text>
+  <text x="604.7" y="593.9" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">41</text>
+  <circle cx="559.9" cy="620.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="559.9" y="623.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">📜</text>
+  <text x="559.9" y="631.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">40</text>
+  <circle cx="508.5" cy="647.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="508.5" y="650.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🍼</text>
+  <text x="508.5" y="658.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">07</text>
   <line x1="461.6" y1="642.0" x2="470.5" y2="676.9" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="458.1" y="687.9" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A12</text>
-  <circle cx="453.0" cy="662.4" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="453.0" y="667.4" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="453.0" y="674.4" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="395.9" cy="665.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="395.9" y="670.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="395.9" y="677.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="340.0" cy="656.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="340.0" y="661.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇯</text>
-  <text x="340.0" y="668.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">32</text>
-  <circle cx="287.7" cy="635.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="287.7" y="640.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇦</text>
-  <text x="287.7" y="647.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">23</text>
-  <circle cx="241.3" cy="604.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="241.3" y="609.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇵</text>
-  <text x="241.3" y="616.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">38</text>
+  <circle cx="453.0" cy="662.4" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="453.0" y="665.9" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="453.0" y="673.9" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="395.9" cy="665.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="395.9" y="669.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="395.9" y="677.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="340.0" cy="656.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="340.0" y="660.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🕊️</text>
+  <text x="340.0" y="668.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">32</text>
+  <circle cx="287.7" cy="635.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="287.7" y="639.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌲</text>
+  <text x="287.7" y="647.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">23</text>
+  <circle cx="241.3" cy="604.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="241.3" y="608.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏛️</text>
+  <text x="241.3" y="616.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">38</text>
   <line x1="235.3" y1="619.9" x2="247.3" y2="625.9" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="224.7" y1="562.4" x2="198.3" y2="586.9" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="183.1" y="581.7" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A13</text>
-  <circle cx="203.0" cy="565.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="203.0" y="570.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇶</text>
-  <text x="203.0" y="577.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">39</text>
-  <circle cx="174.3" cy="518.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="174.3" y="523.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇚</text>
-  <text x="174.3" y="530.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">11</text>
+  <circle cx="203.0" cy="565.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="203.0" y="568.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏆</text>
+  <text x="203.0" y="576.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">39</text>
+  <circle cx="174.3" cy="518.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="174.3" y="521.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏹</text>
+  <text x="174.3" y="529.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">11</text>
   <line x1="177.1" y1="473.4" x2="142.9" y2="484.7" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="131.3" y="473.8" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A14</text>
-  <circle cx="156.3" cy="467.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="156.3" y="472.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="156.3" y="479.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="149.8" cy="413.4" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="149.8" y="418.4" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="149.8" y="425.4" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
-  <circle cx="154.8" cy="360.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="154.8" y="365.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇨</text>
-  <text x="154.8" y="372.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">25</text>
-  <circle cx="170.9" cy="309.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="170.9" y="314.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇙</text>
-  <text x="170.9" y="321.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">10</text>
-  <circle cx="197.2" cy="264.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="197.2" y="269.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇦</text>
-  <text x="197.2" y="276.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">23</text>
-  <circle cx="232.2" cy="225.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="232.2" y="230.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇡</text>
-  <text x="232.2" y="237.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">18</text>
+  <circle cx="156.3" cy="467.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="156.3" y="470.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="156.3" y="478.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="149.8" cy="413.4" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="149.8" y="416.9" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="149.8" y="424.9" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
+  <circle cx="154.8" cy="360.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="154.8" y="363.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">⚜️</text>
+  <text x="154.8" y="371.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">25</text>
+  <circle cx="170.9" cy="309.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="170.9" y="313.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏹</text>
+  <text x="170.9" y="321.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">10</text>
+  <circle cx="197.2" cy="264.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="197.2" y="267.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌲</text>
+  <text x="197.2" y="275.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">23</text>
+  <circle cx="232.2" cy="225.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="232.2" y="229.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">📐</text>
+  <text x="232.2" y="237.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">18</text>
   <line x1="274.4" y1="217.1" x2="254.1" y2="187.5" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="260.7" y="173.6" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A15</text>
-  <circle cx="274.3" cy="195.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="274.3" y="200.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇫</text>
-  <text x="274.3" y="207.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">28</text>
-  <circle cx="321.4" cy="175.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="321.4" y="180.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇐</text>
-  <text x="321.4" y="187.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">01</text>
+  <circle cx="274.3" cy="195.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="274.3" y="199.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🥩</text>
+  <text x="274.3" y="207.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">28</text>
+  <circle cx="321.4" cy="175.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="321.4" y="179.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🚶</text>
+  <text x="321.4" y="187.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">01</text>
   <line x1="315.4" y1="190.7" x2="327.4" y2="196.7" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="362.6" y1="185.7" x2="356.5" y2="150.3" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="368.0" y="140.5" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A16</text>
-  <circle cx="371.2" cy="166.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="371.2" y="171.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="371.2" y="178.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="421.4" cy="167.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="421.4" y="172.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="421.4" y="179.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="469.8" cy="179.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="469.8" y="184.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇮</text>
-  <text x="469.8" y="191.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">31</text>
-  <circle cx="514.0" cy="201.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="514.0" y="206.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇩</text>
-  <text x="514.0" y="213.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">26</text>
+  <circle cx="371.2" cy="166.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="371.2" y="169.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="371.2" y="177.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="421.4" cy="167.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="421.4" y="171.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="421.4" y="179.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="469.8" cy="179.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="469.8" y="183.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🦅</text>
+  <text x="469.8" y="191.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">31</text>
+  <circle cx="514.0" cy="201.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="514.0" y="204.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">⛵</text>
+  <text x="514.0" y="212.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">26</text>
   <line x1="508.0" y1="216.3" x2="520.0" y2="222.3" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="532.3" y1="238.3" x2="555.1" y2="210.4" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="569.7" y="212.5" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A17</text>
-  <circle cx="552.3" cy="231.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="552.3" y="236.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="552.3" y="243.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="582.9" cy="269.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="582.9" y="274.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="582.9" y="281.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="604.5" cy="312.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="604.5" y="317.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="604.5" y="324.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
-  <circle cx="616.5" cy="358.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="616.5" y="363.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="616.5" y="370.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
-  <circle cx="618.3" cy="405.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="618.3" y="410.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇲</text>
-  <text x="618.3" y="417.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">35</text>
-  <circle cx="610.1" cy="450.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="610.1" y="455.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇴</text>
-  <text x="610.1" y="462.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">37</text>
-  <circle cx="592.5" cy="493.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="592.5" y="498.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇤</text>
-  <text x="592.5" y="505.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">21</text>
+  <circle cx="552.3" cy="231.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="552.3" y="235.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="552.3" y="243.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="582.9" cy="269.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="582.9" y="272.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="582.9" y="280.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="604.5" cy="312.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="604.5" y="315.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="604.5" y="323.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
+  <circle cx="616.5" cy="358.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="616.5" y="361.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="616.5" y="369.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
+  <circle cx="618.3" cy="405.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="618.3" y="408.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌿</text>
+  <text x="618.3" y="416.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">35</text>
+  <circle cx="610.1" cy="450.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="610.1" y="454.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪜</text>
+  <text x="610.1" y="462.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">37</text>
+  <circle cx="592.5" cy="493.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="592.5" y="497.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪈</text>
+  <text x="592.5" y="505.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">21</text>
   <line x1="558.2" y1="512.1" x2="587.6" y2="533.0" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="587.0" y="547.1" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A18</text>
-  <circle cx="566.5" cy="531.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="566.5" y="536.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇰</text>
-  <text x="566.5" y="543.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">33</text>
-  <circle cx="533.5" cy="561.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="533.5" y="566.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇦</text>
-  <text x="533.5" y="573.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">23</text>
+  <circle cx="566.5" cy="531.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="566.5" y="534.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🐟</text>
+  <text x="566.5" y="542.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">33</text>
+  <circle cx="533.5" cy="561.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="533.5" y="565.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌲</text>
+  <text x="533.5" y="573.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">23</text>
   <line x1="495.0" y1="564.1" x2="513.1" y2="595.2" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="506.9" y="607.7" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A19</text>
-  <circle cx="495.0" cy="584.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="495.0" y="589.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="495.0" y="596.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="452.9" cy="598.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="452.9" y="603.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="452.9" y="610.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="409.3" cy="603.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="409.3" y="608.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇮</text>
-  <text x="409.3" y="615.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">31</text>
-  <circle cx="366.2" cy="598.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="366.2" y="603.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇩</text>
-  <text x="366.2" y="610.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">26</text>
+  <circle cx="495.0" cy="584.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="495.0" y="588.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="495.0" y="596.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="452.9" cy="598.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="452.9" y="602.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="452.9" y="610.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="409.3" cy="603.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="409.3" y="606.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🦅</text>
+  <text x="409.3" y="614.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">31</text>
+  <circle cx="366.2" cy="598.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="366.2" y="601.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">⛵</text>
+  <text x="366.2" y="609.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">26</text>
   <line x1="360.2" y1="613.3" x2="372.2" y2="619.3" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="340.8" y1="571.1" x2="329.0" y2="605.1" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="315.9" y="608.7" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A20</text>
-  <circle cx="325.6" cy="584.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="325.6" y="589.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="325.6" y="596.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="289.2" cy="562.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="289.2" y="567.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="289.2" y="574.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
-  <circle cx="258.7" cy="534.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="258.7" y="539.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇨</text>
-  <text x="258.7" y="546.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">25</text>
-  <circle cx="235.2" cy="499.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="235.2" y="504.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇙</text>
-  <text x="235.2" y="511.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">10</text>
-  <circle cx="219.8" cy="461.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="219.8" y="466.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇦</text>
-  <text x="219.8" y="473.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">23</text>
-  <circle cx="212.9" cy="421.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="212.9" y="426.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇡</text>
-  <text x="212.9" y="433.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">18</text>
+  <circle cx="325.6" cy="584.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="325.6" y="588.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="325.6" y="596.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="289.2" cy="562.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="289.2" y="566.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="289.2" y="574.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
+  <circle cx="258.7" cy="534.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="258.7" y="537.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">⚜️</text>
+  <text x="258.7" y="545.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">25</text>
+  <circle cx="235.2" cy="499.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="235.2" y="503.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏹</text>
+  <text x="235.2" y="511.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">10</text>
+  <circle cx="219.8" cy="461.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="219.8" y="465.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌲</text>
+  <text x="219.8" y="473.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">23</text>
+  <circle cx="212.9" cy="421.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="212.9" y="425.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">📐</text>
+  <text x="212.9" y="433.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">18</text>
   <line x1="232.1" y1="391.7" x2="196.1" y2="389.9" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="188.9" y="378.9" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A21</text>
-  <circle cx="214.8" cy="381.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="214.8" y="386.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇫</text>
-  <text x="214.8" y="393.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">28</text>
-  <circle cx="225.0" cy="343.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="225.0" y="348.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇐</text>
-  <text x="225.0" y="355.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">01</text>
+  <circle cx="214.8" cy="381.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="214.8" y="385.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🥩</text>
+  <text x="214.8" y="393.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">28</text>
+  <circle cx="225.0" cy="343.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="225.0" y="346.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🚶</text>
+  <text x="225.0" y="354.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">01</text>
   <line x1="219.0" y1="358.1" x2="231.0" y2="364.1" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="254.6" y1="324.5" x2="222.6" y2="307.9" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="220.5" y="295.2" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A22</text>
-  <circle cx="243.0" cy="308.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="243.0" y="313.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="243.0" y="320.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="267.7" cy="278.4" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="267.7" y="283.4" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="267.7" y="290.4" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="297.8" cy="254.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="297.8" y="259.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇮</text>
-  <text x="297.8" y="266.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">31</text>
-  <circle cx="331.9" cy="238.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="331.9" y="243.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇩</text>
-  <text x="331.9" y="250.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">26</text>
+  <circle cx="243.0" cy="308.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="243.0" y="311.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="243.0" y="319.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="267.7" cy="278.4" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="267.7" y="281.9" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="267.7" y="289.9" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="297.8" cy="254.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="297.8" y="258.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🦅</text>
+  <text x="297.8" y="266.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">31</text>
+  <circle cx="331.9" cy="238.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="331.9" y="241.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">⛵</text>
+  <text x="331.9" y="249.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">26</text>
   <line x1="325.9" y1="253.3" x2="337.9" y2="259.3" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="364.0" y1="249.0" x2="355.7" y2="213.9" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="363.6" y="204.1" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A23</text>
-  <circle cx="368.3" cy="229.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="368.3" y="234.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="368.3" y="241.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="405.2" cy="229.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="405.2" y="234.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="405.2" y="241.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="441.0" cy="236.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="441.0" y="241.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="441.0" y="248.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
-  <circle cx="474.0" cy="250.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="474.0" y="255.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇝</text>
-  <text x="474.0" y="262.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">14</text>
-  <circle cx="502.8" cy="271.4" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="502.8" y="276.4" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇯</text>
-  <text x="502.8" y="283.4" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">32</text>
-  <circle cx="526.2" cy="297.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="526.2" y="302.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇡</text>
-  <text x="526.2" y="309.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">18</text>
-  <circle cx="543.2" cy="327.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="543.2" y="332.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="543.2" y="339.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
+  <circle cx="368.3" cy="229.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="368.3" y="233.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="368.3" y="241.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="405.2" cy="229.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="405.2" y="232.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="405.2" y="240.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="441.0" cy="236.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="441.0" y="239.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="441.0" y="247.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
+  <circle cx="474.0" cy="250.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="474.0" y="254.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🔗</text>
+  <text x="474.0" y="262.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">14</text>
+  <circle cx="502.8" cy="271.4" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="502.8" y="274.9" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🕊️</text>
+  <text x="502.8" y="282.9" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">32</text>
+  <circle cx="526.2" cy="297.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="526.2" y="301.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">📐</text>
+  <text x="526.2" y="309.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">18</text>
+  <circle cx="543.2" cy="327.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="543.2" y="331.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="543.2" y="339.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
   <line x1="533.9" y1="358.2" x2="568.2" y2="347.4" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="578.4" y="353.9" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A24</text>
-  <circle cx="553.2" cy="360.4" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="553.2" y="365.4" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇕</text>
-  <text x="553.2" y="372.4" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">06</text>
-  <circle cx="556.0" cy="394.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="556.0" y="399.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇡</text>
-  <text x="556.0" y="406.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">18</text>
-  <circle cx="551.6" cy="427.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="551.6" y="432.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇠</text>
-  <text x="551.6" y="439.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">17</text>
-  <circle cx="540.4" cy="457.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="540.4" y="462.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇢</text>
-  <text x="540.4" y="469.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">19</text>
+  <circle cx="553.2" cy="360.4" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="553.2" y="363.9" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">👩</text>
+  <text x="553.2" y="371.9" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">06</text>
+  <circle cx="556.0" cy="394.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="556.0" y="397.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">📐</text>
+  <text x="556.0" y="405.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">18</text>
+  <circle cx="551.6" cy="427.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="551.6" y="430.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏺</text>
+  <text x="551.6" y="438.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">17</text>
+  <circle cx="540.4" cy="457.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="540.4" y="461.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪵</text>
+  <text x="540.4" y="469.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">19</text>
   <line x1="534.4" y1="472.8" x2="546.4" y2="478.8" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="511.9" y1="469.4" x2="542.5" y2="488.4" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="544.4" y="500.0" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A25</text>
-  <circle cx="523.1" cy="485.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="523.1" y="490.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇮</text>
-  <text x="523.1" y="497.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">31</text>
-  <circle cx="500.6" cy="507.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="500.6" y="512.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇩</text>
-  <text x="500.6" y="519.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">26</text>
-  <circle cx="474.3" cy="525.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="474.3" y="530.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="474.3" y="537.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
+  <circle cx="523.1" cy="485.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="523.1" y="488.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🦅</text>
+  <text x="523.1" y="496.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">31</text>
+  <circle cx="500.6" cy="507.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="500.6" y="511.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">⛵</text>
+  <text x="500.6" y="519.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">26</text>
+  <circle cx="474.3" cy="525.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="474.3" y="528.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="474.3" y="536.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
   <line x1="445.5" y1="516.7" x2="458.6" y2="550.2" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="453.5" y="560.5" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A26</text>
-  <circle cx="445.3" cy="535.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="445.3" y="540.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="445.3" y="547.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="415.1" cy="540.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="415.1" y="545.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="415.1" y="552.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="385.1" cy="538.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="385.1" y="543.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇜</text>
-  <text x="385.1" y="550.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">13</text>
-  <circle cx="356.7" cy="529.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="356.7" y="534.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇐</text>
-  <text x="356.7" y="541.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">01</text>
+  <circle cx="445.3" cy="535.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="445.3" y="539.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="445.3" y="547.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="415.1" cy="540.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="415.1" y="543.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="415.1" y="551.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="385.1" cy="538.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="385.1" y="541.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪵</text>
+  <text x="385.1" y="549.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">13</text>
+  <circle cx="356.7" cy="529.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="356.7" y="533.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🚶</text>
+  <text x="356.7" y="541.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">01</text>
   <line x1="345.5" y1="503.1" x2="328.7" y2="534.9" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="317.9" y="538.1" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A27</text>
-  <circle cx="331.2" cy="515.7" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="331.2" y="520.7" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇦</text>
-  <text x="331.2" y="527.7" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">23</text>
-  <circle cx="309.6" cy="496.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="309.6" y="501.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇢</text>
-  <text x="309.6" y="508.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">19</text>
-  <circle cx="292.8" cy="474.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="292.8" y="479.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇲</text>
-  <text x="292.8" y="486.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">35</text>
+  <circle cx="331.2" cy="515.7" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="331.2" y="519.2" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌲</text>
+  <text x="331.2" y="527.2" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">23</text>
+  <circle cx="309.6" cy="496.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="309.6" y="500.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪵</text>
+  <text x="309.6" y="508.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">19</text>
+  <circle cx="292.8" cy="474.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="292.8" y="477.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌿</text>
+  <text x="292.8" y="485.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">35</text>
   <line x1="286.8" y1="489.2" x2="298.8" y2="495.2" stroke="#B22222" stroke-width="2.5" stroke-linecap="round" />
   <line x1="300.3" y1="447.0" x2="267.8" y2="462.4" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="257.4" y="458.7" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A28</text>
-  <circle cx="281.5" cy="448.8" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="281.5" y="453.8" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇙</text>
-  <text x="281.5" y="460.8" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">10</text>
-  <circle cx="275.9" cy="422.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="275.9" y="427.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇒</text>
-  <text x="275.9" y="434.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">03</text>
-  <circle cx="276.2" cy="395.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="276.2" y="400.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇵</text>
-  <text x="276.2" y="407.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">38</text>
+  <circle cx="281.5" cy="448.8" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="281.5" y="452.3" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏹</text>
+  <text x="281.5" y="460.3" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">10</text>
+  <circle cx="275.9" cy="422.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="275.9" y="425.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">👤</text>
+  <text x="275.9" y="433.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">03</text>
+  <circle cx="276.2" cy="395.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="276.2" y="398.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏛️</text>
+  <text x="276.2" y="406.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">38</text>
   <line x1="298.4" y1="379.1" x2="263.1" y2="371.8" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="256.9" y="363.0" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A29</text>
-  <circle cx="282.1" cy="369.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="282.1" y="374.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇑</text>
-  <text x="282.1" y="381.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">02</text>
-  <circle cx="293.2" cy="346.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="293.2" y="351.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇛</text>
-  <text x="293.2" y="358.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">12</text>
-  <circle cx="308.8" cy="326.0" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="308.8" y="331.0" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="308.8" y="338.0" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
-  <circle cx="328.0" cy="309.9" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="328.0" y="314.9" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇪</text>
-  <text x="328.0" y="321.9" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">27</text>
-  <circle cx="349.8" cy="298.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="349.8" y="303.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇲</text>
-  <text x="349.8" y="310.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">35</text>
-  <circle cx="373.0" cy="292.3" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="373.0" y="297.3" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇴</text>
-  <text x="373.0" y="304.3" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">37</text>
-  <circle cx="396.7" cy="291.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="396.7" y="296.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇤</text>
-  <text x="396.7" y="303.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">21</text>
+  <circle cx="282.1" cy="369.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="282.1" y="373.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪶</text>
+  <text x="282.1" y="381.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">02</text>
+  <circle cx="293.2" cy="346.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="293.2" y="349.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🛡️</text>
+  <text x="293.2" y="357.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">12</text>
+  <circle cx="308.8" cy="326.0" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="308.8" y="329.5" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="308.8" y="337.5" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
+  <circle cx="328.0" cy="309.9" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="328.0" y="313.4" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🤘</text>
+  <text x="328.0" y="321.4" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">27</text>
+  <circle cx="349.8" cy="298.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="349.8" y="302.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🌿</text>
+  <text x="349.8" y="310.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">35</text>
+  <circle cx="373.0" cy="292.3" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="373.0" y="295.8" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪜</text>
+  <text x="373.0" y="303.8" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">37</text>
+  <circle cx="396.7" cy="291.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="396.7" y="294.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪈</text>
+  <text x="396.7" y="302.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">21</text>
   <line x1="411.8" y1="312.1" x2="416.7" y2="276.4" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="424.3" y="269.5" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A30</text>
-  <circle cx="419.5" cy="295.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="419.5" y="300.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇜</text>
-  <text x="419.5" y="307.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">13</text>
-  <circle cx="440.6" cy="303.6" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="440.6" y="308.6" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇐</text>
-  <text x="440.6" y="315.6" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">01</text>
+  <circle cx="419.5" cy="295.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="419.5" y="298.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🪵</text>
+  <text x="419.5" y="306.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">13</text>
+  <circle cx="440.6" cy="303.6" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="440.6" y="307.1" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🚶</text>
+  <text x="440.6" y="315.1" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">01</text>
   <line x1="445.1" y1="328.6" x2="464.3" y2="298.1" stroke="#8B6B55" stroke-width="2" stroke-linecap="round" />
   <text x="473.9" y="294.9" font-family="monospace" font-size="9" font-weight="bold" fill="#6E503B" text-anchor="middle">A31</text>
-  <circle cx="458.9" cy="316.2" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="458.9" y="321.2" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇙</text>
-  <text x="458.9" y="328.2" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">10</text>
-  <circle cx="473.8" cy="332.1" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="473.8" y="337.1" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇒</text>
-  <text x="473.8" y="344.1" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">03</text>
-  <circle cx="484.7" cy="350.5" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />
-  <text x="484.7" y="355.5" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">𐇵</text>
-  <text x="484.7" y="362.5" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">38</text>
+  <circle cx="458.9" cy="316.2" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="458.9" y="319.7" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏹</text>
+  <text x="458.9" y="327.7" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">10</text>
+  <circle cx="473.8" cy="332.1" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="473.8" y="335.6" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">👤</text>
+  <text x="473.8" y="343.6" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">03</text>
+  <circle cx="484.7" cy="350.5" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />
+  <text x="484.7" y="354.0" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">🏛️</text>
+  <text x="484.7" y="362.0" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">38</text>
 </svg>

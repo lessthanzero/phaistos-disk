@@ -4,12 +4,20 @@ import math
 from pathlib import Path
 from typing import List, Tuple
 from phaistos.core.models import DiscCorpus, DiscSide, Group
+from phaistos.visualizer.glyphs import get_sign_glyph_data
 
 
-def render_side_svg(side: DiscSide, corpus: DiscCorpus, width: int = 800, height: int = 800) -> str:
+def render_side_svg(
+    side: DiscSide,
+    corpus: DiscCorpus,
+    width: int = 800,
+    height: int = 800,
+    glyph_mode: str = "emoji_utf8",
+) -> str:
     """
     Render a clean, publication-ready programmatic SVG spiral diagram of one disc side.
     Outside-in spiral track layout with radial group dividers and sign glyphs.
+    Supports glyph_mode: 'emoji_utf8' (default), 'vector_svg', or 'unicode_raw'.
     """
     cx, cy = width / 2.0, height / 2.0
     r_max = width * 0.45
@@ -32,11 +40,12 @@ def render_side_svg(side: DiscSide, corpus: DiscCorpus, width: int = 800, height
     )
 
     # Title
+    mode_label = "Emoji + ID" if glyph_mode == "emoji_utf8" else ("Vector SVG" if glyph_mode == "vector_svg" else "Unicode SMP")
     svg_elements.append(
         f'<text x="{cx}" y="{35}" font-family="system-ui, sans-serif" font-size="22" font-weight="bold" fill="#3D312A" text-anchor="middle">PHAISTOS DISC — SIDE {side.side}</text>'
     )
     svg_elements.append(
-        f'<text x="{cx}" y="{60}" font-family="system-ui, sans-serif" font-size="13" fill="#7A685D" text-anchor="middle">{side.group_count} groups | {side.sign_count} stamped signs | {side.oblique_stroke_count} incised strokes</text>'
+        f'<text x="{cx}" y="{60}" font-family="system-ui, sans-serif" font-size="13" fill="#7A685D" text-anchor="middle">{side.group_count} groups | {side.sign_count} stamped signs | {side.oblique_stroke_count} incised strokes | Mode: {mode_label}</text>'
     )
 
     # Sign lookup
@@ -90,16 +99,34 @@ def render_side_svg(side: DiscSide, corpus: DiscCorpus, width: int = 800, height
         for idx_in_grp, (sx, sy, sr, stheta, sid, sglyph, sname) in enumerate(group_signs_coords):
             # Sign node circle
             svg_elements.append(
-                f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="14" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1" />'
+                f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="15" fill="#FFFDF8" stroke="#D1BEAD" stroke-width="1.2" />'
             )
-            # Unicode glyph or ID
-            svg_elements.append(
-                f'<text x="{sx:.1f}" y="{sy + 5:.1f}" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">{sglyph}</text>'
-            )
-            # Evans ID subtitle
-            svg_elements.append(
-                f'<text x="{sx:.1f}" y="{sy + 12:.1f}" font-family="monospace" font-size="6" fill="#8C796C" text-anchor="middle">{sid}</text>'
-            )
+            gdata = get_sign_glyph_data(sid)
+
+            if glyph_mode == "vector_svg":
+                scale = 0.60
+                tx = sx - 9.6
+                ty = sy - 10.5
+                svg_elements.append(
+                    f'<g transform="translate({tx:.1f}, {ty:.1f}) scale({scale})" color="#2C221D">{gdata["vector_svg"]}</g>'
+                )
+                svg_elements.append(
+                    f'<text x="{sx:.1f}" y="{sy + 12.5:.1f}" font-family="monospace" font-size="5.5" font-weight="bold" fill="#8C796C" text-anchor="middle">{sid}</text>'
+                )
+            elif glyph_mode == "unicode_raw":
+                svg_elements.append(
+                    f'<text x="{sx:.1f}" y="{sy + 5:.1f}" font-family="system-ui, sans-serif" font-size="14" fill="#2C221D" text-anchor="middle">{sglyph}</text>'
+                )
+                svg_elements.append(
+                    f'<text x="{sx:.1f}" y="{sy + 12:.1f}" font-family="monospace" font-size="5.5" font-weight="bold" fill="#8C796C" text-anchor="middle">{sid}</text>'
+                )
+            else:  # default "emoji_utf8"
+                svg_elements.append(
+                    f'<text x="{sx:.1f}" y="{sy + 3.5:.1f}" font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif" font-size="13" text-anchor="middle" dominant-baseline="central">{gdata["emoji"]}</text>'
+                )
+                svg_elements.append(
+                    f'<text x="{sx:.1f}" y="{sy + 11.5:.1f}" font-family="monospace" font-size="6" font-weight="bold" fill="#78350F" text-anchor="middle">{sid}</text>'
+                )
 
             # If group has oblique stroke and this is the final sign, draw the stroke
             if group.oblique_stroke and (idx_in_grp == len(group.signs) - 1):
@@ -120,11 +147,11 @@ def render_side_svg(side: DiscSide, corpus: DiscCorpus, width: int = 800, height
     return svg_content
 
 
-def export_disc_svgs(corpus: DiscCorpus, output_dir: Path) -> Tuple[Path, Path]:
+def export_disc_svgs(corpus: DiscCorpus, output_dir: Path, glyph_mode: str = "emoji_utf8") -> Tuple[Path, Path]:
     """Export both Side A and Side B SVG diagrams."""
     output_dir.mkdir(parents=True, exist_ok=True)
-    svg_a = render_side_svg(corpus.side_a, corpus)
-    svg_b = render_side_svg(corpus.side_b, corpus)
+    svg_a = render_side_svg(corpus.side_a, corpus, glyph_mode=glyph_mode)
+    svg_b = render_side_svg(corpus.side_b, corpus, glyph_mode=glyph_mode)
 
     path_a = output_dir / "disc_side_a.svg"
     path_b = output_dir / "disc_side_b.svg"

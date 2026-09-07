@@ -14,6 +14,7 @@ from phaistos.epigraphy.strokes import evaluate_oblique_strokes
 from phaistos.comparative.suffix_analyzer import analyze_suffix_correspondence
 from phaistos.linguistics.grid_factorization import factorize_kober_grid
 from phaistos.typometry.shrinkage_model import reconstruct_punches_and_shrinkage
+from phaistos.visualizer.glyphs import get_all_glyphs_catalog
 
 
 def compute_spiral_coordinates(groups, width=800, height=800):
@@ -59,25 +60,6 @@ def compute_spiral_coordinates(groups, width=800, height=800):
 
     return result_groups
 
-
-def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = None) -> str:
-    """Generate the comprehensive self-contained HTML workbench file."""
-    # 1. Run all frontier analytical modules
-    stroke_res = evaluate_oblique_strokes(corpus)
-    suffix_res = analyze_suffix_correspondence(corpus)
-    grid_res = factorize_kober_grid(corpus, n_consonants=5, n_vowels=4, n_null_iterations=10)
-    shrinkage_res = reconstruct_punches_and_shrinkage(corpus)
-
-    # 2. Extract sign metadata catalogue
-    signs_cat = {
-        s.evans_id: {
-            "name": s.name,
-            "char": s.unicode_char,
-            "category": s.category,
-            "desc": s.description,
-        }
-        for s in corpus.signs_catalogue
-    }
 
 def compute_performance_schedule(groups, signs_cat, mora_sec: float = 0.28):
     """Compute timed performance schedule for all groups in a side."""
@@ -164,6 +146,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     # 5. JSON Payload for frontend
     data_payload = {
         "signs_cat": signs_cat,
+        "glyphs_catalog": get_all_glyphs_catalog(),
         "side_a": groups_a,
         "side_b": groups_b,
         "schedule_a": schedule_a,
@@ -491,6 +474,11 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-width: 48px;
+    }}
+    .glyph-pill svg {{
+      display: block;
+      margin: 2px 0;
     }}
     .glyph-sub {{
       font-size: 10px;
@@ -565,6 +553,12 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         <div class="btn-group">
           <button id="btnSideA" class="btn active" onclick="switchSide('A')">Side A (31 Groups)</button>
           <button id="btnSideB" class="btn" onclick="switchSide('B')">Side B (30 Groups)</button>
+        </div>
+        <!-- Glyph Display Mode Switcher -->
+        <div class="btn-group" id="glyphModeGroup">
+          <button id="btnModeEmoji" class="btn active" onclick="setGlyphMode('emoji_utf8')" title="Universal Emoji + Evans ID (Default, no missing font boxes)">🔤 Emoji + ID</button>
+          <button id="btnModeVector" class="btn" onclick="setGlyphMode('vector_svg')" title="Programmatic Vector SVG Silhouettes">🖋️ Vector SVG</button>
+          <button id="btnModeUnicode" class="btn" onclick="setGlyphMode('unicode_raw')" title="Raw Unicode SMP characters (U+101D0-U+101FF)">𐇐 Unicode Raw</button>
         </div>
         <div class="btn-group">
           <button id="btnCorpusReal" class="btn active" onclick="toggleSurrogate(false)">Canonical</button>
@@ -703,6 +697,19 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     let isNullSurrogate = false;
     let isPlaying = false;
     let audioCtx = null;
+    let currentGlyphMode = 'emoji_utf8'; // 'emoji_utf8', 'vector_svg', 'unicode_raw'
+    let currentInspectedGroupId = 'A16';
+
+    function setGlyphMode(mode) {{
+      currentGlyphMode = mode;
+      document.getElementById('btnModeEmoji').className = (mode === 'emoji_utf8' ? 'btn active' : 'btn');
+      document.getElementById('btnModeVector').className = (mode === 'vector_svg' ? 'btn active' : 'btn');
+      document.getElementById('btnModeUnicode').className = (mode === 'unicode_raw' ? 'btn active' : 'btn');
+      renderSvg();
+      if (currentInspectedGroupId) {{
+        inspectGroup(currentInspectedGroupId);
+      }}
+    }}
 
     // Rotational teleprompter state
     let teleprompterRunning = false;
@@ -738,7 +745,42 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
           const isFinal = (sIdx === g.signs_coords.length - 1);
           const hasStroke = (isFinal && g.oblique_stroke);
           const meta = PAYLOAD.signs_cat[s.sign_id] || {{ name: 'Unknown', char: s.sign_id }};
+          const gData = (PAYLOAD.glyphs_catalog && PAYLOAD.glyphs_catalog[s.sign_id]) || {{
+            emoji: '𐇐',
+            short_name: meta.name,
+            vector_svg: '<circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="2"/>'
+          }};
           const fillCol = hasStroke ? '#D1FAE5' : '#FFFDF9';
+
+          let glyphInner = '';
+          if (currentGlyphMode === 'vector_svg') {{
+            glyphInner = `
+              <g transform="translate(${{s.x - 9.5}}, ${{s.y - 10.5}}) scale(0.60)" color="#2C221D">
+                ${{gData.vector_svg}}
+              </g>
+              <text x="${{s.x}}" y="${{s.y + 12.5}}" font-family="'Geist Mono', monospace" font-size="5.5" font-weight="600" text-anchor="middle" fill="#78350F">
+                ${{s.sign_id}}
+              </text>
+            `;
+          }} else if (currentGlyphMode === 'unicode_raw') {{
+            glyphInner = `
+              <text x="${{s.x}}" y="${{s.y + 5}}" font-size="15" text-anchor="middle" fill="#18181B">
+                ${{meta.char}}
+              </text>
+              <text x="${{s.x}}" y="${{s.y + 12}}" font-family="'Geist Mono', monospace" font-size="5.5" font-weight="600" text-anchor="middle" fill="#78350F">
+                ${{s.sign_id}}
+              </text>
+            `;
+          }} else {{ // default 'emoji_utf8'
+            glyphInner = `
+              <text x="${{s.x}}" y="${{s.y + 3}}" font-size="13" text-anchor="middle" dominant-baseline="central">
+                ${{gData.emoji}}
+              </text>
+              <text x="${{s.x}}" y="${{s.y + 11.5}}" font-family="'Geist Mono', monospace" font-size="6" font-weight="600" text-anchor="middle" fill="#78350F">
+                ${{s.sign_id}}
+              </text>
+            `;
+          }}
 
           html += `
             <g class="sign-slot" id="slot-${{g.id}}-${{sIdx}}" 
@@ -746,9 +788,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
                onclick="inspectGroup('${{g.id}}')">
               <circle class="sign-circle" id="circle-${{g.id}}-${{sIdx}}" cx="${{s.x}}" cy="${{s.y}}" r="15" 
                       fill="${{fillCol}}" stroke="#A88B74" stroke-width="1.2" />
-              <text x="${{s.x}}" y="${{s.y + 6}}" font-size="16" text-anchor="middle" fill="#18181B">
-                ${{meta.char}}
-              </text>
+              ${{glyphInner}}
               ${{hasStroke ? `<line x1="${{s.x-10}}" y1="${{s.y+16}}" x2="${{s.x+10}}" y2="${{s.y+12}}" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>` : ''}}
             </g>
           `;
@@ -813,6 +853,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     }}
 
     function inspectGroup(groupId) {{
+      currentInspectedGroupId = groupId;
       const groups = (currentSide === 'A' ? PAYLOAD.side_a : PAYLOAD.side_b);
       const schedule = (currentSide === 'A' ? PAYLOAD.schedule_a : PAYLOAD.schedule_b);
       const g = groups.find(x => x.id === groupId);
@@ -835,11 +876,26 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       let pillsHtml = '';
       g.signs.forEach((sId, idx) => {{
         const meta = PAYLOAD.signs_cat[sId] || {{ name: 'Unknown', char: sId }};
+        const gData = (PAYLOAD.glyphs_catalog && PAYLOAD.glyphs_catalog[sId]) || {{
+          emoji: '𐇐',
+          short_name: meta.name,
+          vector_svg: '<circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="2"/>'
+        }};
+
+        let visualContent = '';
+        if (currentGlyphMode === 'vector_svg') {{
+          visualContent = `<svg width="28" height="28" viewBox="0 0 32 32" style="color: #2C221D; margin: 2px 0;">${{gData.vector_svg}}</svg>`;
+        }} else if (currentGlyphMode === 'unicode_raw') {{
+          visualContent = `<div style="font-size: 26px; line-height: 1.2;">${{meta.char}}</div>`;
+        }} else {{ // default 'emoji_utf8'
+          visualContent = `<div style="font-size: 26px; line-height: 1.2;">${{gData.emoji}}</div>`;
+        }}
+
         pillsHtml += `
           <div class="glyph-pill">
-            <div>${{meta.char}}</div>
-            <div class="glyph-sub">#${{sId}}</div>
-            <div class="glyph-sub" style="font-size: 8px;">${{meta.name}}</div>
+            ${{visualContent}}
+            <div class="glyph-sub" style="font-weight: 600; color: #78350F;">#${{sId}}</div>
+            <div class="glyph-sub" style="font-size: 8.5px;">${{gData.short_name || meta.name}}</div>
           </div>
         `;
       }});

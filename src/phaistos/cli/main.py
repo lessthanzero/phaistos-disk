@@ -52,20 +52,27 @@ def validate_cmd(source: str = "godart_1995"):
 
 
 @app.command("signs")
-def signs_cmd():
-    """Display the canonical 45 signs catalogue with Unicode and iconography."""
+def signs_cmd(
+    mode: str = typer.Option("emoji_utf8", help="Display mode: emoji_utf8 | unicode | all"),
+):
+    """Display the canonical 45 signs catalogue with Emoji, Unicode, and iconography."""
+    from phaistos.visualizer.glyphs import get_sign_glyph_data
+
     signs = load_signs()
     table = Table(title="Phaistos Disc Sign Repertoire (Evans 01-45)", show_header=True)
     table.add_column("Evans ID", style="bold cyan", justify="center")
-    table.add_column("Glyph", justify="center")
+    table.add_column("Emoji", justify="center")
+    table.add_column("SMP Char", justify="center")
     table.add_column("Name", style="bold")
     table.add_column("Category", style="dim")
-    table.add_column("Unicode", justify="center")
+    table.add_column("Unicode Hex", justify="center")
     table.add_column("Description")
 
     for s in signs:
+        gdata = get_sign_glyph_data(s.evans_id)
         table.add_row(
             s.evans_id,
+            gdata["emoji"],
             s.unicode_char,
             s.name,
             s.category,
@@ -120,8 +127,13 @@ def stats_cmd(source: str = "godart_1995"):
 
 
 @app.command("groups")
-def groups_cmd(side: Optional[str] = typer.Option(None, help="Filter by side A or B")):
-    """List sign groups with outside-in reading sequence and annotations."""
+def groups_cmd(
+    side: Optional[str] = typer.Option(None, help="Filter by side A or B"),
+    mode: str = typer.Option("emoji_utf8", help="Glyph rendering mode: emoji_utf8 | unicode | id"),
+):
+    """List sign groups with outside-in reading sequence, emojis, and annotations."""
+    from phaistos.visualizer.glyphs import get_sign_glyph_data
+
     corpus = load_transcription("godart_1995")
     groups = corpus.all_groups()
     if side:
@@ -131,17 +143,24 @@ def groups_cmd(side: Optional[str] = typer.Option(None, help="Filter by side A o
     table = Table(title=f"Sign Groups (Outside-In Order) {'- Side ' + side.upper() if side else ''}", show_header=True)
     table.add_column("ID", style="bold cyan")
     table.add_column("Turn", justify="center")
+    table.add_column("Emojis", justify="center")
     table.add_column("Signs (Evans IDs)", style="bold")
     table.add_column("Length", justify="center")
     table.add_column("Oblique Stroke", justify="center")
     table.add_column("Erasure / Palimpsest", justify="center")
 
     for g in groups:
-        stroke_str = "[green]YES (𐇽)[/green]" if g.oblique_stroke else "[dim]no[/dim]"
+        stroke_str = "[green]YES (/) [/green]" if g.oblique_stroke else "[dim]no[/dim]"
         erasure_str = "[yellow]YES[/yellow]" if g.erasure else "[dim]no[/dim]"
+        if mode == "unicode":
+            glyph_repr = "".join(next((s.unicode_char for s in corpus.signs_catalogue if s.evans_id == sid), sid) for sid in g.signs)
+        else:
+            glyph_repr = " ".join(get_sign_glyph_data(sid)["emoji"] for sid in g.signs)
+
         table.add_row(
             g.id,
             str(g.turn),
+            glyph_repr,
             "-".join(g.signs),
             str(g.length),
             stroke_str,
@@ -155,6 +174,7 @@ def groups_cmd(side: Optional[str] = typer.Option(None, help="Filter by side A o
 def render_svg_cmd(
     output_dir: str = typer.Option("reports/visuals", help="Output directory for generated SVG files"),
     source: str = "godart_1995",
+    mode: str = typer.Option("emoji_utf8", help="Glyph display mode: emoji_utf8 | vector_svg | unicode_raw"),
 ):
     """Render programmatic publication-quality SVG vector diagrams for Sides A & B."""
     from pathlib import Path
@@ -162,9 +182,9 @@ def render_svg_cmd(
 
     corpus = load_transcription(source)
     out_path = Path(output_dir)
-    path_a, path_b = export_disc_svgs(corpus, out_path)
+    path_a, path_b = export_disc_svgs(corpus, out_path, glyph_mode=mode)
 
-    console.print(f"[bold green]Successfully generated SVG diagrams:[/bold green]")
+    console.print(f"[bold green]Successfully generated SVG diagrams (Mode: {mode}):[/bold green]")
     console.print(f"  • Side A: [cyan]{path_a}[/cyan]")
     console.print(f"  • Side B: [cyan]{path_b}[/cyan]")
 
