@@ -1474,6 +1474,62 @@ def ecology_cmd(source: str = "godart_1995"):
     console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan]\n{res.skeptic_verdict}\n")
 
 
+@app.command("theology")
+def theology_cmd(source: str = "godart_1995", surrogates: int = 1000):
+    """Evaluate the Disc against Bronze Age Cretan cult, epistemic hierarchy, and liturgical syntax."""
+    from phaistos.corpus.loader import load_transcription
+    from phaistos.theology.theological_layer import evaluate_theological_context
+
+    corpus = load_transcription(source)
+    res = evaluate_theological_context(corpus, num_monte_carlo=surrogates)
+
+    console.print(Panel("[bold green]Phaistos Disc Bronze Age Cretan Theological Context Layer[/bold green]"))
+    console.print(f"Total Signs Analyzed: [bold green]{res.total_signs_analyzed}[/bold green] (100% evaluated against MM III cult archaeology)")
+    console.print(f"Liturgical Syntax Adherence: [bold cyan]{res.liturgical_syntax.transition_adherence_pct}%[/bold cyan] (Valid transitions: {res.liturgical_syntax.valid_transitions}/{res.liturgical_syntax.total_transitions})")
+    console.print(f"Monte Carlo Significance: [bold green]p = {res.liturgical_syntax.monte_carlo_p_value:.4f}[/bold green] ({surrogates} null permutations; Significant: [bold green]{res.liturgical_syntax.is_statistically_significant}[/bold green])")
+    console.print("Conceptual Model: [bold yellow]PLACE → DIVINE PRESENCE → RITUAL → NATURAL/SOCIAL CYCLE[/bold yellow]\n")
+
+    table = Table(title="10 Bronze Age Cretan Cultic Semantic Fields", show_header=True)
+    table.add_column("Semantic Field", style="bold cyan")
+    table.add_column("Tokens", justify="center")
+    table.add_column("Share", justify="center")
+    table.add_column("Archaeological Cult Context & Epigraphy")
+
+    field_descriptions = {
+        "CULT_EQUIPMENT_VESSEL": "Libation hydria handles, Kamares strainers, double/single axes, sacrifice knives (Room 8)",
+        "DIVINE_INVOCATION": "Plumed crest (02) + figure-of-eight shield (12) liturgical incipit prefix '02-12-'",
+        "RITUAL_PRACTITIONER": "Processional votaries (01), sacred boxers (08), priestess diadems (09), hide aprons (44)",
+        "SACRED_TOPOGRAPHY": "Peak sanctuaries (07 Mt. Juktas/Kofinas), tripartite shrine facades (24), votive arrows (10)",
+        "SACRED_VEGETATION": "Sacred olive branch (35), vine/fig (36), sweet galingale sedge (37, PH 1 CYP), saffron (39)",
+        "BULL_COMPLEX_SACRIFICE": "Horns of consecration (26), sacrificial bull haunches (27, Room 8 fauna), bucrania (28)",
+        "MARITIME_SANCTUARY": "Sacred pilgrimage ship (25), pelagic tuna first-fruit (33), lustral water wave (45)",
+        "CHTHONIC_EARTH_RENEWAL": "Chthonic serpent/chrysalis (40), endemic wildcat familiar (29), sacred ram (30)",
+        "DIVINE_EPIPHANY_SKY": "Descending raptor of epiphany (31), radiant 8-petaled stellar rosette (38)",
+        "DIVINE_TITLE_POTNIA": "Potnia / Priestess-Goddess (06), tattooed initiate (03), sacred Kouros child (05)",
+    }
+
+    for field, tokens in sorted(res.field_token_counts.items(), key=lambda x: x[1], reverse=True):
+        share = res.field_token_percentages.get(field, 0.0)
+        desc = field_descriptions.get(field, "")
+        table.add_row(field, str(tokens), f"{share}%", desc)
+    console.print(table)
+
+    table_strophic = Table(title="Liturgical Syntax Transition Analysis (Side A & Side B)", show_header=True)
+    table_strophic.add_column("Liturgical Syntax Chain")
+    table_strophic.add_column("Stanzas Demarcated", justify="center")
+    table_strophic.add_column("Transition Consistency", justify="center")
+    table_strophic.add_column("Epistemic Hierarchy Status")
+
+    table_strophic.add_row(
+        "[INVOCATION] → [DIVINE TITLE] → [PLACE/DOMAIN] → [PETITION/ACTION] → [RITUAL RESPONSE]",
+        f"{res.liturgical_syntax.total_stanzas} stanzas (incised strokes)",
+        f"{res.liturgical_syntax.transition_adherence_pct}% (p={res.liturgical_syntax.monte_carlo_p_value:.4f})",
+        "[bold green]Level 1 (Direct Cult Archeology) & Level 2 (Linear B Titles)[/bold green]",
+    )
+    console.print(table_strophic)
+    console.print(f"\n• [bold cyan]Skeptic Verdict:[/bold cyan]\n{res.skeptic_verdict}\n")
+
+
 if __name__ == "__main__":
     app()
 

@@ -146,3 +146,69 @@ theonyms:
     case: "Libation Formula Header"
     interpretation: "Sacred invocation / deity title in the Minoan Libation Formula"
     epigraphic_findspots: ["Mount Juktas", "Psychro", "Prassas"]
+
+  - id: "TH_14"
+    name: "PO-SE-DA-O"
+    script: "Linear B"
+    attested_forms: ["PO-SE-DA-O", "PO-SE-DA-O-NE"]
+    syllable_count: 4
+    skeleton: "A-B-C-D"
+    has_geminate: false
+    case: "Nominative / Dative"
+    interpretation: "Poseidon (Earth-Holder and chthonic earthquake lord; paramount at Pylos)"
+    epigraphic_findspots: ["Knossos (KN V 52)", "Pylos (PY Tn 316)"]
+
+  - id: "TH_15"
+    name: "E-RA"
+    script: "Linear B"
+    attested_forms: ["E-RA"]
+    syllable_count: 2
+    skeleton: "A-B"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Hera (Minoan-Mycenaean female sovereign recipient of sacred offerings)"
+    epigraphic_findspots: ["Knossos (KN Fp 1)", "Pylos (PY Tn 316)"]
+
+  - id: "TH_16"
+    name: "DA-PU-RI-TO-JO-PO-TI-NI-JA"
+    script: "Linear B"
+    attested_forms: ["DA-PU-RI-TO-JO PO-TI-NI-JA"]
+    syllable_count: 8
+    skeleton: "A-B-C-D-E-F-G-H"
+    has_geminate: false
+    case: "Genitive + Dative"
+    interpretation: "Lady of the Labyrinth (Daburinthoyo Potnia; Knossos honey offering recipient)"
+    epigraphic_findspots: ["Knossos (KN Gg 702)"]
+
+  - id: "TH_17"
+    name: "A-TE-MI-TO"
+    script: "Linear B"
+    attested_forms: ["A-TE-MI-TO"]
+    syllable_count: 4
+    skeleton: "A-B-C-D"
+    has_geminate: false
+    case: "Genitive / Dative"
+    interpretation: "Artemis (Mistress of Animals / Potnia Theron cognate with Cretan Britomartis/Diktynna)"
+    epigraphic_findspots: ["Pylos (PY Es 650)"]
+
+  - id: "TH_18"
+    name: "MA-KA"
+    script: "Linear B"
+    attested_forms: ["MA-KA"]
+    syllable_count: 2
+    skeleton: "A-B"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Mother Earth / Ma-Ga (Ancient chthonic mother attested receiving barley)"
+    epigraphic_findspots: ["Thebes (TH Fq 254)"]
+
+  - id: "TH_19"
+    name: "SI-TO-PO-TI-NI-JA"
+    script: "Linear B"
+    attested_forms: ["SI-TO-PO-TI-NI-JA"]
+    syllable_count: 5
+    skeleton: "A-B-C-D-E"
+    has_geminate: false
+    case: "Dative"
+    interpretation: "Mistress of Grain / Agro-pastoral Potnia (Direct Aegean forerunner of Demeter)"
+    epigraphic_findspots: ["Mycenae (MY Oi 701)"]

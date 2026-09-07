@@ -1,7 +1,7 @@
 # Phaistos Disc Lab (𐇑𐇛𐇮𐇩)
 
 [![Python 3.12 | 3.13](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/tests-69%2F69%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-73%2F73%20passing-brightgreen.svg)](tests/)
 [![Architecture](https://img.shields.io/badge/compute-macOS%20M1%20%2B%20Fedora%20Linux-orange.svg)](#dual-machine-compute-architecture)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -17,7 +17,10 @@
 - [The Grand Empirical Model](#the-grand-empirical-model)
 - [Key Scientific Breakthroughs & Falsifications](#key-scientific-breakthroughs--falsifications)
 - [The Skeptic Rule](#the-skeptic-rule)
-- [Social & Material Context Research Brief](docs/social_material_context.md)
+- [Contextual Layers & Research Briefs](#contextual-layers--research-briefs)
+  - [Social & Material Context Research Brief](docs/social_material_context.md)
+  - [Ecological & Geographic Constraint Layer](docs/ecological_geographic_constraints.md)
+  - [Bronze Age Cretan Theological Context Layer](docs/theological_context.md)
 - [Acoustic Audio Resynthesis](#acoustic-audio-resynthesis)
 - [Repository Architecture](#repository-architecture)
 - [CLI Reference](#cli-reference)
@@ -232,6 +235,12 @@ phaistos shrinkage --drying 4.9 --firing 3.6
 
 # Frontier E: Interactive Audio-Epigraphic Workbench Generator
 phaistos workbench --output reports/workbench.html
+
+# Ecological & Geographic Constraint Layer Audit
+phaistos ecology
+
+# Bronze Age Cretan Theological Context & Liturgical Syntax Analysis
+phaistos theology --surrogates 1000
 ```
 
 
