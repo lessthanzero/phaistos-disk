@@ -49,3 +49,14 @@ def test_comparative_permutation_test():
     assert "null_mean_rho" in perm_res
     assert "p_value" in perm_res
     assert 0.0 <= perm_res["p_value"] <= 1.0
+
+
+def test_tablet_ph1_loader():
+    from phaistos.comparative.loader import load_tablet_ph1
+
+    data = load_tablet_ph1()
+    assert data["metadata"]["museum_id"] == "Heraklion Museum HM 1359"
+    assert "face_a" in data["transcription"]
+    assert "DI-RA-DI-NA" in data["transcription"]["face_a"]["line_1"]["raw"]
+    assert data["analysis"]["genre"] == "administrative_commodity_ledger"
+

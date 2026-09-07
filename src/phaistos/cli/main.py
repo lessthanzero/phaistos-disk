@@ -897,6 +897,38 @@ def geo_skeptic_cmd():
     console.print(audit.data)
 
 
+@app.command("tablet-ph1")
+def tablet_ph1_cmd():
+    """Examine Linear A Tablet PH 1 found centimeters away from the Disc in Room 8."""
+    from phaistos.comparative.loader import load_tablet_ph1
+
+    data = load_tablet_ph1()
+    meta = data["metadata"]
+    trans = data["transcription"]
+    analysis = data["analysis"]
+
+    console.print(Panel(f"[bold cyan]Linear A Tablet PH 1 ({meta['museum_id']})[/bold cyan]"))
+    console.print(f"Discovery: [bold yellow]{meta['discovery_date']}[/bold yellow] by {meta['excavator']} in [bold]{meta['findspot']}[/bold]")
+    console.print(f"Context: Found [bold red]centimeters away in the exact same cist[/bold red] as the Phaistos Disc.\n")
+
+    table = Table(title="Epigraphic Inscription (GORILA I, pp. 286-287)", show_header=True)
+    table.add_column("Face / Line", style="bold cyan")
+    table.add_column("Transcription (Linear A Syllabograms & Logograms)")
+    table.add_column("Notes / Analysis")
+
+    table.add_row("Face a, line 1", trans["face_a"]["line_1"]["raw"], trans["face_a"]["line_1"]["notes"])
+    table.add_row("Face a, line 2", trans["face_a"]["line_2"]["raw"], trans["face_a"]["line_2"]["notes"])
+    table.add_row("Face b, line 1", trans["face_b"]["line_1"]["raw"], "Single commodity / person entry")
+    table.add_row("Face b, line 2", trans["face_b"]["line_2"]["raw"], trans["face_b"]["line_2"]["notes"])
+    console.print(table)
+
+    console.print("\n[bold]Epistemic Hypothesis Evaluation ('Manual' vs 'Offering Ledger'):[/bold]")
+    for ev in analysis["evidence_evaluation"]:
+        color = "bold red" if ev["verdict"] == "FALSIFIED" else ("yellow" if ev["verdict"] == "UNSUPPORTED" else "bold green")
+        console.print(f"• [bold]{ev['claim']}[/bold] -> [{color}]{ev['verdict']}[/{color}]")
+        console.print(f"  [dim]{ev['rationale']}[/dim]\n")
+
+
 if __name__ == "__main__":
     app()
 

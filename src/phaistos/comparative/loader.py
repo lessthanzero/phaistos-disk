@@ -53,3 +53,12 @@ def load_arkalochori_inscription(corpus_dir: Optional[Path] = None) -> Arkalocho
         signs=signs,
     )
 
+
+def load_tablet_ph1(corpus_dir: Optional[Path] = None) -> Dict:
+    """Load Linear A Tablet PH 1 discovered with the Phaistos Disc."""
+    base_dir = corpus_dir or get_default_corpus_dir()
+    file_path = base_dir / "comparative" / "tablet_ph1.yaml"
+    with open(file_path, "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
+
+

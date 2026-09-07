@@ -1,0 +1,63 @@
+# Linear A Tablet PH 1 (HM 1359)
+# Discovered: July 3, 1908 by Luigi Pernier in Room 8 (Vano 8), Building 101, Phaistos Palace
+# Archaeological Context: Found in the exact same cist / clay receptacle ("celletta")
+# immediately adjacent (within centimeters) to the Phaistos Disc in an ash/destruction layer.
+# GORILA Citation: Godart & Olivier (1976), GORILA Vol. I, pp. 286-287.
+
+metadata:
+  artifact: "Linear A Tablet PH 1"
+  museum_id: "Heraklion Museum HM 1359"
+  excavator: "Luigi Pernier (Italian Archaeological Mission)"
+  discovery_date: "1908-07-03"
+  findspot: "Phaistos Palace, Northeast Wing, Building 101, Room 8"
+  medium: "Incised unbaked clay tablet (accidentally fired in destruction)"
+  script: "Linear A"
+  associated_finds:
+    - "Phaistos Disc (found centimeters away in same cist)"
+    - "Linear A fragment PH 54 (identified in subsequent excavation)"
+    - "Middle Minoan III / Late Minoan I pottery"
+    - "Burnt bovine bones and ash"
+
+transcription:
+  face_a:
+    line_1:
+      raw: "]DI-RA-DI-NA *316 [] L2["
+      syllabograms: ["DI", "RA", "DI", "NA"]
+      ideograms: ["*316"]
+      fractions: ["L2"]
+      notes: "Heading or personal/place name 'di-ra-di-na' followed by unclassified ideogram *316 and fraction L2."
+    line_2:
+      raw: "]JA *316 1 CYP H"
+      syllabograms: ["JA"]
+      ideograms: ["*316", "CYP"]
+      numerals: ["1"]
+      fractions: ["H"]
+      notes: "Syllabogram JA, ideogram *316 with numeral 1, followed by commodity CYP (Cyperus / aromatic sedge) and fraction H."
+    line_3:
+      raw: "]vest.["
+      notes: "Traces of unreadable signs."
+  face_b:
+    line_1:
+      raw: "[]-NA 1"
+      syllabograms: ["NA"]
+      numerals: ["1"]
+    line_2:
+      raw: "PA[ ]FIC"
+      syllabograms: ["PA"]
+      ideograms: ["FIC"]
+      notes: "Commodity FIC (Ficus / dried figs) preceded by entry heading PA."
+
+analysis:
+  genre: "administrative_commodity_ledger"
+  is_instruction_manual: false
+  is_linguistic_crib: false
+  evidence_evaluation:
+    - claim: "Tablet PH 1 is an instruction manual for the Disc"
+      verdict: "FALSIFIED"
+      rationale: "PH 1 contains standard Aegean agricultural accounting formulas: commodity ideograms (figs, cyperus), dry/liquid fractional tallies (L2, H), and numerals. It contains no imperative verbs, procedural rules, or sign catalogs."
+    - claim: "Tablet PH 1 provides a phonetic crib for the Disc"
+      verdict: "UNSUPPORTED"
+      rationale: "The only legible four-sign word on PH 1 is DI-RA-DI-NA (A-B-A-C pattern). None of the 61 groups on the Phaistos Disc exhibit an A-B-A-C pattern."
+    - claim: "Tablet PH 1 records offerings associated with the Disc's sacred deposit"
+      verdict: "PLAUSIBLE_HYPOTHESIS"
+      rationale: "Room 8 is widely interpreted as a temple repository. In Minoan cult deposits, cyperus (aromatic plant for sacred unguents) and figs were staple ritual offerings deposited alongside sacred regalia."
