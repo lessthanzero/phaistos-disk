@@ -1,0 +1,262 @@
+transcription:
+  source_id: "godart_1995"
+  reading_direction: "outside_in"
+  total_groups: 61
+  total_signs: 242
+  total_oblique_strokes: 18
+
+side_a:
+  groups:
+    - id: "A01"
+      turn: 1
+      signs: ["02", "12", "13", "01", "18"]
+      oblique_stroke: true
+    - id: "A02"
+      turn: 1
+      signs: ["24", "40", "12"]
+      oblique_stroke: false
+    - id: "A03"
+      turn: 1
+      signs: ["29", "45", "07"]
+      oblique_stroke: true
+    - id: "A04"
+      turn: 1
+      signs: ["29", "29", "34"]
+      oblique_stroke: false
+    - id: "A05"
+      turn: 1
+      signs: ["02", "12", "04", "40", "33"]
+      oblique_stroke: false
+      erasure: true
+      notes: "Palimpsest: erased sign visible beneath punch 04"
+    - id: "A06"
+      turn: 1
+      signs: ["27", "45", "07", "12"]
+      oblique_stroke: false
+    - id: "A07"
+      turn: 1
+      signs: ["27", "44", "08"]
+      oblique_stroke: false
+    - id: "A08"
+      turn: 1
+      signs: ["02", "12", "06", "18", "02"]
+      oblique_stroke: false
+      uncertain: true
+      notes: "5th sign effaced/damaged; commonly read as 02, 03, or 20"
+    - id: "A09"
+      turn: 1
+      signs: ["31", "26", "35"]
+      oblique_stroke: false
+    - id: "A10"
+      turn: 1
+      signs: ["02", "12", "41", "19", "35"]
+      oblique_stroke: false
+    - id: "A11"
+      turn: 1
+      signs: ["01", "41", "40", "07"]
+      oblique_stroke: false
+    - id: "A12"
+      turn: 1
+      signs: ["02", "12", "32", "23", "38"]
+      oblique_stroke: true
+    - id: "A13"
+      turn: 1
+      signs: ["39", "11"]
+      oblique_stroke: false
+    - id: "A14"
+      turn: 2
+      signs: ["02", "27", "25", "10", "23", "18"]
+      oblique_stroke: false
+    - id: "A15"
+      turn: 2
+      signs: ["28", "01"]
+      oblique_stroke: true
+    - id: "A16"
+      turn: 2
+      signs: ["02", "12", "31", "26"]
+      oblique_stroke: true
+    - id: "A17"
+      turn: 2
+      signs: ["02", "12", "27", "27", "35", "37", "21"]
+      oblique_stroke: false
+    - id: "A18"
+      turn: 2
+      signs: ["33", "23"]
+      oblique_stroke: false
+    - id: "A19"
+      turn: 2
+      signs: ["02", "12", "31", "26"]
+      oblique_stroke: true
+    - id: "A20"
+      turn: 2
+      signs: ["02", "27", "25", "10", "23", "18"]
+      oblique_stroke: false
+    - id: "A21"
+      turn: 2
+      signs: ["28", "01"]
+      oblique_stroke: true
+    - id: "A22"
+      turn: 2
+      signs: ["02", "12", "31", "26"]
+      oblique_stroke: true
+    - id: "A23"
+      turn: 3
+      signs: ["02", "12", "27", "14", "32", "18", "27"]
+      oblique_stroke: false
+    - id: "A24"
+      turn: 3
+      signs: ["06", "18", "17", "19"]
+      oblique_stroke: true
+    - id: "A25"
+      turn: 3
+      signs: ["31", "26", "12"]
+      oblique_stroke: false
+    - id: "A26"
+      turn: 3
+      signs: ["02", "12", "13", "01"]
+      oblique_stroke: false
+    - id: "A27"
+      turn: 3
+      signs: ["23", "19", "35"]
+      oblique_stroke: true
+    - id: "A28"
+      turn: 4
+      signs: ["10", "03", "38"]
+      oblique_stroke: false
+    - id: "A29"
+      turn: 4
+      signs: ["02", "12", "27", "27", "35", "37", "21"]
+      oblique_stroke: false
+    - id: "A30"
+      turn: 4
+      signs: ["13", "01"]
+      oblique_stroke: false
+    - id: "A31"
+      turn: 4
+      signs: ["10", "03", "38"]
+      oblique_stroke: false
+
+side_b:
+  groups:
+    - id: "B01"
+      turn: 1
+      signs: ["02", "12", "22", "40", "07"]
+      oblique_stroke: false
+      erasure: true
+      notes: "Palimpsest: erased correction visible"
+    - id: "B02"
+      turn: 1
+      signs: ["27", "45", "07", "35"]
+      oblique_stroke: false
+    - id: "B03"
+      turn: 1
+      signs: ["02", "37", "23", "05"]
+      oblique_stroke: true
+    - id: "B04"
+      turn: 1
+      signs: ["22", "25", "27"]
+      oblique_stroke: false
+    - id: "B05"
+      turn: 1
+      signs: ["33", "24", "20", "12"]
+      oblique_stroke: false
+    - id: "B06"
+      turn: 1
+      signs: ["16", "23", "18", "43"]
+      oblique_stroke: true
+    - id: "B07"
+      turn: 1
+      signs: ["13", "01", "39", "33"]
+      oblique_stroke: false
+    - id: "B08"
+      turn: 1
+      signs: ["15", "07", "13", "01", "18"]
+      oblique_stroke: false
+    - id: "B09"
+      turn: 1
+      signs: ["22", "37", "42", "25"]
+      oblique_stroke: false
+    - id: "B10"
+      turn: 1
+      signs: ["07", "24", "40", "35"]
+      oblique_stroke: false
+    - id: "B11"
+      turn: 1
+      signs: ["02", "26", "36", "40"]
+      oblique_stroke: false
+    - id: "B12"
+      turn: 1
+      signs: ["27", "25", "38", "01"]
+      oblique_stroke: false
+    - id: "B13"
+      turn: 2
+      signs: ["29", "24", "24", "20", "35"]
+      oblique_stroke: false
+    - id: "B14"
+      turn: 2
+      signs: ["16", "14", "18"]
+      oblique_stroke: false
+    - id: "B15"
+      turn: 2
+      signs: ["29", "33", "01"]
+      oblique_stroke: false
+    - id: "B16"
+      turn: 2
+      signs: ["06", "35", "32", "39", "33"]
+      oblique_stroke: false
+    - id: "B17"
+      turn: 2
+      signs: ["02", "09", "27", "01"]
+      oblique_stroke: false
+    - id: "B18"
+      turn: 2
+      signs: ["29", "36", "07", "08"]
+      oblique_stroke: true
+    - id: "B19"
+      turn: 2
+      signs: ["29", "08", "13"]
+      oblique_stroke: false
+    - id: "B20"
+      turn: 2
+      signs: ["29", "45", "07"]
+      oblique_stroke: true
+    - id: "B21"
+      turn: 3
+      signs: ["22", "29", "36", "07", "08"]
+      oblique_stroke: true
+    - id: "B22"
+      turn: 3
+      signs: ["27", "34", "23", "25"]
+      oblique_stroke: false
+    - id: "B23"
+      turn: 3
+      signs: ["07", "18", "35"]
+      oblique_stroke: false
+    - id: "B24"
+      turn: 3
+      signs: ["07", "45", "07"]
+      oblique_stroke: true
+    - id: "B25"
+      turn: 3
+      signs: ["07", "23", "18", "24"]
+      oblique_stroke: false
+    - id: "B26"
+      turn: 3
+      signs: ["22", "29", "36", "07", "08"]
+      oblique_stroke: true
+    - id: "B27"
+      turn: 4
+      signs: ["09", "30", "39", "18", "07"]
+      oblique_stroke: false
+    - id: "B28"
+      turn: 4
+      signs: ["02", "06", "35", "23", "07"]
+      oblique_stroke: false
+    - id: "B29"
+      turn: 4
+      signs: ["29", "34", "23", "25"]
+      oblique_stroke: false
+    - id: "B30"
+      turn: 4
+      signs: ["45", "07"]
+      oblique_stroke: true

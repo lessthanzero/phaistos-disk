@@ -1,0 +1,78 @@
+sources:
+  - id: godart_1995
+    type: book
+    author: "Louis Godart"
+    year: 1995
+    title: "Le Disque de Phaistos"
+    publisher: "Edizioni Casalini Libri / École française d'Athènes"
+    role: "Definitive modern epigraphic corpus and photographic facsimile"
+    epistemic_status: "scholarly_canonical"
+
+  - id: evans_1909
+    type: book
+    author: "Arthur J. Evans"
+    year: 1909
+    title: "Scripta Minoa: The Written Documents of Minoan Crete, Vol. I"
+    publisher: "Oxford: Clarendon Press"
+    role: "Establishment of the 45-sign catalogue and numbering system"
+    epistemic_status: "scholarly_historical"
+
+  - id: duhoux_1977
+    type: book
+    author: "Yves Duhoux"
+    year: 1977
+    title: "Le disque de Phaestos: Archéologie, épigraphie, édition critique, index"
+    publisher: "Éditions Peeters, Louvain"
+    role: "Critical epigraphy, physical stamping overlaps, incised strokes analysis"
+    epistemic_status: "scholarly_critical"
+
+  - id: duhoux_2000
+    type: article
+    author: "Yves Duhoux"
+    year: 2000
+    title: "How Not to Decipher the Phaistos Disc"
+    journal: "American Journal of Archaeology"
+    volume: "104"
+    number: "3"
+    pages: "597-600"
+    role: "Methodological critique of pseudo-decipherment traps"
+    epistemic_status: "scholarly_critical"
+
+  - id: timm_2005
+    type: book
+    author: "Torsten Timm"
+    year: 2005
+    title: "Der Diskos von Phaistos: Fremdeinfluss oder kretisches Erbe?"
+    publisher: "Books on Demand"
+    role: "Quantitative structural distributions and Linear A comparisons"
+    epistemic_status: "scholarly_structural"
+
+  - id: shannon_1949
+    type: article
+    author: "Claude E. Shannon"
+    year: 1949
+    title: "Communication Theory of Secrecy Systems"
+    journal: "Bell System Technical Journal"
+    volume: "28"
+    number: "4"
+    pages: "656-715"
+    role: "Theoretical foundation of unicity distance and spurious key solutions"
+    epistemic_status: "mathematical_foundation"
+
+  - id: gorila_1976_1985
+    type: book_series
+    author: "Louis Godart and Jean-Pierre Olivier"
+    year: "1976-1985"
+    title: "Recueil des inscriptions en linéaire A (GORILA, Vols. 1-5)"
+    publisher: "École française d'Athènes / Librairie P. Geuthner"
+    role: "Canonical corpus of Linear A inscriptions"
+    epistemic_status: "scholarly_canonical"
+
+  - id: sigla_2020
+    type: digital_database
+    author: "Ester Salgarella and Simon Castellan"
+    year: 2020
+    title: "SigLA: The Signs of Linear A Database"
+    url: "https://sigla.phis.me"
+    role: "Digital palaeographical and statistical database of Linear A signs"
+    epistemic_status: "scholarly_digital"

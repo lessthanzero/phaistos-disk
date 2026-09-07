@@ -1,0 +1,21 @@
+hypotheses:
+  - id: "H001"
+    type: "structural"
+    title: "Rhyming refrain / strophic verse structure"
+    description: "The recurring sign groups (A16, A19, A22 = 02-12-31-26 and A14, A20 = 02-27-25-10-23-18) represent a poetic refrain or ritual repetition."
+    status: "untested"
+    falsification_criteria: "If randomized corpora with identical word-length and vocabulary distributions produce equivalent or higher clustering of repeated sequences."
+
+  - id: "H002"
+    type: "epigraphic_phonetic"
+    title: "Linear A CV-syllabary correspondence"
+    description: "Signs matching Linear A pictograms (e.g. 02 Plumed Head, 12 Shield, 38 Rosette) share phonetic syllabic values with Linear A/B."
+    status: "untested"
+    falsification_criteria: "Cross-entropy with proposed Bronze Age Mediterranean phonotactics must significantly exceed random correspondence mappings."
+
+  - id: "H003"
+    type: "non_linguistic"
+    title: "Lunisolar calendar / agricultural cycle"
+    description: "The 61 groups and 242 signs represent days, lunar months, or intercalary festival periods rather than spoken language."
+    status: "untested"
+    falsification_criteria: "Group length distribution and sign repetitions must match astronomical periods without arbitrary ad-hoc sign weighting."

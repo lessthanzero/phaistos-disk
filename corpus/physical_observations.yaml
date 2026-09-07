@@ -1,0 +1,39 @@
+physical_observations:
+  stamping_sequence:
+    finding: "Punches were stamped successively from the rim towards the center (outside-inward)."
+    evidence:
+      - "Stamp overlap physical hierarchy: where adjacent impressions overlap, the outer punch overlaps the inner punch in over 80% of unambiguous cases."
+      - "Margin crowding: signs in the innermost turn of Side A show compression and reduced spacing, indicating the scribe ran short of space as the spiral converged."
+    sources: ["evans_1909", "duhoux_1977", "godart_1995"]
+
+  incised_markings:
+    dividing_lines:
+      type: "incised_radial_separators"
+      technique: "Drawn with a sharp stylus into the soft clay before or immediately following stamping of each group."
+      total_count: 61
+    oblique_strokes:
+      type: "incised_graffito_stroke"
+      technique: "Scratched lightly with a pointed stylus beneath the sign, invariably at the group periphery / final sign."
+      total_count: 18
+      side_a_count: 10
+      side_b_count: 8
+      affected_groups:
+        side_a: ["A01", "A03", "A12", "A15", "A16", "A19", "A21", "A22", "A24", "A27"]
+        side_b: ["B03", "B06", "B18", "B20", "B21", "B24", "B26", "B30"]
+
+  palimpsests_and_erasures:
+    - group_id: "A05"
+      description: "Clay smoothed over with a damp finger before stamping sign 04 (CAPTIVE); traces of earlier sign visible."
+      epigrapher: "Godart 1995"
+    - group_id: "A08"
+      description: "Severe surface disturbance/effacement on 5th sign position; possible erasure or imperfect punch impression."
+      epigrapher: "Godart 1995"
+    - group_id: "B01"
+      description: "Erasure of earlier signs beneath current sequence 02-12-22-40-07; visible displacement of dividing bar."
+      epigrapher: "Duhoux 1977, Godart 1995"
+
+  material_and_dimensions:
+    material: "Fired terracotta / fine clay"
+    diameter_mm: [158, 165]
+    thickness_mm: [16, 21]
+    findspot: "Phaistos Palace, Room 8, Building 101 (Pernier 1908)"
