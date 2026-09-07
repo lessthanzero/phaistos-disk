@@ -2214,6 +2214,53 @@ def ritual_null_test_cmd(
     console.print(f"[bold]Skeptic Ruling:[/bold]\n{res.skeptic_verdict}\n")
 
 
+@app.command("hagia-gallery")
+def hagia_gallery_cmd():
+    """Inspect and display the 10 diagnostic Hagia Triada realia fresco crops."""
+    from phaistos.ritual.hagia_gallery import get_hagia_gallery_manifest
+    from phaistos.visualizer.glyphs import get_sign_glyph_data
+
+    console.print(
+        Panel(
+            "[bold cyan]Hagia Triada Sarcophagus Realia Homology Gallery[/bold cyan]\n"
+            "[dim]Heraklion Archaeological Museum Λ396 • c. 1400–1350 BC (3 km from Phaistos Palace)[/dim]",
+            expand=False,
+        )
+    )
+
+    manifest = get_hagia_gallery_manifest()
+    crops = manifest.get("crops", [])
+
+    table = Table(title="Archaeological Realia Crops & Phaistos Homology Punches", show_header=True)
+    table.add_column("Crop ID", style="bold cyan")
+    table.add_column("Realia Subject", style="bold")
+    table.add_column("Liturgical Plane", style="magenta")
+    table.add_column("Phaistos Signs", justify="center")
+    table.add_column("Fresco Scene", style="dim")
+    table.add_column("Crop WebP", style="green")
+
+    for c in crops:
+        sign_pills = []
+        for s in c.get("primary_signs", []):
+            g = get_sign_glyph_data(s)
+            sign_pills.append(f"{g['emoji']} #{s}")
+        signs_str = " ".join(sign_pills)
+
+        scene_short = c.get("scene_title", "").split(":")[0]
+        table.add_row(
+            c["id"],
+            c["title"],
+            c["ritual_plane"],
+            signs_str,
+            scene_short,
+            c["output_file"],
+        )
+
+    console.print(table)
+    console.print(f"\n[bold green]Total crops verified:[/bold green] {len(crops)} crops in `reports/visuals/hagia_triada/`")
+    console.print("[dim]Launch `phaistos workbench` to experience live teleprompter image synchronization.[/dim]\n")
+
+
 if __name__ == "__main__":
     app()
 

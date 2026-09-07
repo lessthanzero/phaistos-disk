@@ -15,6 +15,7 @@ from phaistos.comparative.suffix_analyzer import analyze_suffix_correspondence
 from phaistos.linguistics.grid_factorization import factorize_kober_grid
 from phaistos.typometry.shrinkage_model import reconstruct_punches_and_shrinkage
 from phaistos.visualizer.glyphs import get_all_glyphs_catalog
+from phaistos.ritual.hagia_gallery import get_hagia_gallery_manifest
 
 
 def compute_spiral_coordinates(groups, width=800, height=800):
@@ -145,6 +146,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
 
     # 5. JSON Payload for frontend
     data_payload = {
+        "hagia_gallery": get_hagia_gallery_manifest(),
         "signs_cat": signs_cat,
         "glyphs_catalog": get_all_glyphs_catalog(),
         "side_a": groups_a,
@@ -530,6 +532,200 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       stroke: #D97706 !important;
       stroke-width: 3px !important;
     }}
+    /* Hagia Triada Realia Synchronizer */
+    .hagia-card {{
+      border-color: rgba(217, 119, 6, 0.35);
+      background: #FFFCF7;
+    }}
+    .hagia-sync-body {{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }}
+    .hagia-active-display {{
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 12px;
+      align-items: start;
+    }}
+    @media (max-width: 600px) {{
+      .hagia-active-display {{
+        grid-template-columns: 1fr;
+      }}
+    }}
+    .hagia-image-container {{
+      position: relative;
+      width: 100%;
+      height: 135px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #1C1917;
+      border: 1px solid var(--editorial-border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }}
+    .hagia-active-img {{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.25s ease, transform 0.4s ease;
+    }}
+    .hagia-image-container:hover .hagia-active-img {{
+      transform: scale(1.04);
+    }}
+    .hagia-img-overlay {{
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      right: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }}
+    .hagia-plane-tag {{
+      font-family: 'Geist Mono', monospace;
+      font-size: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: rgba(120, 53, 15, 0.88);
+      color: #FEF3C7;
+      padding: 2px 5px;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+    }}
+    .hagia-scene-tag {{
+      font-family: 'Geist Mono', monospace;
+      font-size: 8px;
+      color: #F3F4F6;
+      background: rgba(0, 0, 0, 0.72);
+      padding: 2px 5px;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+    }}
+    .hagia-detail-meta {{
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }}
+    .hagia-title {{
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.2;
+    }}
+    .hagia-desc {{
+      font-size: 11.5px;
+      color: var(--ink-secondary);
+      line-height: 1.4;
+      margin: 0;
+    }}
+    .hagia-matched-signs-row {{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }}
+    .hagia-matched-label {{
+      font-family: 'Geist Mono', monospace;
+      font-size: 8.5px;
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+    }}
+    .hagia-matched-pills {{
+      display: inline-flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }}
+    .hagia-matched-pill {{
+      font-family: 'Geist Mono', monospace;
+      font-size: 9.5px;
+      background: #FEF3C7;
+      border: 1px solid #FCD34D;
+      color: #92400E;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+    }}
+    .hagia-carousel-label {{
+      font-family: 'Geist Mono', monospace;
+      font-size: 8.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      margin-top: 2px;
+    }}
+    .hagia-thumb-strip {{
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 3px 2px 6px 2px;
+      scrollbar-width: thin;
+    }}
+    .hagia-thumb-strip::-webkit-scrollbar {{
+      height: 4px;
+    }}
+    .hagia-thumb-strip::-webkit-scrollbar-thumb {{
+      background: #D1BEA8;
+      border-radius: 4px;
+    }}
+    .hagia-thumb-item {{
+      flex: 0 0 64px;
+      height: 48px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      position: relative;
+      background: #292524;
+      opacity: 0.70;
+      transition: all 0.15s ease;
+    }}
+    .hagia-thumb-item:hover {{
+      opacity: 1;
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    }}
+    .hagia-thumb-item.active {{
+      border-color: #D97706;
+      opacity: 1;
+      box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.4);
+      transform: translateY(-1px);
+    }}
+    .hagia-thumb-img {{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }}
+    .hagia-thumb-badge {{
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background: rgba(0,0,0,0.78);
+      color: #FFF;
+      font-size: 7.5px;
+      font-family: 'Geist Mono', monospace;
+      padding: 1px 3px;
+      border-radius: 3px;
+      line-height: 1;
+    }}
+    @keyframes realiaPulse {{
+      0% {{ filter: drop-shadow(0 0 2px rgba(217,119,6,0.6)); }}
+      50% {{ filter: drop-shadow(0 0 10px rgba(217,119,6,1.0)); transform: scale(1.18); }}
+      100% {{ filter: drop-shadow(0 0 2px rgba(217,119,6,0.6)); }}
+    }}
+    .hagia-realia-match circle.sign-circle {{
+      stroke: #D97706 !important;
+      stroke-width: 3.5px !important;
+      fill: #FEF3C7 !important;
+      animation: realiaPulse 1.4s infinite ease-in-out;
+    }}
   </style>
 </head>
 <body>
@@ -624,6 +820,43 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         </div>
         <div class="group-inspector" id="inspectorContent">
           <p style="color: var(--ink-secondary); font-size: 13px;">Hover or click any segment in the spiral track to inspect physical punches, incised strokes, and morphosyntax.</p>
+        </div>
+      </div>
+
+      <!-- Hagia Triada Realia Synchronizer Card -->
+      <div class="card hagia-card">
+        <div class="card-header">
+          <div class="card-title">Hagia Triada Realia Homology</div>
+          <div class="card-badge" id="hagiaSceneBadge">LITURGICAL HOMOLOGY</div>
+        </div>
+        
+        <div class="hagia-sync-body">
+          <div class="hagia-active-display">
+            <div class="hagia-image-container">
+              <img id="hagiaActiveImg" src="" alt="Hagia Triada Realia" class="hagia-active-img" />
+              <div class="hagia-img-overlay">
+                <span id="hagiaPlaneBadge" class="hagia-plane-tag">OFFERING</span>
+                <span id="hagiaSceneName" class="hagia-scene-tag">Scene 1</span>
+              </div>
+            </div>
+            
+            <div class="hagia-detail-meta">
+              <div class="hagia-title" id="hagiaCropTitle">-</div>
+              <p class="hagia-desc" id="hagiaCropDesc">-</p>
+              
+              <div class="hagia-matched-signs-row">
+                <span class="hagia-matched-label">HOMOLOGOUS PUNCHES:</span>
+                <div id="hagiaMatchedPills" class="hagia-matched-pills"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hagia-carousel-label">HERAKLION ARCHIVAL FRESCOES &bull; CLICK CROP TO ROTATE &amp; FOCUS DISC</div>
+          <div class="hagia-thumb-strip" id="hagiaThumbStrip"></div>
+        </div>
+
+        <div class="verdict-box" style="margin-top: 10px; font-size: 11px;">
+          <strong>Archeological Provenance:</strong> Painted limestone sarcophagus (c. 1400–1350 BC) excavated at Hagia Triada (3 km west of Phaistos Palace, Heraklion Museum Λ396). Provides identical physical realia for Phaistos punches (Aulos 🪈, Double Axe 🪓, Galley ⛵, Bull 🥩, Hydria 🏺).
         </div>
       </div>
 
@@ -786,7 +1019,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
             <g class="sign-slot" id="slot-${{g.id}}-${{sIdx}}" 
                onmouseover="inspectGroup('${{g.id}}')" 
                onclick="inspectGroup('${{g.id}}')">
-              <circle class="sign-circle" id="circle-${{g.id}}-${{sIdx}}" cx="${{s.x}}" cy="${{s.y}}" r="15" 
+              <circle class="sign-circle" id="circle-${{g.id}}-${{sIdx}}" data-sign-id="${{s.sign_id}}" cx="${{s.x}}" cy="${{s.y}}" r="15" 
                       fill="${{fillCol}}" stroke="#A88B74" stroke-width="1.2" />
               ${{glyphInner}}
               ${{hasStroke ? `<line x1="${{s.x-10}}" y1="${{s.y+16}}" x2="${{s.x+10}}" y2="${{s.y+12}}" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>` : ''}}
@@ -854,6 +1087,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
 
     function inspectGroup(groupId) {{
       currentInspectedGroupId = groupId;
+      updateHagiaSync(groupId, null);
       const groups = (currentSide === 'A' ? PAYLOAD.side_a : PAYLOAD.side_b);
       const schedule = (currentSide === 'A' ? PAYLOAD.schedule_a : PAYLOAD.schedule_b);
       const g = groups.find(x => x.id === groupId);
@@ -1111,6 +1345,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
           }}
 
           const sign = item.signs[sIdx];
+          updateHagiaSync(item.group_id, sign.sign_id);
           const circleEl = document.getElementById(`circle-${{item.group_id}}-${{sIdx}}`);
           if (circleEl) circleEl.classList.add('sign-current-mora');
 
@@ -1181,9 +1416,187 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         `COMPLETED: 14-mora Lyric Triad Paean &bull; exact strophic balance`;
     }}
 
+    // ==========================================
+    // Hagia Triada Realia Synchronizer Engine
+    // ==========================================
+    let currentRealiaCropId = null;
+
+    function initHagiaGallery() {{
+      const gallery = PAYLOAD.hagia_gallery;
+      if (!gallery || !gallery.crops || gallery.crops.length === 0) return;
+
+      const stripEl = document.getElementById('hagiaThumbStrip');
+      if (!stripEl) return;
+
+      let stripHtml = '';
+      gallery.crops.forEach(crop => {{
+        const thumbSrc = crop.thumb_data_uri || crop.rel_url;
+        const primarySign = (crop.primary_signs && crop.primary_signs.length > 0) ? crop.primary_signs[0] : '';
+        const gData = (PAYLOAD.glyphs_catalog && PAYLOAD.glyphs_catalog[primarySign]) || {{ emoji: '𐇐' }};
+
+        stripHtml += `
+          <div class="hagia-thumb-item" id="thumb-${{crop.id}}" 
+               onclick="selectHagiaRealia('${{crop.id}}', true)" 
+               title="${{crop.title}} (${{crop.ritual_plane}})">
+            <img src="${{thumbSrc}}" alt="${{crop.title}}" class="hagia-thumb-img" onerror="this.src='${{crop.thumb_data_uri}}'" />
+            <div class="hagia-thumb-badge">${{gData.emoji}} #${{primarySign}}</div>
+          </div>
+        `;
+      }});
+      stripEl.innerHTML = stripHtml;
+
+      selectHagiaRealia('crop_boat_model', false);
+    }}
+
+    function selectHagiaRealia(cropId, centerDisc = false) {{
+      const gallery = PAYLOAD.hagia_gallery;
+      if (!gallery || !gallery.crops) return;
+
+      const crop = gallery.crops.find(c => c.id === cropId);
+      if (!crop) return;
+
+      currentRealiaCropId = cropId;
+
+      // 1. Update active visual display
+      const activeImg = document.getElementById('hagiaActiveImg');
+      if (activeImg) {{
+        activeImg.style.opacity = '0.35';
+        activeImg.src = crop.rel_url || crop.thumb_data_uri;
+        activeImg.onerror = () => {{ activeImg.src = crop.thumb_data_uri; }};
+        setTimeout(() => {{ activeImg.style.opacity = '1.0'; }}, 40);
+      }}
+
+      const pBadge = document.getElementById('hagiaPlaneBadge');
+      if (pBadge) pBadge.textContent = crop.ritual_plane;
+      const sName = document.getElementById('hagiaSceneName');
+      if (sName) sName.textContent = crop.scene_title.split(':')[0];
+      const sBadge = document.getElementById('hagiaSceneBadge');
+      if (sBadge) sBadge.textContent = crop.ritual_plane;
+      const cTitle = document.getElementById('hagiaCropTitle');
+      if (cTitle) cTitle.textContent = crop.title;
+      const cDesc = document.getElementById('hagiaCropDesc');
+      if (cDesc) cDesc.textContent = crop.description;
+
+      // 2. Render matched sign pills
+      const pillsContainer = document.getElementById('hagiaMatchedPills');
+      if (pillsContainer) {{
+        let pillsHtml = '';
+        (crop.all_signs || []).forEach(sId => {{
+          const isPrimary = (crop.primary_signs || []).includes(sId);
+          const meta = PAYLOAD.signs_cat[sId] || {{ name: 'Sign ' + sId }};
+          const gData = (PAYLOAD.glyphs_catalog && PAYLOAD.glyphs_catalog[sId]) || {{ emoji: '𐇐', short_name: meta.name }};
+          pillsHtml += `
+            <span class="hagia-matched-pill" style="${{isPrimary ? 'font-weight: 700; border-color: #D97706;' : 'opacity: 0.85;'}}">
+              ${{gData.emoji}} #${{sId}} ${{gData.short_name || meta.name}}
+            </span>
+          `;
+        }});
+        pillsContainer.innerHTML = pillsHtml;
+      }}
+
+      // 3. Highlight thumbnail in strip and auto-scroll
+      document.querySelectorAll('.hagia-thumb-item').forEach(el => el.classList.remove('active'));
+      const activeThumb = document.getElementById('thumb-' + cropId);
+      if (activeThumb) {{
+        activeThumb.classList.add('active');
+        activeThumb.scrollIntoView({{ behavior: 'smooth', block: 'nearest', inline: 'center' }});
+      }}
+
+      // 4. If clicked by user (centerDisc = true), highlight matching signs and rotate disc
+      if (centerDisc && crop.all_signs && crop.all_signs.length > 0) {{
+        highlightMatchingSignsOnDisc(crop.all_signs);
+      }}
+    }}
+
+    function highlightMatchingSignsOnDisc(targetSigns) {{
+      // Remove previous matches
+      document.querySelectorAll('.sign-slot').forEach(el => el.classList.remove('hagia-realia-match'));
+
+      // Check current side groups for matches
+      const currentGroups = (currentSide === 'A' ? PAYLOAD.side_a : PAYLOAD.side_b);
+      let matchedGroupId = null;
+
+      currentGroups.forEach(g => {{
+        const hasMatch = g.signs.some(s => targetSigns.includes(s) || targetSigns.includes(String(parseInt(s, 10))));
+        if (hasMatch) {{
+          if (!matchedGroupId) matchedGroupId = g.id;
+          g.signs.forEach((s, idx) => {{
+            if (targetSigns.includes(s) || targetSigns.includes(String(parseInt(s, 10)))) {{
+              const slotEl = document.getElementById(`slot-${{g.id}}-${{idx}}`);
+              if (slotEl) slotEl.classList.add('hagia-realia-match');
+            }}
+          }});
+        }}
+      }});
+
+      // If no match on current side, try other side
+      if (!matchedGroupId) {{
+        const otherSide = (currentSide === 'A' ? 'B' : 'A');
+        const otherGroups = (otherSide === 'A' ? PAYLOAD.side_a : PAYLOAD.side_b);
+        const matchOther = otherGroups.find(g => g.signs.some(s => targetSigns.includes(s) || targetSigns.includes(String(parseInt(s, 10)))));
+        if (matchOther) {{
+          switchSide(otherSide);
+          highlightMatchingSignsOnDisc(targetSigns);
+          return;
+        }}
+      }}
+
+      if (matchedGroupId) {{
+        inspectGroup(matchedGroupId);
+      }}
+    }}
+
+    function updateHagiaSync(groupId, signId) {{
+      const gallery = PAYLOAD.hagia_gallery;
+      if (!gallery || !gallery.crops) return;
+
+      let matchedCrop = null;
+
+      // 1. If explicit signId provided (e.g. from teleprompter), check sign_to_crops
+      if (signId && gallery.sign_to_crops) {{
+        const padSign = String(signId).padStart(2, '0');
+        const cropIds = gallery.sign_to_crops[padSign] || gallery.sign_to_crops[String(parseInt(signId, 10))];
+        if (cropIds && cropIds.length > 0) {{
+          matchedCrop = gallery.crops.find(c => c.id === cropIds[0]);
+        }}
+      }}
+
+      // 2. If no direct sign match, find best matching crop for group's sign sequence
+      if (!matchedCrop && groupId) {{
+        const groups = (currentSide === 'A' ? PAYLOAD.side_a : PAYLOAD.side_b);
+        const g = groups.find(x => x.id === groupId);
+        if (g && g.signs) {{
+          let topScore = 0;
+          let bestCrop = null;
+          gallery.crops.forEach(c => {{
+            let score = 0;
+            g.signs.forEach(s => {{
+              const padS = String(s).padStart(2, '0');
+              const rawS = String(parseInt(s, 10));
+              if (c.primary_signs.includes(padS) || c.primary_signs.includes(rawS)) score += 3;
+              else if (c.all_signs.includes(padS) || c.all_signs.includes(rawS)) score += 1;
+            }});
+            if (score > topScore) {{
+              topScore = score;
+              bestCrop = c;
+            }}
+          }});
+          if (topScore > 0) {{
+            matchedCrop = bestCrop;
+          }}
+        }}
+      }}
+
+      // 3. Smoothly update if new crop
+      if (matchedCrop && matchedCrop.id !== currentRealiaCropId) {{
+        selectHagiaRealia(matchedCrop.id, false);
+      }}
+    }}
+
     window.onload = () => {{
       renderSvg();
       populateFrontiers();
+      initHagiaGallery();
       inspectGroup('A16');
     }};
   </script>
