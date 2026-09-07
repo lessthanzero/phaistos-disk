@@ -1624,6 +1624,110 @@ def affordance_cmd():
     console.print(f"\n• [bold cyan]Stamping Economics Breakeven:[/bold cyan] {econ.economic_verdict}\n")
 
 
+@app.command("semantics")
+def semantics_cmd(
+    tier: str = typer.Option("all", "--tier", "-t", help="Tier filter: 'all', 'iconography', 'distributional', or 'libation'"),
+):
+    """Run symbol meaning analysis across Tiers 2-4: Middle Minoan Iconography, Distributional Semantics, and Aegean Libation Sieve."""
+    from phaistos.semantics import (
+        get_iconographic_catalog,
+        analyze_distributional_semantics,
+        evaluate_libation_sieve,
+    )
+
+    corpus = load_transcription("godart_1995")
+    tier_lower = tier.lower()
+
+    # Tier 2: Middle Minoan Iconography
+    if tier_lower in ("all", "iconography", "tier2", "2"):
+        cat = get_iconographic_catalog()
+        console.print(Panel("[bold cyan]Tier 2: Middle Minoan Iconographic Archetypes (45 Relief Stamps)[/bold cyan]"))
+        console.print(f"[bold]Material Culture Horizon:[/bold] {cat.dominant_material_culture}")
+        console.print(f"[bold]Domain Breakdown:[/bold] {cat.domain_counts}\n")
+
+        table_ico = Table(title="Sample Diagnostic Archaeological Archetypes (Neopalatial Realia)", show_header=True)
+        table_ico.add_column("Evans ID", style="bold cyan", justify="center")
+        table_ico.add_column("Glyph", justify="center")
+        table_ico.add_column("Name", style="bold")
+        table_ico.add_column("Archaeological Domain", style="green")
+        table_ico.add_column("Neopalatial Parallels")
+        table_ico.add_column("Material Realia Context")
+
+        sample_ids = ["02", "05", "07", "12", "22", "24", "26", "28", "34", "35", "38", "44"]
+        for s_id in sample_ids:
+            arch = cat.archetypes[s_id]
+            table_ico.add_row(
+                arch.evans_id,
+                arch.unicode_char,
+                arch.canonical_name,
+                arch.domain.replace("_", " ").title(),
+                ", ".join(arch.archaeological_parallels[:2]),
+                arch.material_context,
+            )
+        console.print(table_ico)
+        console.print(f"[dim]{cat.skeptic_summary}[/dim]\n")
+
+    # Tier 3: Distributional Semantics
+    if tier_lower in ("all", "distributional", "tier3", "3"):
+        console.print(Panel("[bold cyan]Tier 3: Language-Agnostic Distributional Semantics & Word-Class Clustering[/bold cyan]"))
+        dist = analyze_distributional_semantics(corpus, n_null_iterations=200)
+
+        table_dist = Table(title="Unsupervised Grammatical Topologies Across 61 Groups", show_header=True)
+        table_dist.add_column("Functional Class", style="bold yellow")
+        table_dist.add_column("Sign Count", justify="center")
+        table_dist.add_column("Positional Profile", style="dim")
+        table_dist.add_column("Diagnostic Signs")
+
+        class_descriptions = {
+            "invocational_clitic": "Initial Rate >= 45% (Formulaic line/group heads)",
+            "core_stem": "Medial Rate dominant (High combinatoric vocabulary)",
+            "suffixal_postposition": "Final Rate >= 45% or Terminal Stroke Rest",
+            "hapax_isolated": "Total Count <= 2 (Peripheral/specialized lexicon)",
+        }
+
+        for c_name, signs in dist.functional_classes.items():
+            sample_signs = ", ".join([f"#{s}" for s in signs[:6]]) + ("..." if len(signs) > 6 else "")
+            table_dist.add_row(
+                c_name.replace("_", " ").title(),
+                str(len(signs)),
+                class_descriptions.get(c_name, "-"),
+                sample_signs,
+            )
+        console.print(table_dist)
+        console.print(f"• [bold]Core Clustering Silhouette:[/bold] [green]{dist.clustering_silhouette_score:.4f}[/green] "
+                      f"(Null: {dist.null_surrogate_mean_silhouette:.4f} +/- {dist.null_surrogate_std_silhouette:.4f})")
+        console.print(f"• [bold]Clustering Z-Score:[/bold] [bold green]{dist.clustering_z_score:.2f}[/bold green] "
+                      f"(Empirical Monte Carlo p = [green]{dist.clustering_p_value:.4f}[/green])")
+        console.print(f"[dim]{dist.skeptic_verdict}[/dim]\n")
+
+    # Tier 4: Aegean Libation Sieve
+    if tier_lower in ("all", "libation", "tier4", "4"):
+        console.print(Panel("[bold cyan]Tier 4: Aegean Formulaic Libation Sieve (Linear A Za Inscriptions)[/bold cyan]"))
+        sieve = evaluate_libation_sieve(corpus)
+
+        table_sie = Table(title="Top 5 GORILA Linear A Stone Libation Table Alignments", show_header=True)
+        table_sie.add_column("ID", style="bold cyan")
+        table_sie.add_column("Findspot", style="bold")
+        table_sie.add_column("Material Object")
+        table_sie.add_column("Linear A Transcription", style="dim")
+        table_sie.add_column("Structural Matches", style="green")
+
+        for a in sieve.alignments[:5]:
+            table_sie.add_row(
+                a.inscription_id,
+                a.findspot,
+                a.material_object,
+                a.linear_a_text,
+                ", ".join(a.structural_matches[:2]),
+            )
+        console.print(table_sie)
+        console.print(f"• [bold]Phaistos Disc 02-12 Prefix Recurrence:[/bold] [bold yellow]{sieve.disc_prefix_recurrence_rate * 100:.1f}%[/bold yellow] (13/61 groups; 100% of Side A strophes)")
+        console.print(f"• [bold]Linear A Libation Table Head Recurrence:[/bold] [bold yellow]{sieve.linear_a_head_recurrence_rate * 100:.1f}%[/bold yellow] (10/14 stone vessels)")
+        console.print(f"• [bold]Liturgical Affinity Z-Score:[/bold] [bold green]{sieve.liturgical_affinity_z_score:.2f}[/bold green]")
+        console.print(f"• [bold]Administrative Tablet Divergence:[/bold] [bold green]p < {sieve.administrative_divergence_p_value:.2e}[/bold green] (HT accounting hypothesis falsified)")
+        console.print(f"\n[dim]{sieve.skeptic_verdict}[/dim]\n")
+
+
 if __name__ == "__main__":
     app()
 

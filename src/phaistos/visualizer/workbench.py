@@ -79,15 +79,95 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         for s in corpus.signs_catalogue
     }
 
+def compute_performance_schedule(groups, signs_cat, mora_sec: float = 0.28):
+    """Compute timed performance schedule for all groups in a side."""
+    from phaistos.prosody.acoustic import CATEGORY_PITCH_MAP, PHORMINX_SCALE
+    schedule = []
+    for g in groups:
+        signs_data = []
+        has_stroke = g["oblique_stroke"]
+        thetas = [s["theta"] for s in g["signs_coords"]]
+        avg_theta = sum(thetas) / float(len(thetas)) if thetas else 0.0
+        # Disc rotation needed to bring group centroid to 12 o'clock (theta = 0)
+        target_angle_deg = round(-math.degrees(avg_theta), 2)
+
+        total_group_morae = 0
+        for idx, s in enumerate(g["signs_coords"]):
+            s_id = s["sign_id"]
+            meta = signs_cat.get(s_id, {})
+            cat = meta.get("category", "human")
+            pitch = CATEGORY_PITCH_MAP.get(cat, "D4")
+            freq = PHORMINX_SCALE.get(pitch, 293.66)
+            is_final = (idx == len(g["signs_coords"]) - 1)
+            morae = 2 if (is_final and has_stroke) else 1
+            total_group_morae += morae
+            duration_ms = int(morae * mora_sec * 1000)
+
+            signs_data.append({
+                "sign_id": s_id,
+                "pos": idx,
+                "char": meta.get("char", s_id),
+                "name": meta.get("name", "Unknown"),
+                "category": cat,
+                "pitch": pitch,
+                "freq": round(freq, 2),
+                "morae": morae,
+                "duration_ms": duration_ms,
+                "stroke": (is_final and has_stroke),
+            })
+
+        pause_ms = 350 if has_stroke else 120
+        total_duration_ms = sum(sd["duration_ms"] for sd in signs_data) + pause_ms
+
+        schedule.append({
+            "group_id": g["id"],
+            "side": g["side"],
+            "turn": g["turn"],
+            "target_angle_deg": target_angle_deg,
+            "morae": total_group_morae,
+            "duration_ms": total_duration_ms,
+            "pause_ms": pause_ms,
+            "has_stroke": has_stroke,
+            "has_erasure": g.get("erasure", False),
+            "signs": signs_data,
+        })
+    return schedule
+
+
+def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = None) -> str:
+    """Generate the comprehensive self-contained HTML workbench file."""
+    # 1. Run all frontier analytical modules
+    stroke_res = evaluate_oblique_strokes(corpus)
+    suffix_res = analyze_suffix_correspondence(corpus)
+    grid_res = factorize_kober_grid(corpus, n_consonants=5, n_vowels=4, n_null_iterations=10)
+    shrinkage_res = reconstruct_punches_and_shrinkage(corpus)
+
+    # 2. Extract sign metadata catalogue
+    signs_cat = {
+        s.evans_id: {
+            "name": s.name,
+            "char": s.unicode_char,
+            "category": s.category,
+            "desc": s.description,
+        }
+        for s in corpus.signs_catalogue
+    }
+
     # 3. Geometry data for both sides
     groups_a = compute_spiral_coordinates(corpus.side_a.groups)
     groups_b = compute_spiral_coordinates(corpus.side_b.groups)
 
-    # 4. JSON Payload for frontend
+    # 4. Timed performance schedule
+    schedule_a = compute_performance_schedule(groups_a, signs_cat)
+    schedule_b = compute_performance_schedule(groups_b, signs_cat)
+
+    # 5. JSON Payload for frontend
     data_payload = {
         "signs_cat": signs_cat,
         "side_a": groups_a,
         "side_b": groups_b,
+        "schedule_a": schedule_a,
+        "schedule_b": schedule_b,
         "frontier_a": {
             "total_strokes": stroke_res.total_strokes,
             "side_a": stroke_res.side_a_strokes,
@@ -270,6 +350,91 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       color: var(--ink-secondary);
       flex: 1;
     }}
+    .teleprompter-box {{
+      width: 100%;
+      background: var(--canvas-subtle);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 16px;
+      border: 1px solid var(--editorial-border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }}
+    .teleprompter-controls {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }}
+    .teleprompter-actions {{
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }}
+    .speed-controls {{
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-family: 'Geist Mono', monospace;
+      color: var(--ink-secondary);
+    }}
+    .btn-sm {{
+      padding: 4px 10px;
+      font-size: 11px;
+    }}
+    .hud-telemetry-panel {{
+      display: grid;
+      grid-template-columns: repeat(4, 1fr) 2fr;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid var(--editorial-border);
+      font-family: 'Geist Mono', monospace;
+    }}
+    .hud-col {{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }}
+    .hud-label {{
+      font-size: 9px;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }}
+    .hud-val {{
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+    }}
+    .hud-progress-bg {{
+      width: 100%;
+      height: 6px;
+      background: rgba(24, 24, 27, 0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin-top: 4px;
+    }}
+    .hud-progress-fill {{
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 9999px;
+      transition: width 0.15s ease;
+    }}
+    .active-teleprompter-group circle.sign-circle {{
+      stroke: #D97706 !important;
+      stroke-width: 2.5px !important;
+      fill: #FEF3C7 !important;
+    }}
+    .sign-current-mora {{
+      fill: #F59E0B !important;
+      stroke: #78350F !important;
+      stroke-width: 3px !important;
+    }}
     .analytics-column {{
       display: flex;
       flex-direction: column;
@@ -316,6 +481,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       margin: 12px 0;
       font-size: 26px;
       align-items: center;
+      flex-wrap: wrap;
     }}
     .glyph-pill {{
       background: var(--canvas-subtle);
@@ -383,12 +549,12 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
   <header>
     <div class="title-area">
       <h1>Phaistos Disc Analytical Workbench</h1>
-      <p>Interactive Epigraphy, Strophic Acoustic Synthesis & 5-Frontier Skeptic Validation</p>
+      <p>Interactive Epigraphy, Rotational Teleprompter & 5-Frontier Skeptic Validation</p>
     </div>
     <div class="header-telemetry">
       <div>CORPUS: GODART 1995 CANONICAL</div>
       <div>61 GROUPS &bull; 242 SIGNS &bull; 18 STROKES</div>
-      <div>EPICENTRE: MESARA ALLUVIAL MARL</div>
+      <div>AFFORDANCE: 5.7 RPM &bull; &omega; = 34.5&deg;/s</div>
     </div>
   </header>
 
@@ -408,10 +574,48 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
 
       <svg id="discSvg" width="760" height="760" viewBox="0 0 800 800"></svg>
 
-      <div class="audio-panel">
-        <button id="btnPlay" class="btn btn-primary" onclick="toggleAudio()">Play Lyric Triad (A14–A22)</button>
-        <div class="audio-telemetry" id="audioTelemetry">
-          LYRE SYNTH: 11.0s &bull; 14-mora Paean Responsion ($p < 10^{{-5}}$)
+      <!-- Rotational Teleprompter Control & Telemetry Panel -->
+      <div class="teleprompter-box">
+        <div class="teleprompter-controls">
+          <div class="teleprompter-actions">
+            <button id="btnPlayA" class="btn btn-primary" onclick="startTeleprompter('A')">▶ Play Side A (43s)</button>
+            <button id="btnPlayB" class="btn btn-primary" onclick="startTeleprompter('B')">▶ Play Side B (41s)</button>
+            <button id="btnPlayFull" class="btn btn-primary" style="background: #92400E;" onclick="startTeleprompter('FULL')">▶ Full Hymn (87s)</button>
+            <button id="btnPause" class="btn" onclick="togglePauseTeleprompter()">⏸ Pause</button>
+            <button id="btnReset" class="btn" onclick="resetTeleprompter()">⏹ Reset</button>
+            <button id="btnPlay" class="btn" style="font-size: 11px; opacity: 0.8;" onclick="toggleAudio()">Play Triad (A14-A22)</button>
+          </div>
+          <div class="speed-controls">
+            <span>SPEED:</span>
+            <button id="spd05" class="btn btn-sm" onclick="setSpeed(0.5)">0.5x</button>
+            <button id="spd10" class="btn btn-sm active" onclick="setSpeed(1.0)">1.0x (5.7 RPM)</button>
+            <button id="spd15" class="btn btn-sm" onclick="setSpeed(1.5)">1.5x</button>
+          </div>
+        </div>
+
+        <div class="hud-telemetry-panel">
+          <div class="hud-col">
+            <div class="hud-label">Active Segment</div>
+            <div class="hud-val" id="hudActiveGroup">A01 &bull; Turn 1</div>
+          </div>
+          <div class="hud-col">
+            <div class="hud-label">Metric Duration</div>
+            <div class="hud-val" id="hudMorae">4 morae &bull; 1.12s</div>
+          </div>
+          <div class="hud-col">
+            <div class="hud-label">Angular Gaze</div>
+            <div class="hud-val" id="hudAngle">0.0&deg; &rarr; 12:00</div>
+          </div>
+          <div class="hud-col">
+            <div class="hud-label">Stanza Cadence</div>
+            <div class="hud-val" id="hudCadence">None (1&mu;)</div>
+          </div>
+          <div class="hud-col">
+            <div class="hud-label">Hymn Progress (<span id="hudElapsed">0.0s</span>)</div>
+            <div class="hud-progress-bg">
+              <div class="hud-progress-fill" id="hudProgressFill"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -500,21 +704,35 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     let isPlaying = false;
     let audioCtx = null;
 
+    // Rotational teleprompter state
+    let teleprompterRunning = false;
+    let teleprompterPaused = false;
+    let teleprompterMode = 'A'; // 'A', 'B', 'FULL'
+    let playbackSpeed = 1.0;
+    let currentStepIndex = 0;
+    let currentSchedule = [];
+    let activeTimer = null;
+
     function renderSvg() {{
       const svg = document.getElementById('discSvg');
       const groups = (currentSide === 'A' ? PAYLOAD.side_a : PAYLOAD.side_b);
       const cx = 400, cy = 400;
 
       let html = `
-        <circle cx="${{cx}}" cy="${{cy}}" r="372" fill="#F4EDE2" stroke="#B8977E" stroke-width="2.5" />
+        <!-- Base Clay Disc Plate -->
+        <circle cx="${{cx}}" cy="${{cy}}" r="380" fill="#F4EDE2" stroke="#B8977E" stroke-width="2.5" />
+        <circle cx="${{cx}}" cy="${{cy}}" r="372" fill="none" stroke="#D1BEA8" stroke-width="1" stroke-dasharray="4,4" />
         <circle cx="${{cx}}" cy="${{cy}}" r="80" fill="#E8DEC8" stroke="#B8977E" stroke-width="1.5" />
-        <text x="${{cx}}" y="36" font-family="'Instrument Serif', serif" font-size="24" fill="#3D312A" text-anchor="middle">
+        <text x="${{cx}}" y="46" font-family="'Instrument Serif', serif" font-size="20" fill="#3D312A" text-anchor="middle" opacity="0.7">
           PHAISTOS DISC &mdash; SIDE ${{currentSide}}
         </text>
+
+        <!-- ROTATING DISC SURFACE LAYER -->
+        <g id="discRotator" style="transform-origin: 400px 400px; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);">
       `;
 
       groups.forEach((g, gIdx) => {{
-        const strokeAttr = g.oblique_stroke ? 'stroke="#059669" stroke-width="2"' : 'stroke="#B8977E" stroke-width="1"';
+        html += `<g class="sign-group-container" id="group-${{g.id}}">`;
         
         g.signs_coords.forEach((s, sIdx) => {{
           const isFinal = (sIdx === g.signs_coords.length - 1);
@@ -526,7 +744,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
             <g class="sign-slot" id="slot-${{g.id}}-${{sIdx}}" 
                onmouseover="inspectGroup('${{g.id}}')" 
                onclick="inspectGroup('${{g.id}}')">
-              <circle class="sign-circle" cx="${{s.x}}" cy="${{s.y}}" r="15" 
+              <circle class="sign-circle" id="circle-${{g.id}}-${{sIdx}}" cx="${{s.x}}" cy="${{s.y}}" r="15" 
                       fill="${{fillCol}}" stroke="#A88B74" stroke-width="1.2" />
               <text x="${{s.x}}" y="${{s.y + 6}}" font-size="16" text-anchor="middle" fill="#18181B">
                 ${{meta.char}}
@@ -545,7 +763,29 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
             </text>
           `;
         }}
+
+        html += `</g>`;
       }});
+
+      html += `</g>`; // close discRotator
+
+      // Static foreground overlay: 12 o'clock gaze pointer and central hub
+      html += `
+        <g id="staticOverlay" pointer-events="none">
+          <!-- 12:00 Gaze Needle pointer -->
+          <polygon points="393,14 407,14 400,28" fill="#D97706" />
+          <line x1="400" y1="28" x2="400" y2="88" stroke="#D97706" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8" />
+          <rect x="360" y="32" width="80" height="54" rx="8" fill="rgba(254, 243, 199, 0.2)" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4,2" />
+          <text x="400" y="24" font-family="'Geist Mono', monospace" font-size="8" font-weight="600" fill="#B45309" text-anchor="middle" letter-spacing="0.1em">12:00 FOVEAL GAZE</text>
+
+          <!-- Central Hub Boss (Static) -->
+          <circle cx="400" cy="400" r="46" fill="#EADBC8" stroke="#B8977E" stroke-width="2.5" />
+          <circle cx="400" cy="400" r="41" fill="#F4EDE2" stroke="#D1BEA8" stroke-width="1" />
+          <text x="400" y="394" font-family="'Instrument Serif', serif" font-size="16" font-style="italic" fill="#78350F" text-anchor="middle" id="bossSideLabel">Side ${{currentSide}}</text>
+          <text x="400" y="408" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#18181B" text-anchor="middle" id="bossSpeedLabel">5.7 RPM</text>
+          <text x="400" y="419" font-family="'Geist Mono', monospace" font-size="8" fill="#8C7A6B" text-anchor="middle">&omega; = 34.5&deg;/s</text>
+        </g>
+      `;
 
       svg.innerHTML = html;
     }}
@@ -555,13 +795,16 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       document.getElementById('btnSideA').className = (side === 'A' ? 'btn active' : 'btn');
       document.getElementById('btnSideB').className = (side === 'B' ? 'btn active' : 'btn');
       renderSvg();
+      // Reset rotation
+      const rot = document.getElementById('discRotator');
+      if (rot) rot.style.transform = 'rotate(0deg)';
+      document.getElementById('bossSideLabel').textContent = 'Side ' + side;
     }}
 
     function toggleSurrogate(isNull) {{
       isNullSurrogate = isNull;
       document.getElementById('btnCorpusReal').className = (!isNull ? 'btn active' : 'btn');
       document.getElementById('btnCorpusNull').className = (isNull ? 'btn active' : 'btn');
-      // In null surrogate mode, visually alter display
       if (isNull) {{
         document.getElementById('discSvg').style.filter = 'hue-rotate(180deg) saturate(0.8)';
       }} else {{
@@ -571,8 +814,21 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
 
     function inspectGroup(groupId) {{
       const groups = (currentSide === 'A' ? PAYLOAD.side_a : PAYLOAD.side_b);
+      const schedule = (currentSide === 'A' ? PAYLOAD.schedule_a : PAYLOAD.schedule_b);
       const g = groups.find(x => x.id === groupId);
       if (!g) return;
+
+      const schedItem = schedule.find(x => x.group_id === groupId);
+      if (schedItem) {{
+        const rot = document.getElementById('discRotator');
+        if (rot) {{
+          rot.style.transform = `rotate(${{schedItem.target_angle_deg}}deg)`;
+        }}
+        document.getElementById('hudActiveGroup').textContent = `${{schedItem.group_id}} &bull; Turn ${{schedItem.turn}}`;
+        document.getElementById('hudMorae').textContent = `${{schedItem.morae}} morae &bull; ${{(schedItem.duration_ms/1000).toFixed(2)}}s`;
+        document.getElementById('hudAngle').textContent = `${{schedItem.target_angle_deg}}&deg; &rarr; 12:00`;
+        document.getElementById('hudCadence').textContent = schedItem.has_stroke ? 'Stroke Rest (2μ)' : 'None (1μ)';
+      }}
 
       document.getElementById('inspBadge').textContent = g.id + ' (TURN ' + g.turn + ')';
 
@@ -599,6 +855,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
           <div><strong>Incised Oblique Stroke:</strong> ${{strokeBadge}}</div>
           <div><strong>Palimpsest / Erasure:</strong> ${{g.erasure ? '<span style="color: #DC2626;">Documented Erasure</span>' : 'None'}}</div>
           <div><strong>Metric Weight:</strong> ${{g.signs.length + (g.oblique_stroke ? 1 : 0)}} morae</div>
+          <div><strong>Centroid Alignment:</strong> ${{schedItem ? schedItem.target_angle_deg : 0}}&deg; to 12:00 foveal axis</div>
         </div>
       `;
     }}
@@ -639,9 +896,16 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       document.getElementById('frontierDVerdict').textContent = PAYLOAD.frontier_d.material_verdict;
     }}
 
-    // Karplus-Strong Physical Plucked Lyre Synthesis for Browser Playback
-    function playPluckedString(freq, durationMs) {{
+    // ==========================================
+    // WebAudio Karplus-Strong & Percussive Engine
+    // ==========================================
+    function initAudio() {{
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }}
+
+    function playPluckedString(freq, durationMs) {{
+      initAudio();
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.type = 'triangle';
@@ -652,6 +916,189 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       gain.connect(audioCtx.destination);
       osc.start();
       osc.stop(audioCtx.currentTime + (durationMs / 1000.0));
+    }}
+    function playStrokeClick() {{
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880.0, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.60, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.08);
+    }}
+
+    function playBronzeGong() {{
+      initAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(146.83, audioCtx.currentTime); // D3
+      gain.gain.setValueAtTime(0.75, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.2);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 2.2);
+    }}
+
+    // ==========================================
+    // Rotational Teleprompter Execution Loop
+    // ==========================================
+    function setSpeed(spd) {{
+      playbackSpeed = spd;
+      ['spd05', 'spd10', 'spd15'].forEach(id => {{
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+      }});
+      if (spd === 0.5) document.getElementById('spd05').classList.add('active');
+      else if (spd === 1.0) document.getElementById('spd10').classList.add('active');
+      else if (spd === 1.5) document.getElementById('spd15').classList.add('active');
+      const rpm = (5.7 * spd).toFixed(1);
+      document.getElementById('bossSpeedLabel').textContent = rpm + ' RPM';
+    }}
+
+    async function startTeleprompter(mode) {{
+      initAudio();
+      if (teleprompterRunning && teleprompterPaused) {{
+        teleprompterPaused = false;
+        document.getElementById('btnPause').textContent = '⏸ Pause';
+        return;
+      }}
+
+      resetTeleprompter();
+      teleprompterRunning = true;
+      teleprompterPaused = false;
+      teleprompterMode = mode;
+      document.getElementById('btnPause').textContent = '⏸ Pause';
+
+      if (mode === 'A' || mode === 'FULL') {{
+        switchSide('A');
+        currentSchedule = PAYLOAD.schedule_a;
+      }} else {{
+        switchSide('B');
+        currentSchedule = PAYLOAD.schedule_b;
+      }}
+
+      await runScheduleLoop();
+    }}
+
+    function togglePauseTeleprompter() {{
+      if (!teleprompterRunning) return;
+      teleprompterPaused = !teleprompterPaused;
+      document.getElementById('btnPause').textContent = teleprompterPaused ? '▶ Resume' : '⏸ Pause';
+    }}
+
+    function resetTeleprompter() {{
+      teleprompterRunning = false;
+      teleprompterPaused = false;
+      currentStepIndex = 0;
+      if (activeTimer) clearTimeout(activeTimer);
+      const btnP = document.getElementById('btnPause');
+      if (btnP) btnP.textContent = '⏸ Pause';
+      const pFill = document.getElementById('hudProgressFill');
+      if (pFill) pFill.style.width = '0%';
+      const pElap = document.getElementById('hudElapsed');
+      if (pElap) pElap.textContent = '0.0s';
+      const rot = document.getElementById('discRotator');
+      if (rot) rot.style.transform = 'rotate(0deg)';
+      document.querySelectorAll('.sign-group-container').forEach(el => el.classList.remove('active-teleprompter-group'));
+      document.querySelectorAll('.sign-circle').forEach(el => el.classList.remove('sign-current-mora'));
+    }}
+
+    async function runScheduleLoop() {{
+      const totalSteps = currentSchedule.length;
+      let totalDurationMs = currentSchedule.reduce((acc, x) => acc + x.duration_ms, 0);
+      let elapsedMs = 0;
+
+      for (let i = currentStepIndex; i < totalSteps; i++) {{
+        if (!teleprompterRunning) break;
+
+        while (teleprompterPaused) {{
+          await new Promise(r => setTimeout(r, 100));
+          if (!teleprompterRunning) return;
+        }}
+
+        currentStepIndex = i;
+        const item = currentSchedule[i];
+
+        // 1. Smoothly rotate disc to bring group to 12 o'clock gaze pointer
+        const rot = document.getElementById('discRotator');
+        if (rot) {{
+          rot.style.transform = `rotate(${{item.target_angle_deg}}deg)`;
+        }}
+
+        // 2. Highlight active group
+        document.querySelectorAll('.sign-group-container').forEach(el => el.classList.remove('active-teleprompter-group'));
+        const groupEl = document.getElementById('group-' + item.group_id);
+        if (groupEl) groupEl.classList.add('active-teleprompter-group');
+
+        // 3. Update HUD telemetry
+        document.getElementById('hudActiveGroup').innerHTML = `<strong>${{item.group_id}}</strong> &bull; Turn ${{item.turn}}`;
+        document.getElementById('hudMorae').textContent = `${{item.morae}} morae &bull; ${{(item.duration_ms/1000).toFixed(2)}}s`;
+        document.getElementById('hudAngle').textContent = `${{item.target_angle_deg}}&deg; &rarr; 12:00`;
+        document.getElementById('hudCadence').innerHTML = item.has_stroke 
+          ? '<span style="color: #059669; font-weight: 600;">Stroke Rest (2&mu;)</span>' 
+          : 'None (1&mu;)';
+
+        inspectGroup(item.group_id);
+
+        // 4. Step through each sign in the group
+        for (let sIdx = 0; sIdx < item.signs.length; sIdx++) {{
+          if (!teleprompterRunning) break;
+          while (teleprompterPaused) {{
+            await new Promise(r => setTimeout(r, 100));
+            if (!teleprompterRunning) return;
+          }}
+
+          const sign = item.signs[sIdx];
+          const circleEl = document.getElementById(`circle-${{item.group_id}}-${{sIdx}}`);
+          if (circleEl) circleEl.classList.add('sign-current-mora');
+
+          playPluckedString(sign.freq, sign.duration_ms);
+
+          if (sign.stroke) {{
+            playStrokeClick();
+          }}
+
+          const signWait = sign.duration_ms / playbackSpeed;
+          elapsedMs += sign.duration_ms;
+          updateProgressBar(elapsedMs, totalDurationMs);
+
+          await new Promise(r => setTimeout(r, signWait));
+          if (circleEl) circleEl.classList.remove('sign-current-mora');
+        }}
+
+        // 5. Inter-group pause
+        const pauseWait = item.pause_ms / playbackSpeed;
+        elapsedMs += item.pause_ms;
+        updateProgressBar(elapsedMs, totalDurationMs);
+        await new Promise(r => setTimeout(r, pauseWait));
+      }}
+
+      if (teleprompterRunning && teleprompterMode === 'FULL' && currentSide === 'A') {{
+        document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #92400E;">RITUAL TURNOVER GONG</strong>';
+        playBronzeGong();
+        await new Promise(r => setTimeout(r, 2500 / playbackSpeed));
+        switchSide('B');
+        currentSchedule = PAYLOAD.schedule_b;
+        currentStepIndex = 0;
+        await runScheduleLoop();
+      }} else if (teleprompterRunning) {{
+        document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #059669;">HYMN RECITATION COMPLETE</strong>';
+        teleprompterRunning = false;
+      }}
+    }}
+
+    function updateProgressBar(elapsedMs, totalDurationMs) {{
+      const pct = Math.min(100, Math.round((elapsedMs / totalDurationMs) * 100));
+      const fillEl = document.getElementById('hudProgressFill');
+      if (fillEl) fillEl.style.width = pct + '%';
+      const elapEl = document.getElementById('hudElapsed');
+      if (elapEl) elapEl.textContent = (elapsedMs / 1000).toFixed(1) + 's / ' + (totalDurationMs / 1000).toFixed(1) + 's';
     }}
 
     async function toggleAudio() {{

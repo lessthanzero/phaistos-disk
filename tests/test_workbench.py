@@ -20,3 +20,11 @@ def test_generate_workbench_html(tmp_path: Path):
     assert "Frontier C: Kober-Ventris Grid Factorization" in html
     assert "Frontier D: 3D Clay Shrinkage & Punches" in html
     assert "playPluckedString" in html
+    assert "discRotator" in html
+    assert "12:00 FOVEAL GAZE" in html
+    assert "startTeleprompter" in html
+    assert "schedule_a" in html
+    assert "schedule_b" in html
+    assert "hudActiveGroup" in html
+    assert "playBronzeGong" in html
+    assert "5.7 RPM" in html

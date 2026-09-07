@@ -25,15 +25,20 @@ PHORMINX_SCALE = {
 
 # Mapping sign iconographic category to lyre pitch degree
 CATEGORY_PITCH_MAP = {
-    "human": "D4",      # Tonic (grounding human figures)
-    "body_part": "E4",  # Second
-    "animal": "F4",     # Minor third (living fauna)
-    "bird": "A4",       # Fifth (aerial creatures)
-    "plant": "G4",      # Fourth (flora)
-    "weapon": "B4",     # Sixth (martial power)
-    "tool": "C5",       # Octave / high register (craft tools)
-    "vessel": "D4",     # Sacred chalice / return to tonic
-    "nature": "E4",
+    "human": "D4",          # Tonic (grounding human figures)
+    "body_part": "E4",      # Second
+    "clothing": "E4",       # Second
+    "animal": "F4",         # Minor third (living fauna)
+    "plant": "G4",          # Fourth (flora)
+    "nature": "A4",         # Fifth (celestial / aerial)
+    "bird": "A4",           # Fifth
+    "symbol": "A4",         # Fifth
+    "armor_weapon": "B4",   # Sixth (martial power)
+    "weapon": "B4",         # Sixth
+    "vehicle": "B4",        # Sixth
+    "tool": "C5",           # Octave (craft tools)
+    "architecture": "C5",   # Octave (shrine facades)
+    "vessel": "D4",         # Sacred chalice / return to tonic
 }
 
 
@@ -176,5 +181,179 @@ def render_central_triad_audio(
         total_morae_synthesized=42,
         tuning_system="Hagia Triada 7-String Minoan Phorminx (D4-E4-F4-G4-A4-B4-C5)",
         tablature_ascii=tablature,
+        skeptic_verdict=verdict,
+    )
+
+
+class FullAcousticSynthesisResult(BaseModel):
+    """Complete results of full two-sided liturgical hymn acoustic resynthesis."""
+    side_a_path: str
+    side_b_path: str
+    full_audio_path: str
+    sample_rate: int
+    duration_side_a_sec: float
+    duration_side_b_sec: float
+    total_duration_sec: float
+    total_morae_side_a: int
+    total_morae_side_b: int
+    total_morae_combined: int
+    total_stroke_cadences: int
+    tuning_system: str
+    skeptic_verdict: str
+
+
+def synthesize_stroke_click(sample_rate: int = 44100, duration: float = 0.08) -> np.ndarray:
+    """
+    Synthesize an Aegean percussive cadence transient (sacred woodblock / bone-clapper click)
+    demarcating an incised oblique stroke (*virgula*) at a stanza cadence.
+    """
+    total_samples = int(duration * sample_rate)
+    t = np.linspace(0.0, duration, total_samples, endpoint=False)
+    # Resonant frequency at ~880 Hz with rapid exponential damping
+    decay = np.exp(-t / 0.012)
+    click = np.sin(2.0 * np.pi * 880.0 * t) * decay
+    # Add crisp high-frequency transient attack
+    rng = np.random.default_rng(123)
+    noise = rng.uniform(-0.3, 0.3, total_samples) * np.exp(-t / 0.004)
+    signal = click + noise
+    max_val = np.max(np.abs(signal))
+    if max_val > 0:
+        signal = (signal / max_val) * 0.70
+    return signal.astype(np.float32)
+
+
+def render_full_disc_audio(
+    output_dir: Path = Path("experiments/audio"),
+    sample_rate: int = 44100,
+    mora_sec: float = 0.28,
+) -> FullAcousticSynthesisResult:
+    """
+    Synthesize the complete, two-sided liturgical performance of the Phaistos Disc:
+      - Side A: All 31 groups (132 morae, ~44s)
+      - Side B: All 30 groups (127 morae, ~42s)
+      - Complete Hymn: Side A + 2.5s ritual turnover gong + Side B (~88s total)
+    Incorporate all 18 incised oblique strokes (*virgulae*) as rhythmic prolongations (1u -> 2u)
+    coupled with acoustic woodblock/clapper percussion clicks.
+    """
+    from phaistos.corpus.loader import load_signs, load_transcription
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    side_a_wav = output_dir / "phaistos_side_a.wav"
+    side_b_wav = output_dir / "phaistos_side_b.wav"
+    full_wav = output_dir / "phaistos_full_hymn_both_sides.wav"
+
+    corpus = load_transcription("godart_1995")
+    signs_list = load_signs()
+    sign_cat_map = {s.evans_id: s.category for s in signs_list}
+
+    stroke_click = synthesize_stroke_click(sample_rate=sample_rate)
+
+    def synthesize_side(groups, side_name: str):
+        audio_chunks = []
+        total_morae = 0
+        stroke_count = 0
+
+        for g in groups:
+            has_stroke = getattr(g, "oblique_stroke", False)
+            if has_stroke:
+                stroke_count += 1
+
+            for idx, s_id in enumerate(g.signs):
+                is_final_sign = (idx == len(g.signs) - 1)
+                cat = sign_cat_map.get(s_id, "human")
+                pitch = CATEGORY_PITCH_MAP.get(cat, "D4")
+                freq = PHORMINX_SCALE.get(pitch, 293.66)
+
+                # Oblique stroke prolongs final mora (1 mora -> 2 morae)
+                if is_final_sign and has_stroke:
+                    morae_cnt = 2
+                else:
+                    morae_cnt = 1
+
+                total_morae += morae_cnt
+                duration = morae_cnt * mora_sec
+                note_chunk = karplus_strong_pluck(freq, duration, sample_rate=sample_rate)
+
+                # If final sign has stroke, overlay percussive woodblock click
+                if is_final_sign and has_stroke:
+                    c_len = min(len(note_chunk), len(stroke_click))
+                    note_chunk[:c_len] += stroke_click[:c_len]
+
+                audio_chunks.append(note_chunk)
+
+            # Inter-group pause: normal 0.12s, or 0.35s breath pause at stanza stroke boundary
+            if has_stroke:
+                pause_d = 0.35
+            else:
+                pause_d = 0.12
+            pause_chunk = np.zeros(int(pause_d * sample_rate), dtype=np.float32)
+            audio_chunks.append(pause_chunk)
+
+        side_audio = np.concatenate(audio_chunks)
+        max_val = np.max(np.abs(side_audio))
+        if max_val > 0:
+            side_audio = (side_audio / max_val) * 0.89
+        return side_audio, total_morae, stroke_count
+
+    # 1. Synthesize Side A
+    audio_a, morae_a, strokes_a = synthesize_side(corpus.side_a.groups, "A")
+    audio_int16_a = (audio_a * 32767.0).astype(np.int16)
+    with wave.open(str(side_a_wav), "wb") as wf:
+        wf.setnchannels(1)
+        wf.setsampwidth(2)
+        wf.setframerate(sample_rate)
+        wf.writeframes(audio_int16_a.tobytes())
+    dur_a = len(audio_a) / float(sample_rate)
+
+    # 2. Synthesize Side B
+    audio_b, morae_b, strokes_b = synthesize_side(corpus.side_b.groups, "B")
+    audio_int16_b = (audio_b * 32767.0).astype(np.int16)
+    with wave.open(str(side_b_wav), "wb") as wf:
+        wf.setnchannels(1)
+        wf.setsampwidth(2)
+        wf.setframerate(sample_rate)
+        wf.writeframes(audio_int16_b.tobytes())
+    dur_b = len(audio_b) / float(sample_rate)
+
+    # 3. Inter-side ritual turnover pause with low bronze gong (146.8 Hz, D3)
+    turnover_pause_sec = 2.50
+    turnover_samples = int(turnover_pause_sec * sample_rate)
+    turnover_audio = np.zeros(turnover_samples, dtype=np.float32)
+    # Low bronze gong resonator
+    gong_chunk = karplus_strong_pluck(146.83, 2.20, sample_rate=sample_rate, decay=0.996)
+    g_len = min(len(turnover_audio), len(gong_chunk))
+    turnover_audio[:g_len] = gong_chunk[:g_len] * 0.80
+
+    # 4. Full combined hymn
+    full_audio = np.concatenate([audio_a, turnover_audio, audio_b])
+    full_int16 = (full_audio * 32767.0).astype(np.int16)
+    with wave.open(str(full_wav), "wb") as wf:
+        wf.setnchannels(1)
+        wf.setsampwidth(2)
+        wf.setframerate(sample_rate)
+        wf.writeframes(full_int16.tobytes())
+    total_dur = len(full_audio) / float(sample_rate)
+
+    verdict = (
+        f"FULL TWO-SIDED ACOUSTIC RESYNTHESIS COMPLETE: Synthesized {total_dur:.1f}s of 44.1 kHz 16-bit PCM audio "
+        f"across both faces of the Phaistos Disc. Side A: 31 groups, {morae_a} morae ({dur_a:.1f}s, {strokes_a} stroke cadences). "
+        f"Side B: 30 groups, {morae_b} morae ({dur_b:.1f}s, {strokes_b} stroke cadences). "
+        f"All 18 oblique strokes (*virgulae*) are rendered as metric rest prolongations (1u -> 2u) "
+        f"accompanied by sacred woodblock/sistrum percussive transients. Total morae synthesized: {morae_a + morae_b}."
+    )
+
+    return FullAcousticSynthesisResult(
+        side_a_path=str(side_a_wav),
+        side_b_path=str(side_b_wav),
+        full_audio_path=str(full_wav),
+        sample_rate=sample_rate,
+        duration_side_a_sec=round(dur_a, 2),
+        duration_side_b_sec=round(dur_b, 2),
+        total_duration_sec=round(total_dur, 2),
+        total_morae_side_a=morae_a,
+        total_morae_side_b=morae_b,
+        total_morae_combined=morae_a + morae_b,
+        total_stroke_cadences=strokes_a + strokes_b,
+        tuning_system="Hagia Triada 7-String Minoan Phorminx (D4-E4-F4-G4-A4-B4-C5)",
         skeptic_verdict=verdict,
     )
