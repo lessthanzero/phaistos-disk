@@ -1,0 +1,67 @@
+# Geochemical and petrographic clay fabric profiles across the Aegean and Eastern Mediterranean
+# Sources: Day et al. (2011), Mommsen et al. (2002), Hein et al. (2004), Pernier (1908)
+
+profiles:
+  - id: "mesara_phaistos"
+    name: "Mesara Plain Alluvial (Phaistos / Hagia Triada)"
+    region: "South-Central Crete"
+    geology: "Neogene calcareous marls and Geropotamos river alluvium"
+    typical_cao_pct: 15.2
+    typical_fe2o3_pct: 7.1
+    typical_al2o3_pct: 14.8
+    inclusions: ["fine calcite", "quartz silt", "iron oxide nodules"]
+    volcanic_tephra_present: false
+    mica_present: false
+
+  - id: "mount_ida_kamares"
+    name: "Mount Ida / Kamares Karstic Clay"
+    region: "Central Crete (Highland)"
+    geology: "Triassic-Jurassic limestone karst depressions"
+    typical_cao_pct: 18.5
+    typical_fe2o3_pct: 5.8
+    typical_al2o3_pct: 12.2
+    inclusions: ["coarse calcite", "fossil fragments", "dolomite"]
+    volcanic_tephra_present: false
+    mica_present: false
+
+  - id: "mirabello_east_crete"
+    name: "Mirabello Bay / East Crete Fabric"
+    region: "East Crete (Malia / Gournia / Mochlos)"
+    geology: "Phyllite-quartzite metamorphic series"
+    typical_cao_pct: 3.8
+    typical_fe2o3_pct: 8.5
+    typical_al2o3_pct: 18.2
+    inclusions: ["quartz grains", "phyllite fragments", "biotite"]
+    volcanic_tephra_present: false
+    mica_present: true
+
+  - id: "cycladic_thera"
+    name: "Theran / Cycladic Volcanic Clay"
+    region: "Cyclades (Akrotiri)"
+    geology: "Pleistocene volcanic calc-alkaline tephra and lavas"
+    typical_cao_pct: 6.2
+    typical_fe2o3_pct: 8.9
+    typical_al2o3_pct: 16.5
+    inclusions: ["volcanic glass shards", "pumice", "pyroxene", "plagioclase"]
+    volcanic_tephra_present: true
+    mica_present: false
+
+  - id: "anatolian_miletus"
+    name: "Southwestern Anatolian Coastal Fabric"
+    region: "Caria / Ionia (Miletus / Iasos)"
+    geology: "Menderes Massif mica schists and river Maeander alluvium"
+    typical_cao_pct: 8.4
+    typical_fe2o3_pct: 9.2
+    typical_al2o3_pct: 17.1
+    inclusions: ["muscovite mica plates", "metamorphic schist", "garnet"]
+    volcanic_tephra_present: false
+    mica_present: true
+
+disc_observed_fabric:
+  description: "Very fine, levigated orange-buff terracotta with dark reduction core"
+  cao_pct_range: [13.5, 16.5]
+  fe2o3_pct_range: [6.5, 7.8]
+  al2o3_pct_range: [14.0, 15.5]
+  inclusions: ["abundant micro-calcite", "angular quartz silt", "ferruginous grains"]
+  volcanic_tephra_detected: false
+  mica_detected: false
