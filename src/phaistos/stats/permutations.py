@@ -161,3 +161,19 @@ def metric_conditional_entropy(c: DiscCorpus) -> float:
     """Bigram conditional entropy H(Y|X)."""
     _, h_cond, _ = compute_bigram_joint_and_conditional_entropy(c)
     return float(h_cond)
+
+
+def metric_lzma_compression_ratio(c: DiscCorpus) -> float:
+    """LZMA compressibility ratio."""
+    from phaistos.stats.entropy import compute_compressibility_metrics
+    return float(compute_compressibility_metrics(c)["lzma_ratio"])
+
+
+def metric_prefix_clustering(c: DiscCorpus) -> float:
+    """Count of groups starting with the top prefix '02-12'."""
+    cnt = 0
+    for g in c.all_groups():
+        if len(g.signs) >= 2 and g.signs[0] == "02" and g.signs[1] == "12":
+            cnt += 1
+    return float(cnt)
+

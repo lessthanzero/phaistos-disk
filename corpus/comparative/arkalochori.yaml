@@ -1,0 +1,170 @@
+# Epigraphic Transcription and Comparative Analysis of the Arkalochori Axe Inscription
+# Heraklion Archaeological Museum Inv. No. 584
+# Discovered: Spyridon Marinatos (1934), Arkalochori Sacred Cave, Crete
+# Date: Late Minoan I (c. 1600-1500 BC)
+# Physical medium: Bronze/gold votive double axe (labrys) with 15 incised signs in 3 vertical columns
+
+metadata:
+  artifact: "Arkalochori Votive Double Axe"
+  discovery_year: 1934
+  excavator: "Spyridon Marinatos"
+  museum_id: "HM 584"
+  provenance: "Arkalochori Sacred Cave, Crete"
+  date_period: "Late Minoan I (c. 1600-1500 BC)"
+  technique: "Incised with sharp metal stylus (not stamped)"
+  total_signs: 15
+  columns_count: 3
+
+signs:
+  # Column 1 (Left column, reading top-to-bottom)
+  - id: "ARK_01"
+    column: 1
+    position: 1
+    description: "Crested/plumed human head in profile facing right"
+    diacritical_mark: "dot_above"
+    proposed_phaistos_parallel: "02"
+    proposed_linear_a_parallel: "AB04"
+    visual_similarity: "high"
+    notes: "Stylistic equivalent to Phaistos Disc sign 02 (Plumed Head); central diagnostic sign for the script relationship."
+
+  - id: "ARK_02"
+    column: 1
+    position: 2
+    description: "Branch / multi-pronged plant or chevron sign"
+    diacritical_mark: "dot_above"
+    proposed_phaistos_parallel: "35"
+    proposed_linear_a_parallel: "AB04"
+    visual_similarity: "medium"
+    notes: "Vegetal sign with vertical stem and diagonal branches, comparable to PD 35 (Branch) or Linear A AB04 (te)."
+
+  - id: "ARK_03"
+    column: 1
+    position: 3
+    description: "Crested/plumed human head in profile facing right"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "02"
+    proposed_linear_a_parallel: "AB04"
+    visual_similarity: "high"
+    notes: "Exact repeat of sign ARK_01 without superior dot."
+
+  - id: "ARK_04"
+    column: 1
+    position: 4
+    description: "Branch / multi-pronged plant"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "35"
+    proposed_linear_a_parallel: "AB04"
+    visual_similarity: "medium"
+    notes: "Repeat of sign ARK_02."
+
+  - id: "ARK_05"
+    column: 1
+    position: 5
+    description: "Double axe (labrys) with central shaft"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "21"
+    proposed_linear_a_parallel: "AB08"
+    visual_similarity: "high"
+    notes: "Pictogram of labrys; iconographically self-referential on a double axe. Corresponds to Cretan Hieroglyph 042 and PD 21 variant."
+
+  # Column 2 (Middle column, reading top-to-bottom)
+  - id: "ARK_06"
+    column: 2
+    position: 1
+    description: "Crested/plumed human head in profile facing right"
+    diacritical_mark: "dot_above"
+    proposed_phaistos_parallel: "02"
+    proposed_linear_a_parallel: "AB04"
+    visual_similarity: "high"
+    notes: "Initiates Column 2 in identical fashion to Column 1."
+
+  - id: "ARK_07"
+    column: 2
+    position: 2
+    description: "Architectural structure / shrine / gate / pagoda"
+    diacritical_mark: "dot_above"
+    proposed_phaistos_parallel: "24"
+    proposed_linear_a_parallel: "AB54"
+    visual_similarity: "high"
+    notes: "Stepped roofed structure, direct visual parallel to Phaistos Disc sign 24 (Pagoda/Shrine) and Linear A AB54 (wa)."
+
+  - id: "ARK_08"
+    column: 2
+    position: 3
+    description: "Crested/plumed human head in profile facing right"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "02"
+    proposed_linear_a_parallel: "AB04"
+    visual_similarity: "high"
+    notes: "Exact structural parallel to ARK_03."
+
+  - id: "ARK_09"
+    column: 2
+    position: 4
+    description: "Branch / multi-pronged plant"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "35"
+    proposed_linear_a_parallel: "AB04"
+    visual_similarity: "medium"
+    notes: "Exact structural parallel to ARK_04."
+
+  - id: "ARK_10"
+    column: 2
+    position: 5
+    description: "Double axe (labrys) with central shaft"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "21"
+    proposed_linear_a_parallel: "AB08"
+    visual_similarity: "high"
+    notes: "Exact structural parallel to ARK_05."
+
+  # Column 3 (Right column, reading top-to-bottom)
+  - id: "ARK_11"
+    column: 3
+    position: 1
+    description: "Horned animal head / bucranium or feline head"
+    diacritical_mark: "dot_above"
+    proposed_phaistos_parallel: "29"
+    proposed_linear_a_parallel: "AB23"
+    visual_similarity: "medium"
+    notes: "Comparable to PD 29 (Cat Head) or Cretan Hieroglyph 016 (Bucranium / ox head)."
+
+  - id: "ARK_12"
+    column: 3
+    position: 2
+    description: "Double axe (labrys) with central shaft"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "21"
+    proposed_linear_a_parallel: "AB08"
+    visual_similarity: "high"
+    notes: "Labrys sign appearing medially in Column 3."
+
+  - id: "ARK_13"
+    column: 3
+    position: 3
+    description: "Branch / multi-pronged plant"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "35"
+    proposed_linear_a_parallel: "AB04"
+    visual_similarity: "medium"
+    notes: "Vegetal sign."
+
+  - id: "ARK_14"
+    column: 3
+    position: 4
+    description: "Circular / shield-like sign or Linear motif"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "12"
+    proposed_linear_a_parallel: "AB77"
+    visual_similarity: "medium"
+    notes: "Circular motif comparable to PD 12 (Shield) or Linear A AB77 (ka)."
+
+  - id: "ARK_15"
+    column: 3
+    position: 5
+    description: "Double axe (labrys) with central shaft"
+    diacritical_mark: null
+    proposed_phaistos_parallel: "21"
+    proposed_linear_a_parallel: "AB08"
+    visual_similarity: "high"
+    notes: "Terminal labrys sign concluding Column 3."

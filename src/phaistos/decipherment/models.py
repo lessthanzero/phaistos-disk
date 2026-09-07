@@ -16,14 +16,14 @@ class DeciphermentHypothesis(BaseModel):
 
 class DeciphermentResult(BaseModel):
     hypothesis_id: str
-    target_language: str
-    observed_score: float
-    null_mean_score: float
-    null_std_score: float
-    z_score: float
-    p_value: float
-    is_falsified: bool
-    skeptic_verdict: str
-    unicity_ratio: float
-    sample_transliteration: Dict[str, str] = Field(..., description="Group ID to transliteration string")
+    target_language: str = "structural_or_non_linguistic"
+    observed_score: float = 0.0
+    null_mean_score: float = 0.0
+    null_std_score: float = 0.0
+    z_score: float = 0.0
+    p_value: float = 1.0
+    is_falsified: bool = False
+    skeptic_verdict: str = ""
+    unicity_ratio: float = 1.0
+    sample_transliteration: Dict[str, str] = Field(default_factory=dict, description="Group ID to transliteration string")
     contradictions: List[str] = Field(default_factory=list)

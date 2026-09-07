@@ -1,0 +1,49 @@
+# Epigraphic Transcription of the Malia Altar Stone Inscription
+# Discovered: Fernand Chapouthier (1937), Malia Palace, Crete
+# Publication: Chapouthier (1938), BCH 62
+# Physical medium: Limestone offering table / block with central cupule and 16 incised Cretan hieroglyphs
+
+metadata:
+  artifact: "Malia Altar Stone (Table d'offrandes)"
+  discovery_year: 1937
+  excavator: "Fernand Chapouthier"
+  provenance: "Malia Palace, East of Room XVIII 1, Crete"
+  date_period: "Middle Minoan III (c. 1700-1600 BC)"
+  technique: "Incised on limestone block"
+  total_signs: 16
+
+signs:
+  - id: "MAL_01"
+    position: 1
+    description: "Double axe / labrys"
+    cretan_hieroglyph_id: "CH_042"
+    proposed_phaistos_parallel: "21"
+    notes: "Double axe glyph identical in conception to Arkalochori and PD 21."
+
+  - id: "MAL_02"
+    position: 2
+    description: "Two-handled jug / libation vase"
+    cretan_hieroglyph_id: "CH_054"
+    proposed_phaistos_parallel: "09"
+    notes: "Vessel motif parallel to PD 09 (Tiara / fluted bowl) or Linear A AB52."
+
+  - id: "MAL_03"
+    position: 3
+    description: "Branch / plant sign"
+    cretan_hieroglyph_id: "CH_025"
+    proposed_phaistos_parallel: "35"
+    notes: "Branch glyph common across Aegean scripts."
+
+  - id: "MAL_04"
+    position: 4
+    description: "Star / eight-rayed rosette"
+    cretan_hieroglyph_id: "CH_070"
+    proposed_phaistos_parallel: "38"
+    notes: "Direct iconographic counterpart to PD 38 (Rosette)."
+
+  - id: "MAL_05"
+    position: 5
+    description: "Cross / X mark"
+    cretan_hieroglyph_id: "CH_074"
+    proposed_phaistos_parallel: null
+    notes: "Separator or punctuation sign."

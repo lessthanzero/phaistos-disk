@@ -1,7 +1,7 @@
 """Data models for comparative scripts and cross-script correspondences."""
 
 from enum import Enum
-from typing import List, Optional
+from typing import Dict, List, Optional
 from pydantic import BaseModel, Field
 
 
@@ -45,3 +45,36 @@ class ProposedCorrespondence(BaseModel):
     inference_level: InferenceLevel
     visual_similarity: VisualSimilarity
     evidence_notes: str
+
+
+class ArkalochoriSign(BaseModel):
+    id: str
+    column: int
+    position: int
+    description: str
+    diacritical_mark: Optional[str] = None
+    proposed_phaistos_parallel: Optional[str] = None
+    proposed_linear_a_parallel: Optional[str] = None
+    visual_similarity: str = "medium"
+    notes: str = ""
+
+
+class ArkalochoriInscription(BaseModel):
+    artifact: str
+    discovery_year: int
+    provenance: str
+    date_period: str
+    signs: List[ArkalochoriSign]
+
+
+class GeneralizationResult(BaseModel):
+    artifact_name: str
+    total_signs: int
+    matched_phaistos_signs_count: int
+    coverage_percentage: float
+    unique_phaistos_signs_matched: List[str]
+    structural_formula_z_score: float
+    formula_p_value: float
+    target_language_admissibility: Dict[str, float]
+    skeptic_verdict: str
+

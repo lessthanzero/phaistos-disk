@@ -441,6 +441,48 @@ def compare_linear_a_cmd(iterations: int = typer.Option(500, help="Permutation t
     console.print(table)
 
 
+@app.command("arkalochori")
+def arkalochori_cmd(surrogates: int = typer.Option(1000, help="Monte Carlo surrogate iterations")):
+    """Evaluate generalization of Phaistos Disc signs & hypotheses to the Arkalochori Axe."""
+    from phaistos.comparative.loader import (
+        load_arkalochori_inscription,
+        load_proposed_correspondences,
+    )
+    from phaistos.comparative.generalization import evaluate_arkalochori_generalization
+
+    corpus = load_transcription("godart_1995")
+    inscription = load_arkalochori_inscription()
+    corrs = load_proposed_correspondences()
+
+    res = evaluate_arkalochori_generalization(
+        corpus=corpus,
+        inscription=inscription,
+        correspondences=corrs,
+        n_surrogates=surrogates,
+    )
+
+    console.print(Panel(f"[bold cyan]Cross-Script Generalization: {res.artifact_name}[/bold cyan]"))
+    console.print(f"Total Signs: [bold]{res.total_signs}[/bold] | Matched Phaistos Parallels: [bold yellow]{res.matched_phaistos_signs_count}[/bold yellow] ({res.coverage_percentage:.1f}%)")
+    console.print(f"Unique Matched Disc Signs: [magenta]{', '.join(res.unique_phaistos_signs_matched)}[/magenta]")
+
+    table = Table(title="Repetition Concentration vs Phaistos Distribution", show_header=True)
+    table.add_column("Formula Z-Score", justify="center")
+    table.add_column("Empirical p-value", justify="center")
+    table.add_column("Minoan Admissibility", justify="center")
+    table.add_column("Luwian Admissibility", justify="center")
+    table.add_column("Greek Admissibility", justify="center")
+
+    table.add_row(
+        f"[bold red]{res.structural_formula_z_score:+.2f}[/bold red]" if res.structural_formula_z_score > 2.0 else f"{res.structural_formula_z_score:+.2f}",
+        f"{res.formula_p_value:.4f}",
+        f"{res.target_language_admissibility.get('minoan', -100):.1f}",
+        f"{res.target_language_admissibility.get('luwian', -100):.1f}",
+        f"{res.target_language_admissibility.get('greek', -100):.1f}",
+    )
+    console.print(table)
+    console.print(f"\n[bold]Skeptic Ruling:[/bold]\n{res.skeptic_verdict}\n")
+
+
 @app.command("unicity")
 def unicity_cmd():
     """Display Shannon unicity distance limits and mathematical overfit bounds."""
@@ -533,6 +575,60 @@ def test_hypothesis_cmd(
     for gid, tr in list(res.sample_transliteration.items())[:5]:
         t_table.add_row(gid, tr)
     console.print(t_table)
+
+
+@app.command("test-hypotheses")
+def test_hypotheses_suite_cmd(
+    iterations: int = typer.Option(500, help="Monte Carlo surrogate iterations"),
+):
+    """Run automated Anti-Bullshit evaluation suite across all registered hypotheses (H001, H002, H003)."""
+    from phaistos.experiment.hypotheses_runner import (
+        test_h001_strophic_refrains,
+        test_h002_linear_a_phonetics,
+        test_h003_lunisolar_calendar,
+    )
+
+    corpus = load_transcription("godart_1995")
+
+    console.print(Panel("[bold cyan]Automated Hypothesis Testing Suite (Anti-Bullshit Protocol)[/bold cyan]"))
+
+    with console.status("[bold cyan]Evaluating H001 (Strophic Refrains)...[/bold cyan]"):
+        h1 = test_h001_strophic_refrains(corpus, iterations=iterations)
+
+    with console.status("[bold cyan]Evaluating H002 (Linear A Phonetics)...[/bold cyan]"):
+        h2 = test_h002_linear_a_phonetics(corpus, iterations=iterations)
+
+    with console.status("[bold cyan]Evaluating H003 (Lunisolar Calendar)...[/bold cyan]"):
+        h3 = test_h003_lunisolar_calendar(corpus, iterations=iterations)
+
+    table = Table(title="Hypothesis Testing Results vs Randomized Controls", show_header=True)
+    table.add_column("ID", style="bold cyan")
+    table.add_column("Type", justify="center")
+    table.add_column("Title")
+    table.add_column("Z-Score", justify="center")
+    table.add_column("p-value", justify="center")
+    table.add_column("Status", justify="center")
+
+    results = [h1, h2.model_dump() if hasattr(h2, "model_dump") else h2, h3]
+    for r in results:
+        z = r.get("z_score", 0.0)
+        p = r.get("p_value", 1.0)
+        falsified = r.get("is_falsified", False)
+        status = "[bold red]FALSIFIED[/bold red]" if falsified else "[bold green]SUPPORTED[/bold green]"
+        table.add_row(
+            r.get("hypothesis_id", ""),
+            r.get("type", "linguistic"),
+            r.get("title", r.get("hypothesis_id", "")),
+            f"{z:+.2f}",
+            f"{p:.4f}",
+            status,
+        )
+
+    console.print(table)
+    console.print("\n[bold]Detailed Verdicts:[/bold]")
+    for r in results:
+        v = r.get("verdict") or r.get("skeptic_verdict", "")
+        console.print(f"• [bold cyan]{r.get('hypothesis_id')}[/bold cyan]: {v}")
 
 
 @app.command("non-linguistic")
