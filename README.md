@@ -17,6 +17,7 @@
 - [The Grand Empirical Model](#the-grand-empirical-model)
 - [Key Scientific Breakthroughs & Falsifications](#key-scientific-breakthroughs--falsifications)
 - [The Skeptic Rule](#the-skeptic-rule)
+- [Social & Material Context Research Brief](docs/social_material_context.md)
 - [Acoustic Audio Resynthesis](#acoustic-audio-resynthesis)
 - [Repository Architecture](#repository-architecture)
 - [CLI Reference](#cli-reference)
@@ -24,6 +25,7 @@
 - [Quickstart & Reproduction](#quickstart--reproduction)
 - [Epigraphic Data & Scholarly References](#epigraphic-data--scholarly-references)
 - [License](#license)
+
 
 ---
 
