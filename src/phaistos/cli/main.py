@@ -577,6 +577,39 @@ def test_hypothesis_cmd(
     console.print(t_table)
 
 
+@app.command("solve-syllabic")
+def solve_syllabic_cmd(
+    language: str = typer.Option("minoan_linear_a", help="Target language (minoan_linear_a | mycenaean_greek | syllabic_luwian | northwest_semitic)"),
+    surrogates: int = typer.Option(200, help="Monte Carlo surrogate iterations"),
+):
+    """Combinatorial syllabic admissibility solver with Shannon unicity bounds (Q006, Q007)."""
+    from phaistos.decipherment.solver import evaluate_syllabic_admissibility
+
+    corpus = load_transcription("godart_1995")
+    console.print(Panel(f"[bold cyan]Combinatorial Syllabic Solver: {language}[/bold cyan]"))
+
+    with console.status(f"[bold cyan]Testing {language} phonotactic admissibility vs {surrogates} control shuffles...[/bold cyan]"):
+        res = evaluate_syllabic_admissibility(corpus, target_language=language, n_surrogates=surrogates)
+
+    console.print(f"Target Language: [bold]{res.target_language}[/bold]")
+    console.print(f"Observed Admissibility Rate: [bold yellow]{res.observed_admissibility_rate:.1f}%[/bold yellow] of {res.tested_groups_count} groups")
+    console.print(f"Null Shuffled Baseline (μ ± σ): {res.null_mean_admissibility_rate:.1f}% ± {res.null_std_admissibility_rate:.1f}%")
+    console.print(f"Z-Score: [bold]{res.z_score:+.2f}[/bold] | p-value: [bold]{res.p_value:.4f}[/bold]")
+    console.print(f"Shannon Unicity Distance: {res.unicity_distance_chars:.0f} chars required ([bold red]{res.unicity_ratio:.1f}x text length[/bold red])\n")
+
+    if res.is_falsified:
+        console.print(f"[bold red]{res.skeptic_verdict}[/bold red]\n")
+    else:
+        console.print(f"[bold yellow]{res.skeptic_verdict}[/bold yellow]\n")
+
+    s_table = Table(title="Sample Transliteration Admissibility (Side A)", show_header=True)
+    s_table.add_column("Group ID", style="bold cyan")
+    s_table.add_column("Phonotactic Analysis")
+    for gid, tr in res.phonotactic_sample.items():
+        s_table.add_row(gid, tr)
+    console.print(s_table)
+
+
 @app.command("test-hypotheses")
 def test_hypotheses_suite_cmd(
     iterations: int = typer.Option(500, help="Monte Carlo surrogate iterations"),
