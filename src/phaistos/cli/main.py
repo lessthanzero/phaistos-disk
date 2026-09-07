@@ -599,8 +599,52 @@ def non_linguistic_cmd():
     console.print(table_g)
 
 
+@app.command("skeptic")
+def skeptic_cmd(
+    run_id: Optional[str] = typer.Option(None, help="Experiment run directory name or latest if omitted"),
+    model: str = typer.Option("qwen2.5-coder:7b", help="Local Ollama model to use for the Skeptic"),
+):
+    """Invoke the Local LLM Skeptic to critically review an experiment result."""
+    import json
+    from pathlib import Path
+    from phaistos.decipherment.models import DeciphermentResult
+    from phaistos.llm.client import OllamaClient
+    from phaistos.llm.skeptic import conduct_skeptic_review
+
+    client = OllamaClient()
+    runs_dir = Path("experiments/runs")
+    if not runs_dir.is_dir() or not list(runs_dir.iterdir()):
+        console.print("[bold red]No experiment runs found in experiments/runs/.[/bold red]")
+        console.print("Run an experiment first: [cyan]phaistos test-hypothesis[/cyan]")
+        raise typer.Exit(code=1)
+
+    if run_id:
+        target_file = runs_dir / run_id / "result.json"
+    else:
+        # Pick most recent run
+        run_dirs = sorted([d for d in runs_dir.iterdir() if d.is_dir()], key=lambda d: d.stat().st_mtime, reverse=True)
+        target_file = run_dirs[0] / "result.json"
+
+    if not target_file.is_file():
+        console.print(f"[bold red]Result file not found:[/bold red] {target_file}")
+        raise typer.Exit(code=1)
+
+    with open(target_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    result = DeciphermentResult(**data)
+
+    console.print(Panel(f"[bold cyan]Invoking Skeptic Agent ({model}) on {target_file.parent.name}[/bold cyan]"))
+    with console.status(f"[bold cyan]Skeptic is analyzing experiment against Duhoux critical criteria...[/bold cyan]"):
+        review_record = conduct_skeptic_review(result, client=client, model=model)
+
+    console.print(f"\n[bold yellow]=== SKEPTIC CRITIQUE & FALSIFICATION REVIEW ===[/bold yellow]\n")
+    console.print(review_record.data)
+    console.print(f"\n[dim]Epistemic Category: {review_record.category.value} | Provenance: {review_record.source_ref}[/dim]\n")
+
+
 if __name__ == "__main__":
     app()
+
 
 
 
