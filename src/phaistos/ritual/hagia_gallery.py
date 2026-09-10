@@ -231,17 +231,48 @@ def crop_and_export_realia(cache_dir: Path, output_dir: Path) -> List[Dict[str, 
 def get_hagia_gallery_manifest(
     cache_dir: Optional[Path] = None,
     output_dir: Optional[Path] = None,
+    *,
+    pages_safe: bool = False,
 ) -> Dict[str, Any]:
-    """Retrieve the full Hagia Triada gallery manifest for UI payload integration."""
+    """Retrieve the full Hagia Triada gallery manifest for UI payload integration.
+
+    ``pages_safe=True`` skips Wikimedia downloads/crops (CI/Pages rate limits and NOTICE).
+    """
     if cache_dir is None:
         cache_dir = Path("data/hagia_triada")
     if output_dir is None:
         output_dir = Path("reports/visuals/hagia_triada")
 
+    if pages_safe:
+        crops = []
+        for defn in REALIA_CROP_DEFINITIONS:
+            item = dict(defn)
+            item["thumb_data_uri"] = ""
+            item["rel_url"] = ""
+            item["commons_note"] = (
+                "Image omitted in pages_safe build; fetch from Wikimedia Commons locally "
+                "(see HAGIA_TRIADA_SOURCES / NOTICE)."
+            )
+            crops.append(item)
+        sign_to_crops: Dict[str, List[str]] = {}
+        for c in crops:
+            for s in c["all_signs"]:
+                pad_s = f"{int(s):02d}" if s.isdigit() else s
+                sign_to_crops.setdefault(pad_s, []).append(c["id"])
+        return {
+            "title": "Hagia Triada Sarcophagus Liturgical Homology Gallery",
+            "date_provenance": "c. 1400–1350 BC, Hagia Triada Villa (3 km from Phaistos Palace)",
+            "museum": "Heraklion Archaeological Museum (Inv. Λ396)",
+            "total_crops": len(crops),
+            "crops": crops,
+            "sign_to_crops": sign_to_crops,
+            "pages_safe": True,
+        }
+
     crops = crop_and_export_realia(cache_dir, output_dir)
 
     # Build sign-to-realia lookup table
-    sign_to_crops: Dict[str, List[str]] = {}
+    sign_to_crops = {}
     for c in crops:
         for s in c["all_signs"]:
             pad_s = f"{int(s):02d}" if s.isdigit() else s

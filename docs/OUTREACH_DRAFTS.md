@@ -14,11 +14,11 @@
 
 **Voice:** personal side project for fun / interactive workbench — **not** “independent researcher.”
 
-Replace `{GITHUB_URLS}` / `{PAGES_URLS}` after public remotes exist.
+Replace `https://github.com/lessthanzero/phaistos-disk · https://github.com/lessthanzero/linear-a · https://github.com/lessthanzero/ancient-text-lab` / `https://lessthanzero.github.io/phaistos-disk/ · https://lessthanzero.github.io/linear-a/` after public remotes exist.
 
 **Suggested URL bundle once live:**
-- Repos: `{GITHUB_URLS}`
-- Interactive workbenches (GitHub Pages): `{PAGES_URLS}`  
+- Repos: `https://github.com/lessthanzero/phaistos-disk · https://github.com/lessthanzero/linear-a · https://github.com/lessthanzero/ancient-text-lab`
+- Interactive workbenches (GitHub Pages): `https://lessthanzero.github.io/phaistos-disk/ · https://lessthanzero.github.io/linear-a/`  
   e.g. `https://{owner}.github.io/phaistos-disk/` and `https://{owner}.github.io/linear-a/`
 
 ---
@@ -50,8 +50,8 @@ The software tries to keep observation, transcription, tests, and interpretation
 
 If you have a moment, I’d genuinely appreciate critical feedback on whether the framing is misleading or the methods are off:
 
-- Source: {GITHUB_URLS}
-- Live workbench (browser): {PAGES_URLS}
+- Source: https://github.com/lessthanzero/phaistos-disk · https://github.com/lessthanzero/linear-a · https://github.com/lessthanzero/ancient-text-lab
+- Live workbench (browser): https://lessthanzero.github.io/phaistos-disk/ · https://lessthanzero.github.io/linear-a/
 
 (Release prep and drafting were assisted by Cursor’s coding agent, with local open-source models used for hostile review passes — happy to say more if useful.)
 
@@ -88,8 +88,8 @@ I spent some spare time building two open-source projects: a Phaistos Disc workb
 **Why post**
 I’d rather get torn apart on method and presentation than quietly overclaim. If you work on Aegean scripts, stats, or research software: tell me what’s wrong, what’s missing, or what’s already known.
 
-Repos: {GITHUB_URLS}  
-Live workbench: {PAGES_URLS}
+Repos: https://github.com/lessthanzero/phaistos-disk · https://github.com/lessthanzero/linear-a · https://github.com/lessthanzero/ancient-text-lab  
+Live workbench: https://lessthanzero.github.io/phaistos-disk/ · https://lessthanzero.github.io/linear-a/
 
 Built with a lot of help from Cursor’s coding agent; pre-release critique also used local Ollama models (`qwen2.5`, `gemma2`, `qwen2.5-coder`) as hostile reviewers. Mistakes remain mine.
 
@@ -110,6 +110,6 @@ The most straightforward structural finding I’m comfortable highlighting is a 
 
 Release prep was assisted by Cursor’s coding agent, with local open-source models used for adversarial review — humans still own the claims (and the bugs).
 
-Feedback welcome once the GitHub + Pages links are up: {GITHUB_URLS} · {PAGES_URLS}
+Feedback welcome once the GitHub + Pages links are up: https://github.com/lessthanzero/phaistos-disk · https://github.com/lessthanzero/linear-a · https://github.com/lessthanzero/ancient-text-lab · https://lessthanzero.github.io/phaistos-disk/ · https://lessthanzero.github.io/linear-a/
 
 #OpenSource #ComputationalArchaeology #DigitalHumanities #LinearA #PhaistosDisc

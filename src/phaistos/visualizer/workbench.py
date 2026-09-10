@@ -171,9 +171,8 @@ def generate_workbench_html(
     schedule_b = compute_performance_schedule(groups_b, signs_cat)
 
     # 5. JSON Payload for frontend
-    hagia_gallery = get_hagia_gallery_manifest()
+    hagia_gallery = get_hagia_gallery_manifest(pages_safe=pages_safe)
     if pages_safe:
-        # Omit CC BY-SA / local crop embeds; keep metadata + Commons URLs via sources list.
         for crop in hagia_gallery.get("crops", []):
             crop["thumb_data_uri"] = ""
             crop.pop("file_path", None)
