@@ -37,7 +37,8 @@ def test_evaluate_oblique_strokes():
     assert i_eval.side_a_triad_responsion_match is True
     assert i_eval.side_b_stanza_cadence_count == 4
     assert i_eval.side_b_stanza_cadence_p_value < 0.05
-    assert "STRONGLY SUPPORTED" in i_eval.support_verdict
+    assert "HYPOTHESIS" in i_eval.support_verdict
+    assert "not proof" in i_eval.support_verdict.lower() or "HYPOTHESIS" in i_eval.support_verdict
 
     # Skeptic verdict
     assert "SKEPTICAL RESOLUTION" in result.skeptic_verdict

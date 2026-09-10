@@ -1,0 +1,32 @@
+phaistos-disk — third-party notices
+===================================
+
+Software in this repository is licensed under the MIT License (see LICENSE),
+Copyright (c) 2026 Alexander Katin.
+
+The MIT grant covers original software, generated SVG diagrams, and synthesized
+audio produced by this project. It does **not** relicense third-party photographs
+or Wikimedia media.
+
+Media
+-----
+- Generated disc SVGs (`reports/visuals/disc_side_*.svg`) and Karplus–Strong
+  synthesized WAV files under `experiments/audio/` are original project outputs
+  and may be treated under MIT.
+- Museum-style disc and Arkalochori photographs under `reports/visuals/photos/`
+  and `reports/visuals/comparative/` are **excluded from the public default tree**
+  until provenance and redistribution rights are documented. Do not assume MIT.
+- Hagia Triada sarcophagus imagery sourced from Wikimedia Commons (see
+  `src/phaistos/ritual/hagia_gallery.py`) includes works under CC0 and
+  CC BY-SA 4.0 (photographers include Jebulon, ArchaiOptix, Zde). CC BY-SA
+  material requires attribution and share-alike; it is **not** MIT.
+  Source images and derived crops are excluded from the public default tree;
+  fetch and attribute them yourself if needed.
+
+Corpus / comparative YAML
+-------------------------
+Transcription and comparative YAML cite Godart 1995, GORILA, SigLA, Ventris &
+Chadwick, and related scholarship. These are factual encodings and working notes,
+not facsimiles of published plates or book text.
+
+Keep this NOTICE with any redistribution.

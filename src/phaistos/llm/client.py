@@ -10,11 +10,13 @@ class OllamaClient:
     """Client for local Ollama HTTP API (Mac or Fedora PC)."""
 
     def __init__(self, host: Optional[str] = None, default_model: str = "qwen2.5:3b"):
+        import os
+
         self.candidate_hosts = [
             host.rstrip("/") if host else None,
+            os.getenv("OLLAMA_HOST"),
             "http://localhost:11434",
-            "http://pc:11434",
-            "http://192.168.1.172:11434",
+            "http://127.0.0.1:11434",
         ]
         self.candidate_hosts = [h for h in self.candidate_hosts if h]
         self.host = self._find_active_host()

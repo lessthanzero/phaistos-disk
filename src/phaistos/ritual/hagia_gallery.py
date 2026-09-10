@@ -160,7 +160,7 @@ REALIA_CROP_DEFINITIONS = [
 def download_source_images(cache_dir: Path) -> None:
     """Download source fresco images from Wikimedia Commons if not already present."""
     cache_dir.mkdir(parents=True, exist_ok=True)
-    headers = {"User-Agent": "PhaistosLab/1.0 (academic research; contact: lab@phaistos.org)"}
+    headers = {"User-Agent": "PhaistosLab/0.2 (open-source research software; contact via GitHub issues)"}
 
     for fname, url in HAGIA_TRIADA_SOURCES.items():
         fpath = cache_dir / fname

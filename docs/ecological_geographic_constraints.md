@@ -271,17 +271,19 @@ Phaistos and its port Kommos functioned as the southwestern nexus of Eastern Med
 The 45 signs organize into seven coherent ecological domains spanning the entire Bronze Age Cretan cosmos:
 $$\text{DIVINE/SKY} \longleftrightarrow \text{HUMAN/SOCIAL} \longleftrightarrow \text{AGRICULTURAL/LAND} \longleftrightarrow \text{FLORA} \longleftrightarrow \text{FAUNA} \longleftrightarrow \text{MARINE/WATER} \longleftrightarrow \text{CRAFT/TRADE}$$
 
-### 8.2 Ecological Coherence of the Refrain `02-12-31-26`
-The four-sign formula `02-12-31-26`, which forms the cadential refrain repeated across Side A (A16, A19, A22), exhibits profound macro-cosmic integration:
-* **`02` (PLUMED HEAD)**: `DIVINE_SKY` — The human intermediary / sacred ruler wearing the divine feather crest.
-* **`12` (SHIELD)**: `AGRICULTURAL_LAND` — The protective martial buckler of the terrestrial territory.
-* **`31` (EAGLE)**: `DIVINE_SKY` — The celestial raptor embodying the divine epiphany descending from heaven.
-* **`26` (OX HORN)**: `FAUNA` — The sacrificial bovine horn representing pastoral prosperity and the altar of consecration.
+### 8.2 Ecological Coherence of the Refrain `02-12-31-26` (HYPOTHESIS)
 
-> [!NOTE]
-> Rather than an arbitrary phonetic cluster, the refrain directly synthesizes:
-> $$\text{Theocratic King (02)} + \text{Territorial Defense (12)} + \text{Sky God Epiphany (31)} + \text{Sacred Animal Offering (26)}$$
-> This structural unity reinforces the identification of the hymn as a **Paeanic Invocational Litany** consecrated to Apollo Paiawon or the ancestral Minoan solar-bull deity.
+The four-sign sequence `02-12-31-26` is **observed** as identical on A16, A19, and A22. Iconographic domain labels below are **interpretive hypotheses**, not established meanings:
+
+* **`02` (PLUMED HEAD)**: often classed with human/divine imagery — hypothesis only.
+* **`12` (SHIELD)**: often classed with martial/protective imagery — hypothesis only.
+* **`31` (EAGLE / bird)**: often classed with sky/avian imagery — hypothesis only.
+* **`26` (hide / horn-like sign in conventional labels)**: pastoral/offering readings are speculative.
+
+> [!WARNING]
+> Do **not** treat a poetic gloss such as “king + shield + sky god + offering” or a Paiawon/Apollo
+> litany reading as an empirical result. Those are speculative narratives layered on a real repeated
+> transcription. Ecological plausibility of individual pictographs does not identify deities or genre.
 
 ---
 

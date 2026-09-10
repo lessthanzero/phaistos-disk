@@ -42,3 +42,13 @@ data/raw/images/*
 # OS
 .DS_Store
 Thumbs.db
+
+# Third-party / uncleared media (see NOTICE) — keep generators; fetch/attribute locally
+reports/visuals/photos/
+reports/visuals/comparative/
+reports/visuals/hagia_triada/
+data/hagia_triada/
+reports/workbench.html
+
+# Optional synthetic audio (large; regenerate via CLI)
+experiments/audio/*.wav

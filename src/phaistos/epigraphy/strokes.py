@@ -149,14 +149,16 @@ def evaluate_oblique_strokes(corpus: DiscCorpus) -> StrokeAnalysisResult:
     # Hypergeometric test: N=30 groups, K=5 stanza-ends, n=8 strokes drawn. P(k >= 4)
     b_cadence_p_value = float(hypergeom.sf(b_stanza_closed_with_stroke - 1, 30, 5, 8))
 
-    triad_responsion_p = 1.0e-5  # Empirically 0.0 in 100,000 permutations
+    # Placeholder pending a live Monte Carlo export wired to this module.
+    # Do not treat this constant as an independently reproduced p-value.
+    triad_responsion_p = 1.0e-5
 
     ictus_verdict = (
-        f"STRONGLY SUPPORTED. The stroke acts as a musical ictus / cadential prolongation (1 -> 2 morae). "
-        f"On Side A, the absence of the stroke on A18 is mathematically required to preserve the exact "
-        f"14-mora strophic triad responsion via catalectic compensation (p < 1e-5). On Side B, 4 of the 5 "
-        f"strophic stanza boundaries terminate on an oblique stroke (B06, B18, B24, B30), with hypergeometric "
-        f"p = {b_cadence_p_value:.4f} (98.9% confidence against chance)."
+        f"HYPOTHESIS (metric cadence). Under the assumption that strokes prolong mora count, "
+        f"A18 without a stroke can preserve a 14-unit Side A pattern that includes the repeated "
+        f"refrain groups. Side B: {b_stanza_closed_with_stroke}/5 stanza-end groups carry strokes "
+        f"(hypergeometric p = {b_cadence_p_value:.4f} under that grouping). "
+        f"This is not proof of musical performance or hymn genre."
     )
 
     ictus_eval = MusicalIctusEvaluation(
@@ -171,12 +173,13 @@ def evaluate_oblique_strokes(corpus: DiscCorpus) -> StrokeAnalysisResult:
     # 5. Skeptic Verdict Synthesis
     skeptic_verdict = (
         f"SKEPTICAL RESOLUTION OF THE 18 OBLIQUE STROKES:\n"
-        f"1. Epigraphy: 100% attached to terminal signs under outside-in reading (10 on Side A, 8 on Side B).\n"
-        f"2. Phonetic Virama: FALSIFIED as a systematic morphological coda marker due to token inconsistency "
-        f"(A16/19/22 with stroke vs A18 without stroke) and sparse coverage (29.5%).\n"
-        f"3. Musical Ictus / Cadence: CONFIRMED. The distribution functions as a rhythmic rest/ictus marking "
-        f"cadences. It explains the omission on A18 (catalexis preserving 14-mora balance) and lines up "
-        f"with 4 out of 5 stanza breaks on Side B (p = {b_cadence_p_value:.4f})."
+        f"1. Epigraphy: strokes attach to terminal signs under the outside-in reading convention "
+        f"(10 on Side A, 8 on Side B).\n"
+        f"2. Phonetic Virama: weakly supported as a systematic morphological coda marker given "
+        f"token inconsistency (A16/19/22 with stroke vs A18 without) and sparse coverage (29.5%).\n"
+        f"3. Musical Ictus / Cadence: HYPOTHESIS only. Distribution is compatible with cadence marking "
+        f"under a mora-weight assumption, including A18 omission and Side B stanza-end enrichment "
+        f"(p = {b_cadence_p_value:.4f}). Genre (hymn/paean) is not established by this test."
     )
 
     return StrokeAnalysisResult(

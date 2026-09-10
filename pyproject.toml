@@ -1,7 +1,8 @@
 [project]
 name = "phaistos"
-version = "0.1.0"
+version = "0.2.0"
 description = "Computational research laboratory for the Phaistos Disc"
+license = { text = "MIT" }
 authors = [
     { name = "Alexander Katin", email = "aleksandr.katin@gmail.com" }
 ]

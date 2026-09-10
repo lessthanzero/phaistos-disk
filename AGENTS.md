@@ -24,6 +24,6 @@ Before any hypothesis is considered supported:
 * **Permanent Mandate**: The user should never have to repeat the instruction to use all available compute across all nodes. Whenever tasks require intensive computation, statistical surrogate testing, MCMC sampling, or verification:
   1. **Dual-Node Execution**: Automatically orchestrate jobs across both local Apple Silicon macOS and the remote Fedora Linux worker (`pc`).
   2. **Automated Sync**: Synchronize code before remote runs (`./scripts/sync_artifacts.sh pc push`) and pull back artifacts upon completion (`./scripts/sync_artifacts.sh pc pull`).
-  3. **Local & Cloud Models**: Leverage local models running on Fedora via Ollama (`pc:11434` / `192.168.1.172:11434`) alongside frontier cloud models for synthesis, falsification, and verification.
+  3. **Local & Cloud Models**: Leverage local models via Ollama (`OLLAMA_HOST`, default `http://localhost:11434`) alongside frontier cloud models for synthesis, falsification, and verification.
   4. **Cross-Platform Test Invariant**: All test suites must pass on both local macOS (Python 3.12) and Fedora Linux (Python 3.13/3.14) environments before considering a milestone complete.
 
