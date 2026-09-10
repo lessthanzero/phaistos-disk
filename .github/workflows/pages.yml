@@ -32,8 +32,12 @@ jobs:
           uv run phaistos workbench --output site/workbench/index.html --pages-safe --no-open-browser
           test -f site/media/facsimiles/side_a.jpg
           test -f site/media/facsimiles/side_b.jpg
+          test -f site/media/hagia_triada/crop_libation_hydria.webp
+          test -f site/media/hagia_triada/crop_boat_model.webp
           grep -q '../media/facsimiles/side_a.jpg' site/workbench/index.html
+          grep -q '../media/hagia_triada/crop_libation_hydria.webp' site/workbench/index.html
           grep -q 'facsimileCredit' site/workbench/index.html
+          grep -q 'ArchaiOptix' site/workbench/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

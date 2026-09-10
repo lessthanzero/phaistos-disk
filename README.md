@@ -82,7 +82,7 @@ uv run phaistos workbench --output reports/workbench.html
 uv run phaistos workbench --output site/workbench/index.html --pages-safe --no-open-browser
 ```
 
-Opens a standalone HTML explorer (dual-face SVG spiral, group inspection, optional Karplus–Strong-style audio hooks). Full local builds may embed optional undocumented museum photos as data URIs; `--pages-safe` builds use relative Wikimedia Commons disc facsimiles (CC BY-SA 4.0 — see [docs/media/ATTRIBUTION.md](docs/media/ATTRIBUTION.md)) and omit Hagia Triada embeds.
+Opens a standalone HTML explorer (dual-face SVG spiral, group inspection, optional Karplus–Strong-style audio hooks). Full local builds may embed optional undocumented museum photos as data URIs; `--pages-safe` builds use relative Wikimedia Commons disc facsimiles and Hagia Triada realia crops (CC0 / CC BY-SA 4.0 — see [docs/media/ATTRIBUTION.md](docs/media/ATTRIBUTION.md)).
 
 After the repo is on GitHub, enable **Settings → Pages → Source: GitHub Actions**. The `pages.yml` workflow deploys a rights-safe demo to `https://{owner}.github.io/phaistos-disk/`.
 

@@ -143,8 +143,9 @@ def generate_workbench_html(
 ) -> str:
     """Generate the comprehensive self-contained HTML workbench file.
 
-    ``pages_safe=True`` uses relative CC BY-SA Commons disc facsimiles (no local
-    museum WebP data-URIs / Hagia embeds) for GitHub Pages hosting.
+    ``pages_safe=True`` uses relative CC-licensed Commons disc facsimiles and
+    Hagia Triada realia crops (no local museum WebP data-URIs / live Wikimedia
+    fetches) for GitHub Pages hosting.
     """
     # 1. Run all frontier analytical modules
     stroke_res = evaluate_oblique_strokes(corpus)
@@ -173,10 +174,6 @@ def generate_workbench_html(
 
     # 5. JSON Payload for frontend
     hagia_gallery = get_hagia_gallery_manifest(pages_safe=pages_safe)
-    if pages_safe:
-        for crop in hagia_gallery.get("crops", []):
-            crop["thumb_data_uri"] = ""
-            crop.pop("file_path", None)
 
     # Pages-safe: relative URLs under site/media/ (see docs/media/ATTRIBUTION.md).
     # Full local builds embed optional undocumented museum WebPs as data URIs.
@@ -1440,7 +1437,7 @@ def generate_workbench_html(
     </div>
   </div>
 
-  {"<footer class=\"media-credit\" id=\"facsimileCredit\">Disc facsimiles: photographs by <a href=\"https://commons.wikimedia.org/wiki/User:C_messier\">C messier</a>, crops by Bammesk; <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a> via Wikimedia Commons (<a href=\"https://commons.wikimedia.org/wiki/File:Phaistos_Disc_-_Side_A_-_6380_-_crop1.jpg\">Side A</a>, <a href=\"https://commons.wikimedia.org/wiki/File:Phaistos_Disc_-_Side_B_-_6381_-_crop1.jpg\">Side B</a>). See <code>docs/media/ATTRIBUTION.md</code>.</footer>" if pages_safe else "<!-- facsimile credit omitted (local build may use non-Commons photos) -->"}
+  {"<footer class=\"media-credit\" id=\"facsimileCredit\">Disc facsimiles: photographs by <a href=\"https://commons.wikimedia.org/wiki/User:C_messier\">C messier</a>, crops by Bammesk; <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>. Hagia Triada realia crops: photographs by <a href=\"https://commons.wikimedia.org/wiki/User:Jebulon\">Jebulon</a> (CC0), <a href=\"https://commons.wikimedia.org/wiki/User:ArchaiOptix\">ArchaiOptix</a>, and <a href=\"https://commons.wikimedia.org/wiki/User:Zde\">Zde</a> (<a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>) via Wikimedia Commons. See <code>docs/media/ATTRIBUTION.md</code>.</footer>" if pages_safe else "<!-- facsimile credit omitted (local build may use non-Commons photos) -->"}
 
   <script>
     const PAYLOAD = {raw_json};

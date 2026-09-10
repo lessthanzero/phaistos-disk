@@ -17,15 +17,16 @@ Media
   Wikimedia Commons (photographer C messier; crops Bammesk), licensed
   **CC BY-SA 4.0** — **not** MIT. Attribution and share-alike required; see
   `docs/media/ATTRIBUTION.md`. Used by the GitHub Pages workbench (`--pages-safe`).
+- Vendored Hagia Triada sarcophagus realia crops / overviews under
+  `docs/media/hagia_triada/` are derived from Wikimedia Commons sources
+  (photographers Jebulon / CC0; ArchaiOptix and Zde / **CC BY-SA 4.0**).
+  CC BY-SA material requires attribution and share-alike; it is **not** MIT.
+  See `docs/media/ATTRIBUTION.md`. Used by the GitHub Pages workbench
+  (`--pages-safe`). Live Wikimedia downloads remain available for local full
+  builds via `phaistos hagia-gallery` into gitignored cache paths.
 - Museum-style disc and Arkalochori photographs under `reports/visuals/photos/`
   and `reports/visuals/comparative/` are **excluded from the public default tree**
   until provenance and redistribution rights are documented. Do not assume MIT.
-- Hagia Triada sarcophagus imagery sourced from Wikimedia Commons (see
-  `src/phaistos/ritual/hagia_gallery.py`) includes works under CC0 and
-  CC BY-SA 4.0 (photographers include Jebulon, ArchaiOptix, Zde). CC BY-SA
-  material requires attribution and share-alike; it is **not** MIT.
-  Source images and derived crops are excluded from the public default tree;
-  fetch and attribute them yourself if needed (pages-safe builds omit embeds).
 
 Corpus / comparative YAML
 -------------------------

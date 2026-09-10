@@ -1445,8 +1445,8 @@ def workbench_cmd(
     console.print(f"File Size: [bold green]{out_file.stat().st_size / 1024:.1f} KB[/bold green]")
     if pages_safe:
         console.print(
-            "[dim]pages_safe: Commons CC BY-SA disc facsimiles via relative URLs; "
-            "local museum WebPs / Hagia embeds omitted (NOTICE).[/dim]"
+            "[dim]pages_safe: Commons disc facsimiles + Hagia Triada realia via relative URLs; "
+            "local museum WebPs / live Wikimedia fetches omitted (NOTICE).[/dim]"
         )
 
     if open_browser:

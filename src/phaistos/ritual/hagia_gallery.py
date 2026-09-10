@@ -236,7 +236,9 @@ def get_hagia_gallery_manifest(
 ) -> Dict[str, Any]:
     """Retrieve the full Hagia Triada gallery manifest for UI payload integration.
 
-    ``pages_safe=True`` skips Wikimedia downloads/crops (CI/Pages rate limits and NOTICE).
+    ``pages_safe=True`` skips live Wikimedia downloads (CI/Pages rate limits) and
+    points at vendored CC-licensed crops under ``docs/media/hagia_triada/`` via
+    relative URLs suitable for GitHub Pages (``site/media/hagia_triada/``).
     """
     if cache_dir is None:
         cache_dir = Path("data/hagia_triada")
@@ -244,15 +246,16 @@ def get_hagia_gallery_manifest(
         output_dir = Path("reports/visuals/hagia_triada")
 
     if pages_safe:
+        pages_media_root = "../media/hagia_triada"
         crops = []
         for defn in REALIA_CROP_DEFINITIONS:
             item = dict(defn)
+            rel = f"{pages_media_root}/{defn['output_file']}"
+            item["rel_url"] = rel
+            # Prefer relative file over inline data URI so Pages HTML stays small
+            # and attribution lives with the vendored assets (NOTICE / ATTRIBUTION).
             item["thumb_data_uri"] = ""
-            item["rel_url"] = ""
-            item["commons_note"] = (
-                "Image omitted in pages_safe build; fetch from Wikimedia Commons locally "
-                "(see HAGIA_TRIADA_SOURCES / NOTICE)."
-            )
+            item["pages_safe"] = True
             crops.append(item)
         sign_to_crops: Dict[str, List[str]] = {}
         for c in crops:
@@ -267,6 +270,8 @@ def get_hagia_gallery_manifest(
             "crops": crops,
             "sign_to_crops": sign_to_crops,
             "pages_safe": True,
+            "media_root": pages_media_root,
+            "attribution": "docs/media/ATTRIBUTION.md",
         }
 
     crops = crop_and_export_realia(cache_dir, output_dir)

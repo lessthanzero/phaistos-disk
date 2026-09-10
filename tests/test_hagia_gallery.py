@@ -51,6 +51,12 @@ def test_gallery_manifest_generation():
     assert "41" in s2c  # Libation Hydria
     assert "crop_libation_hydria" in s2c["41"]
 
+    for crop in manifest["crops"]:
+        assert crop["rel_url"].startswith("../media/hagia_triada/")
+        assert crop["rel_url"].endswith(".webp")
+        assert crop["thumb_data_uri"] == ""
+    assert manifest.get("pages_safe") is True
+
 
 def test_get_realia_for_group():
     """Verify group-level heuristic scoring and realia matching."""
@@ -91,3 +97,7 @@ def test_workbench_hagia_triada_integration(tmp_path: Path):
     assert "Hagia Triada Realia Homology" in html
     assert "crop_boat_model" in html
     assert "crop_aulos_player" in html
+    assert "../media/hagia_triada/crop_libation_hydria.webp" in html
+    assert "../media/hagia_triada/crop_boat_model.webp" in html
+    assert "ArchaiOptix" in html
+    assert "Jebulon" in html
