@@ -21,6 +21,21 @@ from phaistos.ritual.clause_parser import get_clauses_manifest
 from phaistos.stats.homology_surrogate import evaluate_homology_significance
 
 
+def _get_image_data_uri(path: Path) -> str:
+    """Read an image and encode as base64 data URI if present."""
+    if not path.is_file():
+        root = Path(__file__).resolve().parent.parent.parent.parent
+        alt = root / path
+        if not alt.is_file():
+            return ""
+        path = alt
+    import base64
+    raw = path.read_bytes()
+    ext = path.suffix.lstrip(".").lower()
+    mime = f"image/{ext}" if ext != "jpg" else "image/jpeg"
+    return f"data:{mime};base64,{base64.b64encode(raw).decode('ascii')}"
+
+
 def compute_spiral_coordinates(groups, width=800, height=800):
     """Compute polar-to-cartesian spiral coordinates for groups and signs."""
     cx, cy = width / 2.0, height / 2.0
@@ -159,6 +174,9 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         "side_b": groups_b,
         "schedule_a": schedule_a,
         "schedule_b": schedule_b,
+        "photo_disc_a": _get_image_data_uri(Path("reports/visuals/photos/disc_photo_a.webp")),
+        "photo_disc_b": _get_image_data_uri(Path("reports/visuals/photos/disc_photo_b.webp")),
+        "arkalochori_photo": _get_image_data_uri(Path("reports/visuals/comparative/arkalochori_axe_hm584.webp")),
         "frontier_a": {
             "total_strokes": stroke_res.total_strokes,
             "side_a": stroke_res.side_a_strokes,
@@ -219,15 +237,15 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
   <title>Phaistos Disc Laboratory — Interactive Epigraphic & Audio Workbench</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Noto+Sans+Phaistos+Disc&display=swap" rel="stylesheet">
   <style>
     :root {{
       --canvas: #FAF8F5;
       --canvas-subtle: #F4F1EA;
       --surface: #FFFFFF;
       --ink: #18181B;
-      --ink-secondary: #52525B;
-      --ink-muted: #A1A1AA;
+      --ink-secondary: #3F3F46;
+      --ink-muted: #52525B;
       --editorial-border: rgba(24, 24, 27, 0.08);
       --editorial-border-active: rgba(24, 24, 27, 0.25);
       --clay-base: #EADBC8;
@@ -239,7 +257,10 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     body {{
       background: var(--canvas);
       color: var(--ink);
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans', 'Noto Sans Phaistos Disc', 'Aegean', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
       line-height: 1.5;
       padding: 32px 40px;
     }}
@@ -264,12 +285,14 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       margin-top: 4px;
     }}
     .header-telemetry {{
-      font-family: 'Geist Mono', monospace;
+      font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
       font-size: 11px;
+      font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: var(--ink-muted);
+      color: var(--ink);
       text-align: right;
+      transform: translateY(-2px);
     }}
     .workbench-grid {{
       display: grid;
@@ -293,13 +316,30 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       width: 100%;
       margin-bottom: 16px;
       align-items: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }}
+    .primary-controls {{
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+    }}
+    .secondary-controls {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
     }}
     .btn-group {{
       display: inline-flex;
       background: var(--canvas-subtle);
       border-radius: 9999px;
-      padding: 3px;
+      padding: 2px;
       border: 1px solid var(--editorial-border);
+      height: 34px;
+      box-sizing: border-box;
+      align-items: center;
     }}
     .btn {{
       background: none;
@@ -307,21 +347,112 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       font-family: 'Inter', sans-serif;
       font-size: 13px;
       font-weight: 500;
-      padding: 6px 14px;
+      padding: 0 14px;
+      height: 100%;
       border-radius: 9999px;
       cursor: pointer;
       color: var(--ink-secondary);
       transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      white-space: nowrap;
     }}
     .btn.active {{
       background: var(--surface);
       color: var(--ink);
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
     }}
+    .editorial-select {{
+      background: var(--canvas-subtle);
+      border: 1px solid var(--editorial-border);
+      border-radius: 9999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ink);
+      padding: 0 12px;
+      height: 34px;
+      box-sizing: border-box;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+    }}
+    .editorial-select:hover {{
+      border-color: var(--editorial-border-active);
+      background: var(--surface);
+    }}
+    .control-checkbox-label {{
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      user-select: none;
+      background: var(--canvas-subtle);
+      border: 1px solid var(--editorial-border);
+      border-radius: 9999px;
+      padding: 0 12px;
+      height: 34px;
+      box-sizing: border-box;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }}
+    .control-checkbox-label:hover {{
+      background: var(--surface);
+      border-color: var(--editorial-border-active);
+    }}
+    .control-checkbox-label input[type="checkbox"] {{
+      accent-color: var(--accent);
+      cursor: pointer;
+      width: 14px;
+      height: 14px;
+    }}
+    .control-radio-group {{
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--canvas-subtle);
+      border: 1px solid var(--editorial-border);
+      border-radius: 9999px;
+      padding: 0 14px;
+      height: 34px;
+      box-sizing: border-box;
+      white-space: nowrap;
+    }}
+    .control-radio-label {{
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      user-select: none;
+    }}
+    .control-radio-label input[type="radio"] {{
+      accent-color: var(--ink);
+      cursor: pointer;
+      width: 13px;
+      height: 13px;
+    }}
     .btn-primary {{
       background: var(--ink);
       color: #FFF;
-      padding: 7px 18px;
+      padding: 0 20px;
+      height: 38px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
     }}
     .btn-primary:hover {{ background: #27272A; }}
     .audio-panel {{
@@ -344,38 +475,76 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     .teleprompter-box {{
       width: 100%;
       background: var(--canvas-subtle);
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin-top: 16px;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-top: 14px;
       border: 1px solid var(--editorial-border);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }}
     .teleprompter-controls {{
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
     }}
     .teleprompter-actions {{
       display: flex;
       gap: 6px;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      width: 100%;
+    }}
+    .teleprompter-actions .btn {{
+      flex: 1;
+      height: 38px;
+      padding: 0 10px;
+      font-size: 12.5px;
+      font-weight: 500;
+      background: var(--surface);
+      border: 1px solid var(--editorial-border);
+      white-space: nowrap;
+      min-width: 0;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }}
+    .teleprompter-actions .btn:hover {{
+      background: #FFFFFF;
+      border-color: var(--editorial-border-active);
+    }}
+    .teleprompter-actions .btn-primary {{
+      background: var(--ink);
+      color: #FFF;
+      border: none;
+      padding: 0 12px;
+    }}
+    .teleprompter-actions .btn-primary:hover {{
+      background: #27272A;
+    }}
+    .teleprompter-secondary-row {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      flex-wrap: nowrap;
     }}
     .speed-controls {{
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      font-size: 11px;
+      font-size: 12px;
       font-family: 'Geist Mono', monospace;
       color: var(--ink-secondary);
+      height: 38px;
     }}
     .btn-sm {{
-      padding: 4px 10px;
+      height: 28px;
+      padding: 0 10px;
       font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }}
     .hud-telemetry-panel {{
       display: grid;
@@ -391,10 +560,11 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       gap: 2px;
     }}
     .hud-label {{
-      font-size: 9px;
-      color: var(--ink-muted);
+      font-size: 10px;
+      color: var(--ink-secondary);
       text-transform: uppercase;
       letter-spacing: 0.1em;
+      font-weight: 500;
     }}
     .hud-val {{
       font-size: 11px;
@@ -435,41 +605,45 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       background: var(--surface);
       border: 1px solid var(--editorial-border);
       border-radius: 12px;
-      padding: 20px 24px;
+      padding: 22px 24px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.02);
     }}
     .card-header {{
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       border-bottom: 1px solid var(--editorial-border);
-      padding-bottom: 8px;
+      padding-bottom: 10px;
     }}
     .card-title {{
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 400;
       color: var(--ink);
+      line-height: 1.25;
     }}
     .card-badge {{
       font-family: 'Geist Mono', monospace;
-      font-size: 10px;
+      font-size: 11.5px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.1em;
       color: var(--accent);
       background: #FEF3C7;
-      padding: 2px 8px;
+      padding: 3px 9px;
       border-radius: 9999px;
     }}
     .group-inspector {{
-      font-family: 'Geist Mono', monospace;
-      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--ink);
     }}
     .glyph-display {{
       display: flex;
       gap: 8px;
-      margin: 12px 0;
+      margin: 14px 0;
       font-size: 26px;
       align-items: center;
       flex-wrap: wrap;
@@ -478,48 +652,65 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       background: var(--canvas-subtle);
       border: 1px solid var(--editorial-border);
       border-radius: 6px;
-      padding: 4px 10px;
+      padding: 6px 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-width: 48px;
+      min-width: 52px;
     }}
     .glyph-pill svg {{
       display: block;
       margin: 2px 0;
     }}
     .glyph-sub {{
-      font-size: 10px;
-      color: var(--ink-muted);
+      font-size: 11.5px;
+      color: var(--ink-secondary);
       font-family: 'Geist Mono', monospace;
     }}
     table.data-table {{
       width: 100%;
       border-collapse: collapse;
-      font-size: 12px;
       font-family: 'Geist Mono', monospace;
-      margin-top: 8px;
-    }}
-    table.data-table th, table.data-table td {{
-      padding: 6px 8px;
-      text-align: left;
-      border-bottom: 1px solid var(--editorial-border);
+      margin-top: 12px;
+      margin-bottom: 6px;
     }}
     table.data-table th {{
-      color: var(--ink-muted);
-      font-weight: 500;
+      background: var(--canvas-subtle);
+      padding: 10px 14px;
+      font-size: 11px;
+      font-weight: 600;
       text-transform: uppercase;
-      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--ink-secondary);
+      border-bottom: 1.5px solid var(--editorial-border-active);
+      text-align: left;
+    }}
+    table.data-table td {{
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--ink);
+      border-bottom: 1px solid var(--editorial-border);
+      font-variant-numeric: tabular-nums;
+    }}
+    table.data-table tr:hover td {{
+      background: rgba(0,0,0,0.018);
     }}
     .verdict-box {{
-      font-size: 12px;
-      line-height: 1.4;
-      color: var(--ink-secondary);
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--ink);
       background: var(--canvas);
-      padding: 10px 12px;
-      border-radius: 6px;
-      border-left: 3px solid var(--ink);
-      margin-top: 10px;
+      padding: 12px 16px;
+      border-radius: 0px;
+      border: 1px solid var(--editorial-border);
+      border-left: 3px solid #000000;
+      margin-top: 12px;
+    }}
+    .sign-slot {{
+      cursor: pointer;
+    }}
+    .sign-slot:hover circle.sign-circle {{
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.22));
     }}
     .sign-circle {{
       cursor: pointer;
@@ -527,7 +718,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     }}
     .sign-circle:hover {{
       stroke: var(--ink) !important;
-      stroke-width: 2.5px !important;
+      stroke-width: 2px !important;
     }}
     .active-sign {{
       fill: #F59E0B !important;
@@ -590,22 +781,22 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     }}
     .hagia-plane-tag {{
       font-family: 'Geist Mono', monospace;
-      font-size: 8px;
+      font-size: 10.5px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       background: rgba(120, 53, 15, 0.88);
       color: #FEF3C7;
-      padding: 2px 5px;
+      padding: 2px 6px;
       border-radius: 4px;
       backdrop-filter: blur(4px);
     }}
     .hagia-scene-tag {{
       font-family: 'Geist Mono', monospace;
-      font-size: 8px;
+      font-size: 10.5px;
       color: #F3F4F6;
       background: rgba(0, 0, 0, 0.72);
-      padding: 2px 5px;
+      padding: 2px 6px;
       border-radius: 4px;
       backdrop-filter: blur(4px);
     }}
@@ -616,29 +807,31 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     }}
     .hagia-title {{
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 18px;
+      font-size: 21px;
       font-weight: 400;
       color: var(--ink);
-      line-height: 1.2;
+      line-height: 1.25;
     }}
     .hagia-desc {{
-      font-size: 11.5px;
+      font-size: 13.5px;
       color: var(--ink-secondary);
-      line-height: 1.4;
+      line-height: 1.55;
       margin: 0;
     }}
     .hagia-matched-signs-row {{
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-top: 4px;
+      gap: 8px;
+      margin-top: 6px;
       flex-wrap: wrap;
     }}
     .hagia-matched-label {{
       font-family: 'Geist Mono', monospace;
-      font-size: 8.5px;
-      color: var(--ink-muted);
-      letter-spacing: 0.08em;
+      font-size: 11px;
+      color: var(--ink-secondary);
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      text-transform: uppercase;
     }}
     .hagia-matched-pills {{
       display: inline-flex;
@@ -647,24 +840,25 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     }}
     .hagia-matched-pill {{
       font-family: 'Geist Mono', monospace;
-      font-size: 9.5px;
+      font-size: 11px;
       background: #FEF3C7;
       border: 1px solid #FCD34D;
       color: #92400E;
-      padding: 1px 5px;
+      padding: 2px 7px;
       border-radius: 4px;
       font-weight: 500;
       display: inline-flex;
       align-items: center;
-      gap: 2px;
+      gap: 3px;
     }}
     .hagia-carousel-label {{
       font-family: 'Geist Mono', monospace;
-      font-size: 8.5px;
+      font-size: 11.5px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--ink-muted);
-      margin-top: 2px;
+      color: var(--ink-secondary);
+      font-weight: 600;
+      margin-top: 4px;
     }}
     .hagia-thumb-strip {{
       display: flex;
@@ -715,7 +909,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       right: 2px;
       background: rgba(0,0,0,0.78);
       color: #FFF;
-      font-size: 7.5px;
+      font-size: 9px;
       font-family: 'Geist Mono', monospace;
       padding: 1px 3px;
       border-radius: 3px;
@@ -760,22 +954,24 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     }}
     .storyboard-caption {{
       font-family: 'Geist Mono', monospace;
-      font-size: 9px;
-      color: var(--ink-muted);
+      font-size: 10.5px;
+      color: var(--ink-secondary);
       letter-spacing: 0.05em;
     }}
     .storyboard-ribbon {{
       display: flex;
       gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 2px;
-      scrollbar-width: thin;
+      flex-wrap: nowrap;
+      width: 100%;
     }}
     .storyboard-chip {{
+      flex: 1;
+      min-width: 0;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 5px 10px;
+      justify-content: center;
+      gap: 5px;
+      padding: 6px 4px;
       background: var(--canvas-subtle);
       border: 1px solid var(--editorial-border);
       border-radius: 6px;
@@ -796,14 +992,18 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       box-shadow: 0 1px 4px rgba(120, 53, 15, 0.25);
     }}
     .chip-num {{
-      font-size: 9px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.05em;
       opacity: 0.9;
+      flex-shrink: 0;
     }}
     .chip-label {{
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }}
 
     /* Rosetta Split Sign-by-Sign Dissection */
@@ -814,55 +1014,67 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     }}
     .rosetta-title {{
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 16px;
+      font-size: 21px;
+      font-weight: 400;
       color: var(--ink);
-      margin-bottom: 2px;
+      margin-bottom: 4px;
+      line-height: 1.25;
     }}
     .rosetta-subtitle {{
       font-family: 'Geist Mono', monospace;
-      font-size: 9px;
-      color: var(--ink-muted);
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-secondary);
+      margin-bottom: 10px;
     }}
     .rosetta-table {{
       width: 100%;
       border-collapse: collapse;
-      font-size: 11px;
       font-family: 'Geist Mono', monospace;
+      margin-top: 10px;
     }}
     .rosetta-table th {{
-      font-size: 8.5px;
+      background: var(--canvas-subtle);
+      font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--ink-muted);
-      border-bottom: 1px solid var(--editorial-border);
-      padding: 4px 6px;
+      letter-spacing: 0.1em;
+      color: var(--ink-secondary);
+      border-bottom: 1.5px solid var(--editorial-border-active);
+      padding: 10px 12px;
       text-align: left;
     }}
     .rosetta-table td {{
-      padding: 6px;
-      border-bottom: 1px solid rgba(0,0,0,0.04);
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--ink);
+      border-bottom: 1px solid var(--editorial-border);
       vertical-align: top;
+    }}
+    .rosetta-table tr:hover td {{
+      background: rgba(0,0,0,0.018);
     }}
     .rosetta-sign-cell {{
       display: flex;
-      align-items: center;
-      gap: 4px;
+      align-items: flex-start;
+      gap: 6px;
       font-weight: 600;
       white-space: nowrap;
+      margin-top: 2px;
     }}
     .rosetta-thumb-cell {{
-      width: 44px;
-      height: 32px;
+      width: 48px;
+      height: 36px;
       border-radius: 4px;
       overflow: hidden;
       background: #1C1917;
       flex-shrink: 0;
       display: inline-block;
-      vertical-align: middle;
-      margin-right: 5px;
+      vertical-align: top;
+      margin-top: 2px;
+      margin-right: 6px;
     }}
     .rosetta-thumb-img {{
       width: 100%;
@@ -871,12 +1083,12 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       display: block;
     }}
     .rosetta-badge {{
-      font-size: 8px;
-      padding: 2px 5px;
-      border-radius: 3px;
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 4px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       white-space: nowrap;
       display: inline-block;
     }}
@@ -899,10 +1111,10 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       background: #FEFCE8;
       border: 1px solid #FEF08A;
       border-radius: 6px;
-      padding: 8px 10px;
-      margin-top: 10px;
-      font-size: 11.5px;
-      line-height: 1.45;
+      padding: 10px 14px;
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.55;
       color: #713F12;
     }}
 
@@ -931,7 +1143,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
   <header>
     <div class="title-area">
       <h1>Phaistos Disc Analytical Workbench</h1>
-      <p>Interactive Epigraphy, Rotational Teleprompter & 5-Frontier Skeptic Validation</p>
+      <p>Interactive Epigraphy &middot; Rotational Teleprompter &middot; Five Frontiers &middot; Skeptic Validation</p>
     </div>
     <div class="header-telemetry">
       <div>CORPUS: GODART 1995 CANONICAL</div>
@@ -944,26 +1156,91 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     <!-- Spiral Display Column -->
     <div class="spiral-card">
       <div class="controls-bar">
-        <div class="btn-group">
-          <button id="btnSideA" class="btn active" onclick="switchSide('A')">Side A (31 Groups)</button>
-          <button id="btnSideB" class="btn" onclick="switchSide('B')">Side B (30 Groups)</button>
+        <!-- Primary Corpus Navigation -->
+        <div class="primary-controls">
+          <div class="btn-group">
+            <button id="btnSideA" class="btn active" onclick="switchSide('A')">Side A (31 Groups)</button>
+            <button id="btnSideB" class="btn" onclick="switchSide('B')">Side B (30 Groups)</button>
+          </div>
         </div>
-        <!-- Glyph Display Mode Switcher -->
-        <div class="btn-group" id="glyphModeGroup">
-          <button id="btnModeEmoji" class="btn active" onclick="setGlyphMode('emoji_utf8')" title="Universal Emoji + Evans ID (Default, no missing font boxes)">🔤 Emoji + ID</button>
-          <button id="btnModeVector" class="btn" onclick="setGlyphMode('vector_svg')" title="Programmatic Vector SVG Silhouettes">🖋️ Vector SVG</button>
-          <button id="btnModeUnicode" class="btn" onclick="setGlyphMode('unicode_raw')" title="Raw Unicode SMP characters (U+101D0-U+101FF)">𐇐 Unicode Raw</button>
-        </div>
-        <div class="btn-group">
-          <button id="btnCartoucheToggle" class="btn" onclick="toggleCartoucheMode()" title="Toggle Honorific Cartouche framing around initial 02-12 bigram">🏷️ Cartouche 02-12</button>
-        </div>
-        <div class="btn-group">
-          <button id="btnCorpusReal" class="btn active" onclick="toggleSurrogate(false)">Canonical</button>
-          <button id="btnCorpusNull" class="btn" onclick="toggleSurrogate(true)">Monte Carlo Null</button>
+        <!-- Secondary Configuration Cluster -->
+        <div class="secondary-controls">
+          <div id="glyphModeGroup">
+            <select id="glyphModeSelect" class="editorial-select" onchange="setGlyphMode(this.value)" title="Choose Glyph Visualization Mode">
+              <option id="btnModeEmoji" value="emoji_utf8" selected>🔤 Emoji + ID</option>
+              <option id="btnModeVector" value="vector_svg">🖋️ Vector SVG</option>
+              <option id="btnModeUnicode" value="unicode_raw">𐇐 Unicode Raw</option>
+              <option id="btnModePhoto" value="photo">📷 Photo Facsimile</option>
+            </select>
+          </div>
+          <label class="control-checkbox-label" title="Toggle Honorific Cartouche framing around initial 02-12 bigram">
+            <input type="checkbox" id="cartoucheCheckbox" onchange="toggleCartoucheCheckbox(this.checked)" />
+            <span>Cartouche 02-12</span>
+          </label>
+          <div class="control-radio-group">
+            <label class="control-radio-label" title="Canonical Epigraphic Transcription">
+              <input type="radio" name="nullModelRadio" id="radioCanonical" value="canonical" checked onchange="toggleSurrogate(false)" />
+              <span>Canonical</span>
+            </label>
+            <label class="control-radio-label" title="Monte Carlo Surrogate Null Model">
+              <input type="radio" name="nullModelRadio" id="radioMonteCarlo" value="null" onchange="toggleSurrogate(true)" />
+              <span>Monte Carlo Null</span>
+            </label>
+          </div>
         </div>
       </div>
 
       <svg id="discSvg" width="760" height="760" viewBox="0 0 800 800"></svg>
+
+      <!-- Rotational Teleprompter Control & Telemetry Panel (Primary Interaction Area) -->
+      <div class="teleprompter-box">
+        <div class="teleprompter-controls">
+          <div class="teleprompter-actions">
+            <button id="btnPlayA" class="btn btn-primary" onclick="startTeleprompter('A')">▶ Side A (43s)</button>
+            <button id="btnPlayB" class="btn btn-primary" onclick="startTeleprompter('B')">▶ Side B (41s)</button>
+            <button id="btnPlayFull" class="btn btn-primary" style="background: #92400E;" onclick="startTeleprompter('FULL')">▶ Full Hymn (87s)</button>
+            <button id="btnPause" class="btn" onclick="togglePauseTeleprompter()">⏸ Pause</button>
+            <button id="btnReset" class="btn" onclick="resetTeleprompter()">⏹ Reset</button>
+            <button id="btnPlay" class="btn" style="opacity: 0.85;" onclick="toggleAudio()">Play Triad</button>
+          </div>
+          <div class="teleprompter-secondary-row">
+            <div class="speed-controls">
+              <span>SPEED:</span>
+              <button id="spd05" class="btn btn-sm" onclick="setSpeed(0.5)">0.5x</button>
+              <button id="spd10" class="btn btn-sm active" onclick="setSpeed(1.0)">1.0x (5.7 RPM)</button>
+              <button id="spd15" class="btn btn-sm" onclick="setSpeed(1.5)">1.5x</button>
+            </div>
+            <div id="audioTelemetry" style="font-family: 'Geist Mono', monospace; font-size: 11.5px; color: var(--ink-secondary);">
+              Cadential teleprompter ready &bull; 12:00 foveal tracking
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-telemetry-panel">
+          <div class="hud-col">
+            <div class="hud-label">Active Segment</div>
+            <div class="hud-val" id="hudActiveGroup">A01 · Turn 1</div>
+          </div>
+          <div class="hud-col">
+            <div class="hud-label">Metric Duration</div>
+            <div class="hud-val" id="hudMorae">4 morae · 1.12s</div>
+          </div>
+          <div class="hud-col">
+            <div class="hud-label">Angular Gaze</div>
+            <div class="hud-val" id="hudAngle">0.0° → 12:00</div>
+          </div>
+          <div class="hud-col">
+            <div class="hud-label">Stanza Cadence</div>
+            <div class="hud-val" id="hudCadence">None (1μ)</div>
+          </div>
+          <div class="hud-col">
+            <div class="hud-label">Hymn Progress (<span id="hudElapsed">0.0s</span>)</div>
+            <div class="hud-progress-bg">
+              <div class="hud-progress-fill" id="hudProgressFill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Liturgical Ceremony Storyboard Ribbon (5 Sacred Acts) -->
       <div class="storyboard-container">
@@ -974,73 +1251,28 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         <div class="storyboard-ribbon" id="storyboardRibbon">
           <button class="storyboard-chip active" id="actChip_ALL" onclick="selectLiturgicalAct('ALL')">
             <span class="chip-num">ALL</span>
-            <span class="chip-label">Full Hymn (A01–B30)</span>
+            <span class="chip-label">Full Hymn</span>
           </button>
           <button class="storyboard-chip" id="actChip_ACT_I" onclick="selectLiturgicalAct('ACT_I')">
             <span class="chip-num">ACT I</span>
-            <span class="chip-label">Invocation &amp; Martial Heralds (A01–A08)</span>
+            <span class="chip-label">Heralds (A01–A08)</span>
           </button>
           <button class="storyboard-chip" id="actChip_ACT_II" onclick="selectLiturgicalAct('ACT_II')">
             <span class="chip-num">ACT II</span>
-            <span class="chip-label">Procession of Votives (A09–A22)</span>
+            <span class="chip-label">Votives (A09–A22)</span>
           </button>
           <button class="storyboard-chip" id="actChip_ACT_III" onclick="selectLiturgicalAct('ACT_III')">
             <span class="chip-num">ACT III</span>
-            <span class="chip-label">Double Axe Libation (A23–A31)</span>
+            <span class="chip-label">Libations (A23–A31)</span>
           </button>
           <button class="storyboard-chip" id="actChip_ACT_IV" onclick="selectLiturgicalAct('ACT_IV')">
             <span class="chip-num">ACT IV</span>
-            <span class="chip-label">Chthonic Bull Sacrifice (B01–B20)</span>
+            <span class="chip-label">Sacrifice (B01–B20)</span>
           </button>
           <button class="storyboard-chip" id="actChip_ACT_V" onclick="selectLiturgicalAct('ACT_V')">
             <span class="chip-num">ACT V</span>
-            <span class="chip-label">Divine Epiphany &amp; Rosettes (B21–B30)</span>
+            <span class="chip-label">Epiphany (B21–B30)</span>
           </button>
-        </div>
-      </div>
-
-      <!-- Rotational Teleprompter Control & Telemetry Panel -->
-      <div class="teleprompter-box">
-        <div class="teleprompter-controls">
-          <div class="teleprompter-actions">
-            <button id="btnPlayA" class="btn btn-primary" onclick="startTeleprompter('A')">▶ Play Side A (43s)</button>
-            <button id="btnPlayB" class="btn btn-primary" onclick="startTeleprompter('B')">▶ Play Side B (41s)</button>
-            <button id="btnPlayFull" class="btn btn-primary" style="background: #92400E;" onclick="startTeleprompter('FULL')">▶ Full Hymn (87s)</button>
-            <button id="btnPause" class="btn" onclick="togglePauseTeleprompter()">⏸ Pause</button>
-            <button id="btnReset" class="btn" onclick="resetTeleprompter()">⏹ Reset</button>
-            <button id="btnPlay" class="btn" style="font-size: 11px; opacity: 0.8;" onclick="toggleAudio()">Play Triad (A14-A22)</button>
-          </div>
-          <div class="speed-controls">
-            <span>SPEED:</span>
-            <button id="spd05" class="btn btn-sm" onclick="setSpeed(0.5)">0.5x</button>
-            <button id="spd10" class="btn btn-sm active" onclick="setSpeed(1.0)">1.0x (5.7 RPM)</button>
-            <button id="spd15" class="btn btn-sm" onclick="setSpeed(1.5)">1.5x</button>
-          </div>
-        </div>
-
-        <div class="hud-telemetry-panel">
-          <div class="hud-col">
-            <div class="hud-label">Active Segment</div>
-            <div class="hud-val" id="hudActiveGroup">A01 &bull; Turn 1</div>
-          </div>
-          <div class="hud-col">
-            <div class="hud-label">Metric Duration</div>
-            <div class="hud-val" id="hudMorae">4 morae &bull; 1.12s</div>
-          </div>
-          <div class="hud-col">
-            <div class="hud-label">Angular Gaze</div>
-            <div class="hud-val" id="hudAngle">0.0&deg; &rarr; 12:00</div>
-          </div>
-          <div class="hud-col">
-            <div class="hud-label">Stanza Cadence</div>
-            <div class="hud-val" id="hudCadence">None (1&mu;)</div>
-          </div>
-          <div class="hud-col">
-            <div class="hud-label">Hymn Progress (<span id="hudElapsed">0.0s</span>)</div>
-            <div class="hud-progress-bg">
-              <div class="hud-progress-fill" id="hudProgressFill"></div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -1054,7 +1286,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
           <div class="card-badge" id="inspBadge">SELECT SEGMENT</div>
         </div>
         <div class="group-inspector" id="inspectorContent">
-          <p style="color: var(--ink-secondary); font-size: 13px;">Hover or click any segment in the spiral track to inspect physical punches, incised strokes, and morphosyntax.</p>
+          <p style="color: var(--ink-secondary); font-size: 13.5px; line-height: 1.55; margin: 0;">Hover or click any segment in the spiral track to inspect physical punches, incised strokes, and morphosyntax.</p>
         </div>
       </div>
 
@@ -1090,9 +1322,9 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
           <div class="hagia-thumb-strip" id="hagiaThumbStrip"></div>
         </div>
 
-        <div class="verdict-box" style="margin-top: 10px; font-size: 11px;">
+        <div class="verdict-box" style="margin-top: 12px;">
           <strong>Archeological Provenance:</strong> Painted limestone sarcophagus (c. 1400–1350 BC) excavated at Hagia Triada (3 km west of Phaistos Palace, Heraklion Museum Λ396). Provides identical physical realia for Phaistos punches (Aulos 🪈, Double Axe 🪓, Galley ⛵, Bull 🥩, Hydria 🏺).
-          <div style="margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(0,0,0,0.15);" id="homologySurrogateBadge">
+          <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--editorial-border);" id="homologySurrogateBadge">
             <strong>Skeptic Null Surrogate:</strong> Z = +8.10, p &lt; 0.0001 (Monte Carlo N=10,000 against CMS/Knossos background). Direct liturgical homology statistically proven.
           </div>
         </div>
@@ -1108,7 +1340,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
           <button class="btn btn-sm active" id="tabBtnArkalochori" onclick="showComparativeTab('arkalochori')">Arkalochori Axe (HM 584)</button>
           <button class="btn btn-sm" id="tabBtnPH1" onclick="showComparativeTab('ph1')">Tablet PH 1 (HM 1359)</button>
         </div>
-        <div id="comparativeContent" style="margin-top: 10px; font-size: 11.5px; line-height: 1.45;"></div>
+        <div id="comparativeContent" style="margin-top: 12px;"></div>
       </div>
 
       <!-- Frontier A: Strokes Card -->
@@ -1148,7 +1380,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
           <div class="card-title">Frontier C: Kober-Ventris Grid Factorization</div>
           <div class="card-badge">SVD LOW-RANK</div>
         </div>
-        <div style="font-size: 12px; color: var(--ink-secondary); margin-bottom: 8px;">
+        <div style="font-size: 13.5px; line-height: 1.55; color: var(--ink-secondary); margin-bottom: 10px;">
           Objective 5 &times; 4 Consonant-Vowel factorization with zero language assumptions.
           Top singular variance: <strong id="cVar">-</strong> (Z = <span id="cZ">-</span>, p < <span id="cP">-</span>).
         </div>
@@ -1186,9 +1418,8 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
 
     function setGlyphMode(mode) {{
       currentGlyphMode = mode;
-      document.getElementById('btnModeEmoji').className = (mode === 'emoji_utf8' ? 'btn active' : 'btn');
-      document.getElementById('btnModeVector').className = (mode === 'vector_svg' ? 'btn active' : 'btn');
-      document.getElementById('btnModeUnicode').className = (mode === 'unicode_raw' ? 'btn active' : 'btn');
+      const sel = document.getElementById('glyphModeSelect');
+      if (sel && sel.value !== mode) sel.value = mode;
       renderSvg();
       if (currentInspectedGroupId) {{
         inspectGroup(currentInspectedGroupId);
@@ -1208,95 +1439,120 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       const svg = document.getElementById('discSvg');
       const groups = (currentSide === 'A' ? PAYLOAD.side_a : PAYLOAD.side_b);
       const cx = 400, cy = 400;
+      const isPhoto = (currentGlyphMode === 'photo');
 
       let html = `
+        <defs>
+          <clipPath id="discClip">
+            <circle cx="400" cy="400" r="378" />
+          </clipPath>
+        </defs>
+
         <!-- Base Clay Disc Plate -->
-        <circle cx="${{cx}}" cy="${{cy}}" r="380" fill="#F4EDE2" stroke="#B8977E" stroke-width="2.5" />
-        <circle cx="${{cx}}" cy="${{cy}}" r="372" fill="none" stroke="#D1BEA8" stroke-width="1" stroke-dasharray="4,4" />
-        <circle cx="${{cx}}" cy="${{cy}}" r="80" fill="#E8DEC8" stroke="#B8977E" stroke-width="1.5" />
-        <text x="${{cx}}" y="46" font-family="'Instrument Serif', serif" font-size="20" fill="#3D312A" text-anchor="middle" opacity="0.7">
-          PHAISTOS DISC &mdash; SIDE ${{currentSide}}
+        <circle cx="${{cx}}" cy="${{cy}}" r="380" fill="${{isPhoto ? '#201A16' : '#F4EDE2'}}" stroke="#B8977E" stroke-width="2.5" />
+        ${{!isPhoto ? `
+          <circle cx="${{cx}}" cy="${{cy}}" r="372" fill="none" stroke="#D1BEA8" stroke-width="1" stroke-dasharray="4,4" />
+          <circle cx="${{cx}}" cy="${{cy}}" r="80" fill="#E8DEC8" stroke="#B8977E" stroke-width="1.5" />
+        ` : ''}}
+        <text x="${{cx}}" y="46" font-family="'Instrument Serif', serif" font-size="20" fill="${{isPhoto ? '#FFFDF9' : '#3D312A'}}" text-anchor="middle" opacity="0.7">
+          PHAISTOS DISC &mdash; SIDE ${{currentSide}} ${{isPhoto ? '(PHOTOGRAPHIC FACSIMILE)' : ''}}
         </text>
 
         <!-- ROTATING DISC SURFACE LAYER -->
         <g id="discRotator" style="transform-origin: 400px 400px; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);">
       `;
 
+      if (isPhoto) {{
+        const photoUri = (currentSide === 'A' ? PAYLOAD.photo_disc_a : PAYLOAD.photo_disc_b);
+        html += `
+          <image href="${{photoUri}}" x="22" y="22" width="756" height="756" clip-path="url(#discClip)" preserveAspectRatio="xMidYMid meet" />
+        `;
+      }}
+
       groups.forEach((g, gIdx) => {{
         html += `<g class="sign-group-container" id="group-${{g.id}}">`;
         
-        if (currentCartoucheMode && g.signs.length >= 2 && g.signs[0] === '02' && g.signs[1] === '12' && g.signs_coords.length >= 2) {{
+        if (!isPhoto && currentCartoucheMode && g.signs.length >= 2 && g.signs[0] === '02' && g.signs[1] === '12' && g.signs_coords.length >= 2) {{
           const s0 = g.signs_coords[0];
           const s1 = g.signs_coords[1];
-          const minX = Math.min(s0.x, s1.x) - 18;
-          const maxX = Math.max(s0.x, s1.x) + 18;
-          const minY = Math.min(s0.y, s1.y) - 18;
-          const maxY = Math.max(s0.y, s1.y) + 18;
+          const minX = Math.min(s0.x, s1.x) - 21;
+          const maxX = Math.max(s0.x, s1.x) + 21;
+          const minY = Math.min(s0.y, s1.y) - 21;
+          const maxY = Math.max(s0.y, s1.y) + 21;
           html += `
-            <rect x="${{minX}}" y="${{minY}}" width="${{maxX - minX}}" height="${{maxY - minY}}" rx="16" 
+            <rect x="${{minX}}" y="${{minY}}" width="${{maxX - minX}}" height="${{maxY - minY}}" rx="18" 
                   class="cartouche-active-capsule" pointer-events="none"/>
-            <text x="${{(minX+maxX)/2}}" y="${{minY - 4}}" font-family="'Geist Mono', monospace" font-size="6.5" font-weight="700" fill="#B45309" text-anchor="middle" letter-spacing="0.08em">CARTOUCHE</text>
+            <text x="${{(minX+maxX)/2}}" y="${{minY - 5}}" font-family="'Geist Mono', monospace" font-size="7" font-weight="700" fill="#B45309" text-anchor="middle" letter-spacing="0.08em">CARTOUCHE</text>
           `;
         }}
 
         g.signs_coords.forEach((s, sIdx) => {{
-          const isFinal = (sIdx === g.signs_coords.length - 1);
-          const hasStroke = (isFinal && g.oblique_stroke);
-          const meta = PAYLOAD.signs_cat[s.sign_id] || {{ name: 'Unknown', char: s.sign_id }};
-          const gData = (PAYLOAD.glyphs_catalog && PAYLOAD.glyphs_catalog[s.sign_id]) || {{
-            emoji: '𐇐',
-            short_name: meta.name,
-            vector_svg: '<circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="2"/>'
-          }};
-          const fillCol = hasStroke ? '#D1FAE5' : '#FFFDF9';
-
-          let glyphInner = '';
-          if (currentGlyphMode === 'vector_svg') {{
-            glyphInner = `
-              <g transform="translate(${{s.x - 9.5}}, ${{s.y - 10.5}}) scale(0.60)" color="#2C221D">
-                ${{gData.vector_svg}}
+          if (isPhoto) {{
+            // In photo mode: no visual overlays on the disc, transparent click hitboxes for inspection
+            html += `
+              <g class="sign-slot" id="slot-${{g.id}}-${{sIdx}}" onclick="inspectGroup('${{g.id}}')">
+                <circle class="sign-circle" id="circle-${{g.id}}-${{sIdx}}" data-sign-id="${{s.sign_id}}" cx="${{s.x}}" cy="${{s.y}}" r="22" 
+                        fill="transparent" stroke="none" style="cursor: pointer;" />
               </g>
-              <text x="${{s.x}}" y="${{s.y + 12.5}}" font-family="'Geist Mono', monospace" font-size="5.5" font-weight="600" text-anchor="middle" fill="#78350F">
-                ${{s.sign_id}}
-              </text>
             `;
-          }} else if (currentGlyphMode === 'unicode_raw') {{
-            glyphInner = `
-              <text x="${{s.x}}" y="${{s.y + 5}}" font-size="15" text-anchor="middle" fill="#18181B">
-                ${{meta.char}}
-              </text>
-              <text x="${{s.x}}" y="${{s.y + 12}}" font-family="'Geist Mono', monospace" font-size="5.5" font-weight="600" text-anchor="middle" fill="#78350F">
-                ${{s.sign_id}}
-              </text>
-            `;
-          }} else {{ // default 'emoji_utf8'
-            glyphInner = `
-              <text x="${{s.x}}" y="${{s.y + 3}}" font-size="13" text-anchor="middle" dominant-baseline="central">
-                ${{gData.emoji}}
-              </text>
-              <text x="${{s.x}}" y="${{s.y + 11.5}}" font-family="'Geist Mono', monospace" font-size="6" font-weight="600" text-anchor="middle" fill="#78350F">
-                ${{s.sign_id}}
-              </text>
+          }} else {{
+            const isFinal = (sIdx === g.signs_coords.length - 1);
+            const hasStroke = (isFinal && g.oblique_stroke);
+            const meta = PAYLOAD.signs_cat[s.sign_id] || {{ name: 'Unknown', char: s.sign_id }};
+            const gData = (PAYLOAD.glyphs_catalog && PAYLOAD.glyphs_catalog[s.sign_id]) || {{
+              emoji: '𐇐',
+              short_name: meta.name,
+              vector_svg: '<circle cx="16" cy="16" r="10" fill="none" stroke="currentColor" stroke-width="2"/>'
+            }};
+            const fillCol = hasStroke ? '#D1FAE5' : '#FFFDF9';
+
+            let glyphInner = '';
+            if (currentGlyphMode === 'vector_svg') {{
+              glyphInner = `
+                <g transform="translate(${{s.x - 12.5}}, ${{s.y - 13.5}}) scale(0.78)" color="#2C221D">
+                  ${{gData.vector_svg}}
+                </g>
+                <text x="${{s.x}}" y="${{s.y + 13.5}}" font-family="'Geist Mono', monospace" font-size="6.5" font-weight="600" text-anchor="middle" fill="#78350F">
+                  ${{s.sign_id}}
+                </text>
+              `;
+            }} else if (currentGlyphMode === 'unicode_raw') {{
+              glyphInner = `
+                <text x="${{s.x}}" y="${{s.y + 6}}" font-family="'Noto Sans Phaistos Disc', 'Aegean', 'Inter', sans-serif" font-size="20" text-anchor="middle" fill="#18181B">
+                  ${{meta.char}}
+                </text>
+                <text x="${{s.x}}" y="${{s.y + 13.5}}" font-family="'Geist Mono', monospace" font-size="6.5" font-weight="600" text-anchor="middle" fill="#78350F">
+                  ${{s.sign_id}}
+                </text>
+              `;
+            }} else {{ // default 'emoji_utf8'
+              glyphInner = `
+                <text x="${{s.x}}" y="${{s.y + 3.5}}" font-size="17" text-anchor="middle" dominant-baseline="central">
+                  ${{gData.emoji}}
+                </text>
+                <text x="${{s.x}}" y="${{s.y + 13.5}}" font-family="'Geist Mono', monospace" font-size="6.5" font-weight="600" text-anchor="middle" fill="#78350F">
+                  ${{s.sign_id}}
+                </text>
+              `;
+            }}
+
+            html += `
+              <g class="sign-slot" id="slot-${{g.id}}-${{sIdx}}" 
+                 onclick="inspectGroup('${{g.id}}')">
+                <circle class="sign-circle" id="circle-${{g.id}}-${{sIdx}}" data-sign-id="${{s.sign_id}}" cx="${{s.x}}" cy="${{s.y}}" r="18.5" 
+                        fill="${{fillCol}}" stroke="none" />
+                ${{glyphInner}}
+                ${{hasStroke ? `<line x1="${{s.x-12}}" y1="${{s.y+19}}" x2="${{s.x+12}}" y2="${{s.y+14}}" stroke="#059669" stroke-width="2.8" stroke-linecap="round"/>` : ''}}
+              </g>
             `;
           }}
-
-          html += `
-            <g class="sign-slot" id="slot-${{g.id}}-${{sIdx}}" 
-               onmouseover="inspectGroup('${{g.id}}')" 
-               onclick="inspectGroup('${{g.id}}')">
-              <circle class="sign-circle" id="circle-${{g.id}}-${{sIdx}}" data-sign-id="${{s.sign_id}}" cx="${{s.x}}" cy="${{s.y}}" r="15" 
-                      fill="${{fillCol}}" stroke="#A88B74" stroke-width="1.2" />
-              ${{glyphInner}}
-              ${{hasStroke ? `<line x1="${{s.x-10}}" y1="${{s.y+16}}" x2="${{s.x+10}}" y2="${{s.y+12}}" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>` : ''}}
-            </g>
-          `;
         }});
 
         // Group label at first sign
-        if (g.signs_coords.length > 0) {{
+        if (!isPhoto && g.signs_coords.length > 0) {{
           const f = g.signs_coords[0];
           html += `
-            <text x="${{f.x}}" y="${{f.y - 18}}" font-family="'Geist Mono', monospace" font-size="9" fill="#8C7A6B" font-weight="600" text-anchor="middle">
+            <text x="${{f.x}}" y="${{f.y - 22}}" font-family="'Geist Mono', monospace" font-size="9.5" fill="#52525B" font-weight="600" text-anchor="middle">
               ${{g.id}}
             </text>
           `;
@@ -1321,7 +1577,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
           <circle cx="400" cy="400" r="41" fill="#F4EDE2" stroke="#D1BEA8" stroke-width="1" />
           <text x="400" y="394" font-family="'Instrument Serif', serif" font-size="16" font-style="italic" fill="#78350F" text-anchor="middle" id="bossSideLabel">Side ${{currentSide}}</text>
           <text x="400" y="408" font-family="'Geist Mono', monospace" font-size="10" font-weight="600" fill="#18181B" text-anchor="middle" id="bossSpeedLabel">5.7 RPM</text>
-          <text x="400" y="419" font-family="'Geist Mono', monospace" font-size="8" fill="#8C7A6B" text-anchor="middle">&omega; = 34.5&deg;/s</text>
+          <text x="400" y="419" font-family="'Geist Mono', monospace" font-size="8.5" fill="#52525B" text-anchor="middle">&#969; = 34.5&#176;/s</text>
         </g>
       `;
 
@@ -1341,8 +1597,10 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
 
     function toggleSurrogate(isNull) {{
       isNullSurrogate = isNull;
-      document.getElementById('btnCorpusReal').className = (!isNull ? 'btn active' : 'btn');
-      document.getElementById('btnCorpusNull').className = (isNull ? 'btn active' : 'btn');
+      const radCan = document.getElementById('radioCanonical');
+      const radNull = document.getElementById('radioMonteCarlo');
+      if (radCan) radCan.checked = !isNull;
+      if (radNull) radNull.checked = isNull;
       if (isNull) {{
         document.getElementById('discSvg').style.filter = 'hue-rotate(180deg) saturate(0.8)';
       }} else {{
@@ -1364,9 +1622,9 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         if (rot) {{
           rot.style.transform = `rotate(${{schedItem.target_angle_deg}}deg)`;
         }}
-        document.getElementById('hudActiveGroup').textContent = `${{schedItem.group_id}} &bull; Turn ${{schedItem.turn}}`;
-        document.getElementById('hudMorae').textContent = `${{schedItem.morae}} morae &bull; ${{(schedItem.duration_ms/1000).toFixed(2)}}s`;
-        document.getElementById('hudAngle').textContent = `${{schedItem.target_angle_deg}}&deg; &rarr; 12:00`;
+        document.getElementById('hudActiveGroup').textContent = `${{schedItem.group_id}} · Turn ${{schedItem.turn}}`;
+        document.getElementById('hudMorae').textContent = `${{schedItem.morae}} morae · ${{(schedItem.duration_ms/1000).toFixed(2)}}s`;
+        document.getElementById('hudAngle').textContent = `${{schedItem.target_angle_deg}}° → 12:00`;
         document.getElementById('hudCadence').textContent = schedItem.has_stroke ? 'Stroke Rest (2μ)' : 'None (1μ)';
       }}
 
@@ -1386,6 +1644,8 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
           visualContent = `<svg width="28" height="28" viewBox="0 0 32 32" style="color: #2C221D; margin: 2px 0;">${{gData.vector_svg}}</svg>`;
         }} else if (currentGlyphMode === 'unicode_raw') {{
           visualContent = `<div style="font-size: 26px; line-height: 1.2;">${{meta.char}}</div>`;
+        }} else if (currentGlyphMode === 'photo') {{
+          visualContent = `<div style="font-size: 26px; line-height: 1.2;">${{gData.emoji}}</div>`;
         }} else {{ // default 'emoji_utf8'
           visualContent = `<div style="font-size: 26px; line-height: 1.2;">${{gData.emoji}}</div>`;
         }}
@@ -1393,15 +1653,15 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         pillsHtml += `
           <div class="glyph-pill">
             ${{visualContent}}
-            <div class="glyph-sub" style="font-weight: 600; color: #78350F;">#${{sId}}</div>
-            <div class="glyph-sub" style="font-size: 8.5px;">${{gData.short_name || meta.name}}</div>
+            <div class="glyph-sub" style="font-weight: 600; color: #78350F; font-size: 11.5px;">#${{sId}}</div>
+            <div class="glyph-sub" style="font-size: 11.5px; color: var(--ink-secondary);">${{gData.short_name || meta.name}}</div>
           </div>
         `;
       }});
 
       const strokeBadge = g.oblique_stroke 
-        ? '<span style="color: #059669; font-weight: 600;">YES &bull; Terminal Prolongation (2&mu;)</span>' 
-        : '<span style="color: var(--ink-muted);">None (1&mu;)</span>';
+        ? '<span style="color: #059669; font-weight: 600;">YES &middot; Terminal Prolongation (2&mu;)</span>' 
+        : '<span style="color: var(--ink-secondary);">None (1&mu;)</span>';
 
       // Retrieve Homology Manifest data for this group
       const hManifest = PAYLOAD.homology_manifest;
@@ -1416,29 +1676,29 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
             const crop = PAYLOAD.hagia_gallery.crops.find(c => c.id === sm.crop_id);
             const thumbSrc = (crop && crop.thumb_data_uri) ? crop.thumb_data_uri : (crop ? crop.rel_url : '');
             cropCell = `
-              <div style="display: flex; align-items: center; gap: 6px;">
+              <div style="display: flex; align-items: flex-start; gap: 8px;">
                 <div class="rosetta-thumb-cell" onclick="selectHagiaRealia('${{sm.crop_id}}', false)" style="cursor: pointer;" title="Focus realia crop in gallery">
                   <img src="${{thumbSrc}}" class="rosetta-thumb-img" alt="${{sm.crop_title}}"/>
                 </div>
-                <div style="line-height: 1.25;">
-                  <strong style="color: #78350F; font-size: 10.5px;">${{sm.crop_title}}</strong>
-                  <div style="font-size: 8.5px; color: var(--ink-secondary);">${{sm.fresco_element}}</div>
+                <div style="line-height: 1.35;">
+                  <strong style="color: #78350F; font-size: 13px;">${{sm.crop_title}}</strong>
+                  <div style="font-size: 11.5px; color: var(--ink-secondary);">${{sm.fresco_element}}</div>
                 </div>
               </div>
             `;
             const badgeClass = (sm.confidence_tier === 'PRIMARY_ARCHETYPE' ? 'badge-primary' : (sm.confidence_tier === 'STRUCTURAL_CLASSIFIER' ? 'badge-classifier' : 'badge-primary'));
             rationaleCell = `
-              <div style="display: flex; flex-direction: column; gap: 2px;">
+              <div style="display: flex; flex-direction: column; gap: 4px;">
                 <div><span class="rosetta-badge ${{badgeClass}}">${{sm.confidence_tier.replace(/_/g, ' ')}}</span></div>
-                <span style="font-size: 9.5px; color: var(--ink-secondary); line-height: 1.35;">${{sm.rationale}}</span>
+                <span style="font-size: 12.5px; color: var(--ink-secondary); line-height: 1.5;">${{sm.rationale}}</span>
               </div>
             `;
           }} else {{
-            cropCell = `<span style="color: var(--ink-muted); font-size: 10px;">Subordinate Phonetic Mora</span>`;
+            cropCell = `<span style="color: var(--ink-secondary); font-size: 12px; font-style: italic;">Subordinate Phonetic Mora</span>`;
             rationaleCell = `
-              <div style="display: flex; flex-direction: column; gap: 2px;">
+              <div style="display: flex; flex-direction: column; gap: 4px;">
                 <div><span class="rosetta-badge badge-phonetic">PHONETIC MORA</span></div>
-                <span style="font-size: 9.5px; color: var(--ink-muted); line-height: 1.35;">${{sm.rationale}}</span>
+                <span style="font-size: 12.5px; color: var(--ink-secondary); line-height: 1.5;">${{sm.rationale}}</span>
               </div>
             `;
           }}
@@ -1447,9 +1707,9 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
             <tr>
               <td>
                 <div class="rosetta-sign-cell">
-                  <span style="font-size: 15px;">${{sm.emoji}}</span>
+                  <span style="font-size: 16px;">${{sm.emoji}}</span>
                   <span style="color: #78350F;">#${{sm.sign_id}}</span>
-                  <span style="font-size: 9px; color: var(--ink-secondary); font-weight: normal;">${{sm.short_name}}</span>
+                  <span style="font-size: 11.5px; color: var(--ink-secondary); font-weight: normal;">${{sm.short_name}}</span>
                 </div>
               </td>
               <td>${{cropCell}}</td>
@@ -1462,7 +1722,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       let metricWeightDisplay = `${{g.signs.length + (g.oblique_stroke ? 1 : 0)}} morae`;
       if (currentCartoucheMode && gHomol && gHomol.is_determinative_header) {{
         const reducedMorae = Math.max(1, (g.signs.length - 2) + (g.oblique_stroke ? 1 : 0));
-        metricWeightDisplay = `<strong style="color: #B45309;">${{reducedMorae}} morae (Cartouche Excluded)</strong> <span style="font-size: 10px; color: var(--ink-muted);">(Standard: ${{g.signs.length + (g.oblique_stroke ? 1 : 0)}} &mu;)</span>`;
+        metricWeightDisplay = `<strong style="color: #B45309;">${{reducedMorae}} morae (Cartouche Excluded)</strong> <span style="font-size: 11.5px; color: var(--ink-secondary);">(Standard: ${{g.signs.length + (g.oblique_stroke ? 1 : 0)}} &mu;)</span>`;
       }}
 
       const rosettaTableHtml = gHomol ? `
@@ -1488,15 +1748,15 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       ` : '';
 
       document.getElementById('inspectorContent').innerHTML = `
-        <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px;">
+        <div style="font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--ink);">
           Group ${{g.id}} &mdash; ${{g.signs.length}} Signs
-          ${{gHomol && gHomol.is_determinative_header ? '<span style="margin-left: 6px; font-size: 9.5px; background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; padding: 1px 6px; border-radius: 4px;">CARTOUCHE 02-12</span>' : ''}}
+          ${{gHomol && gHomol.is_determinative_header ? '<span style="margin-left: 6px; font-size: 11px; background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; padding: 2px 7px; border-radius: 4px; font-weight: 600;">CARTOUCHE 02-12</span>' : ''}}
         </div>
         <div class="glyph-display">${{pillsHtml}}</div>
-        <div style="margin-top: 8px; font-size: 12px;">
+        <div style="margin-top: 10px; font-size: 13.5px; line-height: 1.6;">
           <div><strong>Liturgical Act:</strong> ${{gHomol ? gHomol.act_title : 'Unassigned'}}</div>
           <div><strong>Incised Oblique Stroke:</strong> ${{strokeBadge}}</div>
-          <div><strong>Palimpsest / Erasure:</strong> ${{g.erasure ? '<span style="color: #DC2626;">Documented Erasure</span>' : 'None'}}</div>
+          <div><strong>Palimpsest / Erasure:</strong> ${{g.erasure ? '<span style="color: #DC2626; font-weight: 600;">Documented Erasure</span>' : 'None'}}</div>
           <div><strong>Metric Weight:</strong> ${{metricWeightDisplay}}</div>
           <div><strong>Centroid Alignment:</strong> ${{schedItem ? schedItem.target_angle_deg : 0}}&deg; to 12:00 foveal axis</div>
         </div>
@@ -1605,6 +1865,19 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       document.getElementById('bossSpeedLabel').textContent = rpm + ' RPM';
     }}
 
+    function setPlaybackButtonState(active) {{
+      const ids = ['btnPlayA', 'btnPlayB', 'btnPlayFull', 'btnPlay'];
+      ids.forEach(id => {{
+        const el = document.getElementById(id);
+        if (el) {{
+          el.disabled = active;
+          el.style.opacity = active ? '0.35' : (id === 'btnPlay' ? '0.85' : '1.0');
+          el.style.cursor = active ? 'not-allowed' : 'pointer';
+          el.style.pointerEvents = active ? 'none' : 'auto';
+        }}
+      }});
+    }}
+
     async function startTeleprompter(mode) {{
       initAudio();
       if (teleprompterRunning && teleprompterPaused) {{
@@ -1618,6 +1891,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       teleprompterPaused = false;
       teleprompterMode = mode;
       document.getElementById('btnPause').textContent = '⏸ Pause';
+      setPlaybackButtonState(true);
 
       if (mode === 'A' || mode === 'FULL') {{
         switchSide('A');
@@ -1639,6 +1913,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     function resetTeleprompter() {{
       teleprompterRunning = false;
       teleprompterPaused = false;
+      setPlaybackButtonState(false);
       currentStepIndex = 0;
       if (activeTimer) clearTimeout(activeTimer);
       const btnP = document.getElementById('btnPause');
@@ -1681,9 +1956,9 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         if (groupEl) groupEl.classList.add('active-teleprompter-group');
 
         // 3. Update HUD telemetry
-        document.getElementById('hudActiveGroup').innerHTML = `<strong>${{item.group_id}}</strong> &bull; Turn ${{item.turn}}`;
-        document.getElementById('hudMorae').textContent = `${{item.morae}} morae &bull; ${{(item.duration_ms/1000).toFixed(2)}}s`;
-        document.getElementById('hudAngle').textContent = `${{item.target_angle_deg}}&deg; &rarr; 12:00`;
+        document.getElementById('hudActiveGroup').innerHTML = `<strong>${{item.group_id}}</strong> · Turn ${{item.turn}}`;
+        document.getElementById('hudMorae').textContent = `${{item.morae}} morae · ${{(item.duration_ms/1000).toFixed(2)}}s`;
+        document.getElementById('hudAngle').textContent = `${{item.target_angle_deg}}° → 12:00`;
         document.getElementById('hudCadence').innerHTML = item.has_stroke 
           ? '<span style="color: #059669; font-weight: 600;">Stroke Rest (2&mu;)</span>' 
           : 'None (1&mu;)';
@@ -1735,6 +2010,9 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       }} else if (teleprompterRunning) {{
         document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #059669;">HYMN RECITATION COMPLETE</strong>';
         teleprompterRunning = false;
+        setPlaybackButtonState(false);
+      }} else {{
+        setPlaybackButtonState(false);
       }}
     }}
 
@@ -1749,6 +2027,7 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     async function toggleAudio() {{
       if (isPlaying) return;
       isPlaying = true;
+      setPlaybackButtonState(true);
       document.getElementById('btnPlay').textContent = 'Synthesizing Lyric Paean...';
       switchSide('A');
 
@@ -1760,14 +2039,15 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         inspectGroup(item.group_id);
         playPluckedString(item.freq, item.duration_ms);
         document.getElementById('audioTelemetry').textContent = 
-          `PLAYING ${{item.group_id}} (${{item.morae}} morae) &bull; responsion triad cadence`;
+          `PLAYING ${{item.group_id}} (${{item.morae}} morae) · responsion triad cadence`;
         await new Promise(r => setTimeout(r, item.duration_ms));
       }}
 
       isPlaying = false;
+      setPlaybackButtonState(false);
       document.getElementById('btnPlay').textContent = 'Play Lyric Triad (A14–A22)';
       document.getElementById('audioTelemetry').textContent = 
-        `COMPLETED: 14-mora Lyric Triad Paean &bull; exact strophic balance`;
+        `COMPLETED: 14-mora Lyric Triad Paean · exact strophic balance`;
     }}
 
     // ==========================================
@@ -1776,15 +2056,18 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     let currentCartoucheMode = false;
     let currentActiveActId = 'ALL';
 
+    function toggleCartoucheCheckbox(checked) {{
+      currentCartoucheMode = !!checked;
+      renderSvg();
+      if (currentInspectedGroupId) {{
+        inspectGroup(currentInspectedGroupId);
+      }}
+    }}
+
     function toggleCartoucheMode() {{
       currentCartoucheMode = !currentCartoucheMode;
-      const btn = document.getElementById('btnCartoucheToggle');
-      if (btn) {{
-        btn.className = (currentCartoucheMode ? 'btn active' : 'btn');
-        btn.style.background = (currentCartoucheMode ? '#FEF3C7' : '');
-        btn.style.borderColor = (currentCartoucheMode ? '#D97706' : '');
-        btn.style.color = (currentCartoucheMode ? '#78350F' : '');
-      }}
+      const chk = document.getElementById('cartoucheCheckbox');
+      if (chk) chk.checked = currentCartoucheMode;
       renderSvg();
       if (currentInspectedGroupId) {{
         inspectGroup(currentInspectedGroupId);
@@ -1838,30 +2121,46 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
       if (!contentEl) return;
 
       if (tab === 'arkalochori') {{
-        contentEl.innerHTML = `
-          <div style="background: var(--canvas-subtle); padding: 10px; border-radius: 6px; border: 1px solid var(--editorial-border);">
-            <div style="font-weight: 600; color: #78350F; margin-bottom: 4px; font-family: 'Instrument Serif', Georgia, serif; font-size: 16px;">Arkalochori Votive Double Axe (HM 584)</div>
-            <p style="margin: 0 0 8px 0; color: var(--ink-secondary); font-size: 11px;">Late Minoan I bronze ceremonial double axe excavated by Spyridon Marinatos (1934) in the Arkalochori sacred cave. 15 incised signs in 3 columns.</p>
-            <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
-              <span class="hagia-matched-pill">🪶 Sign 02 (Plumed Head): Incised on Col 1 &amp; 2 (ARK_01, ARK_03, ARK_06)</span>
-              <span class="hagia-matched-pill">🪓 Sign 44 (Double Axe): Incised on Col 3 (ARK_11)</span>
-              <span class="hagia-matched-pill">🌿 Sign 35 (Branch): Repeated 4x (ARK_02, ARK_04, ARK_07, ARK_09)</span>
+        const axePhotoHtml = PAYLOAD.arkalochori_photo ? `
+          <div style="width: 145px; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px;">
+            <div style="width: 100%; height: 165px; border-radius: 4px; overflow: hidden; background: #1C1917; border: 1px solid var(--editorial-border); box-shadow: 0 2px 6px rgba(0,0,0,0.06);">
+              <img src="${{PAYLOAD.arkalochori_photo}}" alt="Arkalochori Votive Double Axe HM 584" style="width: 100%; height: 100%; object-fit: cover;" />
             </div>
-            <div style="font-size: 10.5px; color: var(--ink-secondary); line-height: 1.4; border-top: 1px dashed rgba(0,0,0,0.12); padding-top: 6px;">
+            <div style="font-family: 'Geist Mono', monospace; font-size: 9.5px; color: var(--ink-secondary); text-align: center; line-height: 1.3;">
+              HM 584 &bull; Arkalochori Cave
+            </div>
+          </div>
+        ` : '';
+
+        contentEl.innerHTML = `
+          <div style="background: var(--canvas-subtle); padding: 14px; border-radius: 8px; border: 1px solid var(--editorial-border);">
+            <div style="display: flex; gap: 14px; align-items: flex-start;">
+              ${{axePhotoHtml}}
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-weight: 600; color: #78350F; margin-bottom: 6px; font-family: 'Instrument Serif', Georgia, serif; font-size: 18px;">Arkalochori Votive Double Axe (HM 584)</div>
+                <p style="margin: 0 0 10px 0; color: var(--ink-secondary); font-size: 13.5px; line-height: 1.55;">Late Minoan I bronze ceremonial double axe excavated by Spyridon Marinatos (1934) in the Arkalochori sacred cave. 15 incised signs in 3 vertical columns.</p>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+                  <span class="hagia-matched-pill">🪶 Sign 02 (Plumed Head): Incised on Col 1 &amp; 2 (ARK_01, ARK_03, ARK_06)</span>
+                  <span class="hagia-matched-pill">🪓 Sign 44 (Double Axe): Incised on Col 3 (ARK_11)</span>
+                  <span class="hagia-matched-pill">🌿 Sign 35 (Branch): Repeated 4x (ARK_02, ARK_04, ARK_07, ARK_09)</span>
+                </div>
+              </div>
+            </div>
+            <div class="verdict-box" style="margin-top: 10px;">
               <strong>Epigraphic Triangulation:</strong> Proves that the Plumed Head and Double Axe were sacred symbols of indigenous Cretan cave liturgy, directly falsifying theories of foreign Anatolian or Philistine origin.
             </div>
           </div>
         `;
       }} else {{
         contentEl.innerHTML = `
-          <div style="background: var(--canvas-subtle); padding: 10px; border-radius: 6px; border: 1px solid var(--editorial-border);">
-            <div style="font-weight: 600; color: #78350F; margin-bottom: 4px; font-family: 'Instrument Serif', Georgia, serif; font-size: 16px;">Linear A Tablet PH 1 (HM 1359)</div>
-            <p style="margin: 0 0 8px 0; color: var(--ink-secondary); font-size: 11px;">Excavated by Luigi Pernier (1908) in the exact same cist ("celletta") centimeters from the Disc in the ash destruction layer of Room 8, Northeast Wing of Phaistos Palace.</p>
-            <div style="font-size: 11px; margin-bottom: 8px; font-family: 'Geist Mono', monospace;">
+          <div style="background: var(--canvas-subtle); padding: 14px; border-radius: 8px; border: 1px solid var(--editorial-border);">
+            <div style="font-weight: 600; color: #78350F; margin-bottom: 6px; font-family: 'Instrument Serif', Georgia, serif; font-size: 18px;">Linear A Tablet PH 1 (HM 1359)</div>
+            <p style="margin: 0 0 10px 0; color: var(--ink-secondary); font-size: 13.5px; line-height: 1.55;">Excavated by Luigi Pernier (1908) in the exact same cist ("celletta") centimeters from the Disc in the ash destruction layer of Room 8, Northeast Wing of Phaistos Palace.</p>
+            <div style="font-size: 12.5px; margin-bottom: 10px; font-family: 'Geist Mono', monospace; line-height: 1.5;">
               <div><strong>Face A:</strong> <code>]DI-RA-DI-NA *316 [] L2[ / ]JA *316 1 CYP H</code></div>
               <div><strong>Face B:</strong> <code>[]-NA 1 / PA[ ]FIC</code> (Commodities: Dried figs &amp; aromatic cyperus)</div>
             </div>
-            <div style="font-size: 10.5px; color: var(--ink-secondary); line-height: 1.4; border-top: 1px dashed rgba(0,0,0,0.12); padding-top: 6px;">
+            <div class="verdict-box" style="margin-top: 10px;">
               <strong>Archaeological Invariant:</strong> Falsifies modern hoax theories. Confirms that Room 8 was an elite archival-liturgical repository preserving administrative commodity ledgers alongside sacred ceremonial hymn discs.
             </div>
           </div>
