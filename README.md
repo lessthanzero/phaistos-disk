@@ -72,9 +72,13 @@ Falsifications of popular claims (Saros calculator, Mehen board, modern forgery,
 
 ```bash
 uv run phaistos workbench --output reports/workbench.html
+# Public / GitHub Pages build (no third-party photo embeds):
+uv run phaistos workbench --output site/workbench/index.html --pages-safe --no-open-browser
 ```
 
-Opens a standalone HTML explorer (dual-face SVG spiral, group inspection, optional Karplus–Strong-style audio hooks). The generated file is typically on the order of **~850 KB** when built locally — not a tiny 56 KB toy page.
+Opens a standalone HTML explorer (dual-face SVG spiral, group inspection, optional Karplus–Strong-style audio hooks). Full local builds are typically ~850 KB; `--pages-safe` builds are smaller (~380 KB) because museum/Wikimedia photo embeds are omitted.
+
+After the repo is on GitHub, enable **Settings → Pages → Source: GitHub Actions**. The `pages.yml` workflow deploys a rights-safe demo to `https://{owner}.github.io/phaistos-disk/`.
 
 Third-party museum photographs and some Wikimedia-derived crops are **excluded from the public default tree**; see [NOTICE](NOTICE). Generate visuals locally; do not assume MIT covers third-party media.
 
