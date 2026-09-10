@@ -49,6 +49,8 @@ reports/visuals/comparative/
 reports/visuals/hagia_triada/
 data/hagia_triada/
 reports/workbench.html
+docs/workbench/
+site/
 
 # Optional synthetic audio (large; regenerate via CLI)
 experiments/audio/*.wav

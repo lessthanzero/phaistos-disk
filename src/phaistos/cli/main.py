@@ -1428,6 +1428,7 @@ def workbench_cmd(
     source: str = "godart_1995",
     output: str = "reports/workbench.html",
     open_browser: bool = True,
+    pages_safe: bool = False,
 ):
     """Generate and launch the interactive audio-epigraphic research workbench."""
     from pathlib import Path
@@ -1437,11 +1438,13 @@ def workbench_cmd(
 
     corpus = load_transcription(source)
     out_file = Path(output)
-    generate_workbench_html(corpus, output_path=out_file)
+    generate_workbench_html(corpus, output_path=out_file, pages_safe=pages_safe)
 
     console.print(Panel("[bold green]Frontier E: Interactive Audio-Epigraphic Workbench[/bold green]"))
     console.print(f"Generated standalone research workbench: [bold cyan]{out_file.resolve()}[/bold cyan]")
     console.print(f"File Size: [bold green]{out_file.stat().st_size / 1024:.1f} KB[/bold green]")
+    if pages_safe:
+        console.print("[dim]pages_safe: third-party photo embeds omitted (GitHub Pages / NOTICE).[/dim]")
 
     if open_browser:
         console.print("[dim]Opening in default browser...[/dim]")

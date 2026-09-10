@@ -135,8 +135,16 @@ def compute_performance_schedule(groups, signs_cat, mora_sec: float = 0.28):
     return schedule
 
 
-def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = None) -> str:
-    """Generate the comprehensive self-contained HTML workbench file."""
+def generate_workbench_html(
+    corpus: DiscCorpus,
+    output_path: Optional[Path] = None,
+    *,
+    pages_safe: bool = False,
+) -> str:
+    """Generate the comprehensive self-contained HTML workbench file.
+
+    ``pages_safe=True`` omits third-party photo embeds for GitHub Pages hosting.
+    """
     # 1. Run all frontier analytical modules
     stroke_res = evaluate_oblique_strokes(corpus)
     suffix_res = analyze_suffix_correspondence(corpus)
@@ -163,8 +171,15 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
     schedule_b = compute_performance_schedule(groups_b, signs_cat)
 
     # 5. JSON Payload for frontend
+    hagia_gallery = get_hagia_gallery_manifest()
+    if pages_safe:
+        # Omit CC BY-SA / local crop embeds; keep metadata + Commons URLs via sources list.
+        for crop in hagia_gallery.get("crops", []):
+            crop["thumb_data_uri"] = ""
+            crop.pop("file_path", None)
+
     data_payload = {
-        "hagia_gallery": get_hagia_gallery_manifest(),
+        "hagia_gallery": hagia_gallery,
         "homology_manifest": get_all_groups_homology_manifest(corpus),
         "clauses_manifest": get_clauses_manifest(corpus),
         "homology_stats": evaluate_homology_significance(n_iterations=500).__dict__,
@@ -174,9 +189,10 @@ def generate_workbench_html(corpus: DiscCorpus, output_path: Optional[Path] = No
         "side_b": groups_b,
         "schedule_a": schedule_a,
         "schedule_b": schedule_b,
-        "photo_disc_a": _get_image_data_uri(Path("reports/visuals/photos/disc_photo_a.webp")),
-        "photo_disc_b": _get_image_data_uri(Path("reports/visuals/photos/disc_photo_b.webp")),
-        "arkalochori_photo": _get_image_data_uri(Path("reports/visuals/comparative/arkalochori_axe_hm584.webp")),
+        "photo_disc_a": "" if pages_safe else _get_image_data_uri(Path("reports/visuals/photos/disc_photo_a.webp")),
+        "photo_disc_b": "" if pages_safe else _get_image_data_uri(Path("reports/visuals/photos/disc_photo_b.webp")),
+        "arkalochori_photo": "" if pages_safe else _get_image_data_uri(Path("reports/visuals/comparative/arkalochori_axe_hm584.webp")),
+        "pages_safe": pages_safe,
         "frontier_a": {
             "total_strokes": stroke_res.total_strokes,
             "side_a": stroke_res.side_a_strokes,
