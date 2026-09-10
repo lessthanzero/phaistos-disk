@@ -31,7 +31,7 @@ def test_realia_crop_definitions_integrity():
 
 def test_gallery_manifest_generation():
     """Verify gallery manifest structure and sign-to-realia lookups."""
-    manifest = get_hagia_gallery_manifest()
+    manifest = get_hagia_gallery_manifest(pages_safe=True)
 
     assert manifest["total_crops"] == 10
     assert len(manifest["crops"]) == 10
@@ -54,7 +54,7 @@ def test_gallery_manifest_generation():
 
 def test_get_realia_for_group():
     """Verify group-level heuristic scoring and realia matching."""
-    manifest = get_hagia_gallery_manifest()
+    manifest = get_hagia_gallery_manifest(pages_safe=True)
 
     # Aulos flute group B08 (21-27)
     match_b08 = get_realia_for_group(["21", "27"], manifest=manifest)
@@ -80,7 +80,7 @@ def test_workbench_hagia_triada_integration(tmp_path: Path):
     """Verify that generated workbench HTML embeds Hagia Triada sync data and controls."""
     corpus = load_transcription("godart_1995")
     out_file = tmp_path / "workbench.html"
-    html = generate_workbench_html(corpus, output_path=out_file)
+    html = generate_workbench_html(corpus, output_path=out_file, pages_safe=True)
 
     assert "hagia_gallery" in html
     assert "initHagiaGallery" in html

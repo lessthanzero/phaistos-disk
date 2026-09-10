@@ -100,7 +100,7 @@ def test_workbench_glyph_switcher(tmp_path: Path):
     """Verify workbench HTML embeds the switcher segmented buttons, catalog, and JS switcher function."""
     corpus = load_transcription("godart_1995")
     out_file = tmp_path / "workbench.html"
-    html = generate_workbench_html(corpus, output_path=out_file)
+    html = generate_workbench_html(corpus, output_path=out_file, pages_safe=True)
 
     # Verify switcher buttons
     assert 'id="glyphModeGroup"' in html

@@ -9,7 +9,7 @@ from phaistos.visualizer.workbench import generate_workbench_html
 def test_generate_workbench_html(tmp_path: Path):
     corpus = load_transcription("godart_1995")
     out_file = tmp_path / "workbench.html"
-    html = generate_workbench_html(corpus, output_path=out_file)
+    html = generate_workbench_html(corpus, output_path=out_file, pages_safe=True)
 
     assert len(html) > 5000
     assert out_file.is_file()
