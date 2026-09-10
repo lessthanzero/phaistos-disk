@@ -1645,12 +1645,91 @@
       });
     }
 
+    async function playSideSchedule(side) {
+      switchSide(side);
+      const schedule = (side === 'A' ? PAYLOAD.schedule_a : PAYLOAD.schedule_b);
+      const totalSteps = schedule.length;
+      const totalDurationMs = schedule.reduce((acc, x) => acc + x.duration_ms, 0);
+      let elapsedMs = 0;
+
+      for (let i = 0; i < totalSteps; i++) {
+        if (!teleprompterRunning) return false;
+
+        while (teleprompterPaused) {
+          await new Promise(r => setTimeout(r, 100));
+          if (!teleprompterRunning) return false;
+        }
+
+        currentStepIndex = i;
+        const item = schedule[i];
+
+        // 1. Smoothly rotate disc to bring group to 12 o'clock gaze pointer
+        const rot = document.getElementById('discRotator');
+        if (rot) {
+          rot.style.transform = `rotate(${item.target_angle_deg}deg)`;
+        }
+
+        // 2. Highlight active group
+        document.querySelectorAll('.sign-group-container').forEach(el => el.classList.remove('active-teleprompter-group'));
+        const groupEl = document.getElementById('group-' + item.group_id);
+        if (groupEl) groupEl.classList.add('active-teleprompter-group');
+
+        // 3. Update HUD telemetry
+        document.getElementById('hudActiveGroup').innerHTML = `<strong>${item.group_id}</strong> · Turn ${item.turn}`;
+        document.getElementById('hudMorae').textContent = `${item.morae} morae · ${(item.duration_ms/1000).toFixed(2)}s`;
+        document.getElementById('hudAngle').textContent = `${item.target_angle_deg}° → 12:00`;
+        document.getElementById('hudCadence').innerHTML = item.has_stroke 
+          ? '<span style="color: #059669; font-weight: 600;">Stroke Rest (2&mu;)</span>' 
+          : 'None (1&mu;)';
+
+        inspectGroup(item.group_id);
+
+        // 4. Step through each sign in the group
+        for (let sIdx = 0; sIdx < item.signs.length; sIdx++) {
+          if (!teleprompterRunning) return false;
+          while (teleprompterPaused) {
+            await new Promise(r => setTimeout(r, 100));
+            if (!teleprompterRunning) return false;
+          }
+
+          const sign = item.signs[sIdx];
+          updateHagiaSync(item.group_id, sign.sign_id);
+          const circleEl = document.getElementById(`circle-${item.group_id}-${sIdx}`);
+          if (circleEl) circleEl.classList.add('sign-current-mora');
+
+          playPluckedString(sign.freq, sign.duration_ms);
+
+          if (sign.stroke) {
+            playStrokeClick();
+          }
+
+          const signWait = sign.duration_ms / playbackSpeed;
+          elapsedMs += sign.duration_ms;
+          updateProgressBar(elapsedMs, totalDurationMs);
+
+          await new Promise(r => setTimeout(r, signWait));
+          if (circleEl) circleEl.classList.remove('sign-current-mora');
+        }
+
+        // 5. Inter-group pause
+        const pauseWait = item.pause_ms / playbackSpeed;
+        elapsedMs += item.pause_ms;
+        updateProgressBar(elapsedMs, totalDurationMs);
+        await new Promise(r => setTimeout(r, pauseWait));
+      }
+
+      return true;
+    }
+
     async function startTeleprompter(mode) {
       initAudio();
       if (teleprompterRunning && teleprompterPaused) {
         teleprompterPaused = false;
         document.getElementById('btnPause').textContent = '⏸ Pause';
         return;
+      }
+      if (teleprompterRunning) {
+        return; // Guard against concurrent overlapping invocations
       }
 
       resetTeleprompter();
@@ -1660,15 +1739,33 @@
       document.getElementById('btnPause').textContent = '⏸ Pause';
       setPlaybackButtonState(true);
 
-      if (mode === 'A' || mode === 'FULL') {
-        switchSide('A');
-        currentSchedule = PAYLOAD.schedule_a;
-      } else {
-        switchSide('B');
-        currentSchedule = PAYLOAD.schedule_b;
-      }
+      try {
+        if (mode === 'A') {
+          await playSideSchedule('A');
+        } else if (mode === 'B') {
+          await playSideSchedule('B');
+        } else if (mode === 'FULL') {
+          const finishedA = await playSideSchedule('A');
+          if (finishedA && teleprompterRunning) {
+            document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #92400E;">RITUAL TURNOVER GONG</strong>';
+            playBronzeGong();
+            await new Promise(r => setTimeout(r, 2500 / playbackSpeed));
+            if (teleprompterRunning) {
+              await playSideSchedule('B');
+            }
+          }
+        }
 
-      await runScheduleLoop();
+        if (teleprompterRunning) {
+          document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #059669;">HYMN RECITATION COMPLETE</strong>';
+        }
+      } finally {
+        teleprompterRunning = false;
+        teleprompterPaused = false;
+        setPlaybackButtonState(false);
+        const btnP = document.getElementById('btnPause');
+        if (btnP) btnP.textContent = '⏸ Pause';
+      }
     }
 
     function togglePauseTeleprompter() {
@@ -1693,99 +1790,6 @@
       if (rot) rot.style.transform = 'rotate(0deg)';
       document.querySelectorAll('.sign-group-container').forEach(el => el.classList.remove('active-teleprompter-group'));
       document.querySelectorAll('.sign-circle').forEach(el => el.classList.remove('sign-current-mora'));
-    }
-
-    async function runScheduleLoop() {
-      const totalSteps = currentSchedule.length;
-      let totalDurationMs = currentSchedule.reduce((acc, x) => acc + x.duration_ms, 0);
-      let elapsedMs = 0;
-
-      try {
-        for (let i = currentStepIndex; i < totalSteps; i++) {
-          if (!teleprompterRunning) break;
-
-          while (teleprompterPaused) {
-            await new Promise(r => setTimeout(r, 100));
-            if (!teleprompterRunning) return;
-          }
-
-          currentStepIndex = i;
-          const item = currentSchedule[i];
-
-          // 1. Smoothly rotate disc to bring group to 12 o'clock gaze pointer
-          const rot = document.getElementById('discRotator');
-          if (rot) {
-            rot.style.transform = `rotate(${item.target_angle_deg}deg)`;
-          }
-
-          // 2. Highlight active group
-          document.querySelectorAll('.sign-group-container').forEach(el => el.classList.remove('active-teleprompter-group'));
-          const groupEl = document.getElementById('group-' + item.group_id);
-          if (groupEl) groupEl.classList.add('active-teleprompter-group');
-
-          // 3. Update HUD telemetry
-          document.getElementById('hudActiveGroup').innerHTML = `<strong>${item.group_id}</strong> · Turn ${item.turn}`;
-          document.getElementById('hudMorae').textContent = `${item.morae} morae · ${(item.duration_ms/1000).toFixed(2)}s`;
-          document.getElementById('hudAngle').textContent = `${item.target_angle_deg}° → 12:00`;
-          document.getElementById('hudCadence').innerHTML = item.has_stroke 
-            ? '<span style="color: #059669; font-weight: 600;">Stroke Rest (2&mu;)</span>' 
-            : 'None (1&mu;)';
-
-          inspectGroup(item.group_id);
-
-          // 4. Step through each sign in the group
-          for (let sIdx = 0; sIdx < item.signs.length; sIdx++) {
-            if (!teleprompterRunning) break;
-            while (teleprompterPaused) {
-              await new Promise(r => setTimeout(r, 100));
-              if (!teleprompterRunning) return;
-            }
-
-            const sign = item.signs[sIdx];
-            updateHagiaSync(item.group_id, sign.sign_id);
-            const circleEl = document.getElementById(`circle-${item.group_id}-${sIdx}`);
-            if (circleEl) circleEl.classList.add('sign-current-mora');
-
-            playPluckedString(sign.freq, sign.duration_ms);
-
-            if (sign.stroke) {
-              playStrokeClick();
-            }
-
-            const signWait = sign.duration_ms / playbackSpeed;
-            elapsedMs += sign.duration_ms;
-            updateProgressBar(elapsedMs, totalDurationMs);
-
-            await new Promise(r => setTimeout(r, signWait));
-            if (circleEl) circleEl.classList.remove('sign-current-mora');
-          }
-
-          // 5. Inter-group pause
-          const pauseWait = item.pause_ms / playbackSpeed;
-          elapsedMs += item.pause_ms;
-          updateProgressBar(elapsedMs, totalDurationMs);
-          await new Promise(r => setTimeout(r, pauseWait));
-        }
-
-        if (teleprompterRunning && teleprompterMode === 'FULL' && currentSide === 'A') {
-          document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #92400E;">RITUAL TURNOVER GONG</strong>';
-          playBronzeGong();
-          await new Promise(r => setTimeout(r, 2500 / playbackSpeed));
-          switchSide('B');
-          currentSchedule = PAYLOAD.schedule_b;
-          currentStepIndex = 0;
-          await runScheduleLoop();
-        } else if (teleprompterRunning) {
-          document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #059669;">HYMN RECITATION COMPLETE</strong>';
-          teleprompterRunning = false;
-          currentStepIndex = 0;
-          setPlaybackButtonState(false);
-        }
-      } finally {
-        if (!teleprompterRunning) {
-          setPlaybackButtonState(false);
-        }
-      }
     }
 
     function updateProgressBar(elapsedMs, totalDurationMs) {
