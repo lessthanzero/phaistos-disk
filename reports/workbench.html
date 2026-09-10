@@ -49,9 +49,13 @@
       color: var(--ink);
     }
     .title-area p {
-      font-size: 14px;
-      color: var(--ink-secondary);
-      margin-top: 4px;
+      font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      margin-top: 6px;
     }
     .header-telemetry {
       font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
@@ -936,25 +940,21 @@
         <div class="secondary-controls">
           <div id="glyphModeGroup">
             <select id="glyphModeSelect" class="editorial-select" onchange="setGlyphMode(this.value)" title="Choose Glyph Visualization Mode">
-              <option id="btnModeEmoji" value="emoji_utf8" selected>🔤 Emoji + ID</option>
-              <option id="btnModeVector" value="vector_svg">🖋️ Vector SVG</option>
-              <option id="btnModeUnicode" value="unicode_raw">𐇐 Unicode Raw</option>
+              <option id="btnModeVector" value="vector_svg" selected>🖋️ Vector SVG</option>
               <option id="btnModePhoto" value="photo">📷 Photo Facsimile</option>
+              <option id="btnModeEmoji" value="emoji_utf8">🔤 Emoji + ID</option>
+              <option id="btnModeUnicode" value="unicode_raw">𐇐 Unicode Raw</option>
             </select>
           </div>
           <label class="control-checkbox-label" title="Toggle Honorific Cartouche framing around initial 02-12 bigram">
             <input type="checkbox" id="cartoucheCheckbox" onchange="toggleCartoucheCheckbox(this.checked)" />
             <span>Cartouche 02-12</span>
           </label>
-          <div class="control-radio-group">
-            <label class="control-radio-label" title="Canonical Epigraphic Transcription">
-              <input type="radio" name="nullModelRadio" id="radioCanonical" value="canonical" checked onchange="toggleSurrogate(false)" />
-              <span>Canonical</span>
-            </label>
-            <label class="control-radio-label" title="Monte Carlo Surrogate Null Model">
-              <input type="radio" name="nullModelRadio" id="radioMonteCarlo" value="null" onchange="toggleSurrogate(true)" />
-              <span>Monte Carlo Null</span>
-            </label>
+          <div id="nullModelGroup">
+            <select id="nullModelSelect" class="editorial-select" onchange="toggleSurrogate(this.value === 'null')" title="Epigraphic Model / Statistical Null Model">
+              <option id="optModelCanonical" value="canonical" selected>Canonical</option>
+              <option id="optModelNull" value="null">Monte Carlo Null</option>
+            </select>
           </div>
         </div>
       </div>
@@ -1182,7 +1182,7 @@
     let isNullSurrogate = false;
     let isPlaying = false;
     let audioCtx = null;
-    let currentGlyphMode = 'emoji_utf8'; // 'emoji_utf8', 'vector_svg', 'unicode_raw'
+    let currentGlyphMode = 'vector_svg'; // 'vector_svg', 'photo', 'emoji_utf8', 'unicode_raw'
     let currentInspectedGroupId = 'A16';
 
     function setGlyphMode(mode) {
@@ -1366,10 +1366,8 @@
 
     function toggleSurrogate(isNull) {
       isNullSurrogate = isNull;
-      const radCan = document.getElementById('radioCanonical');
-      const radNull = document.getElementById('radioMonteCarlo');
-      if (radCan) radCan.checked = !isNull;
-      if (radNull) radNull.checked = isNull;
+      const sel = document.getElementById('nullModelSelect');
+      if (sel) sel.value = isNull ? 'null' : 'canonical';
       if (isNull) {
         document.getElementById('discSvg').style.filter = 'hue-rotate(180deg) saturate(0.8)';
       } else {
@@ -1702,86 +1700,91 @@
       let totalDurationMs = currentSchedule.reduce((acc, x) => acc + x.duration_ms, 0);
       let elapsedMs = 0;
 
-      for (let i = currentStepIndex; i < totalSteps; i++) {
-        if (!teleprompterRunning) break;
-
-        while (teleprompterPaused) {
-          await new Promise(r => setTimeout(r, 100));
-          if (!teleprompterRunning) return;
-        }
-
-        currentStepIndex = i;
-        const item = currentSchedule[i];
-
-        // 1. Smoothly rotate disc to bring group to 12 o'clock gaze pointer
-        const rot = document.getElementById('discRotator');
-        if (rot) {
-          rot.style.transform = `rotate(${item.target_angle_deg}deg)`;
-        }
-
-        // 2. Highlight active group
-        document.querySelectorAll('.sign-group-container').forEach(el => el.classList.remove('active-teleprompter-group'));
-        const groupEl = document.getElementById('group-' + item.group_id);
-        if (groupEl) groupEl.classList.add('active-teleprompter-group');
-
-        // 3. Update HUD telemetry
-        document.getElementById('hudActiveGroup').innerHTML = `<strong>${item.group_id}</strong> · Turn ${item.turn}`;
-        document.getElementById('hudMorae').textContent = `${item.morae} morae · ${(item.duration_ms/1000).toFixed(2)}s`;
-        document.getElementById('hudAngle').textContent = `${item.target_angle_deg}° → 12:00`;
-        document.getElementById('hudCadence').innerHTML = item.has_stroke 
-          ? '<span style="color: #059669; font-weight: 600;">Stroke Rest (2&mu;)</span>' 
-          : 'None (1&mu;)';
-
-        inspectGroup(item.group_id);
-
-        // 4. Step through each sign in the group
-        for (let sIdx = 0; sIdx < item.signs.length; sIdx++) {
+      try {
+        for (let i = currentStepIndex; i < totalSteps; i++) {
           if (!teleprompterRunning) break;
+
           while (teleprompterPaused) {
             await new Promise(r => setTimeout(r, 100));
             if (!teleprompterRunning) return;
           }
 
-          const sign = item.signs[sIdx];
-          updateHagiaSync(item.group_id, sign.sign_id);
-          const circleEl = document.getElementById(`circle-${item.group_id}-${sIdx}`);
-          if (circleEl) circleEl.classList.add('sign-current-mora');
+          currentStepIndex = i;
+          const item = currentSchedule[i];
 
-          playPluckedString(sign.freq, sign.duration_ms);
-
-          if (sign.stroke) {
-            playStrokeClick();
+          // 1. Smoothly rotate disc to bring group to 12 o'clock gaze pointer
+          const rot = document.getElementById('discRotator');
+          if (rot) {
+            rot.style.transform = `rotate(${item.target_angle_deg}deg)`;
           }
 
-          const signWait = sign.duration_ms / playbackSpeed;
-          elapsedMs += sign.duration_ms;
-          updateProgressBar(elapsedMs, totalDurationMs);
+          // 2. Highlight active group
+          document.querySelectorAll('.sign-group-container').forEach(el => el.classList.remove('active-teleprompter-group'));
+          const groupEl = document.getElementById('group-' + item.group_id);
+          if (groupEl) groupEl.classList.add('active-teleprompter-group');
 
-          await new Promise(r => setTimeout(r, signWait));
-          if (circleEl) circleEl.classList.remove('sign-current-mora');
+          // 3. Update HUD telemetry
+          document.getElementById('hudActiveGroup').innerHTML = `<strong>${item.group_id}</strong> · Turn ${item.turn}`;
+          document.getElementById('hudMorae').textContent = `${item.morae} morae · ${(item.duration_ms/1000).toFixed(2)}s`;
+          document.getElementById('hudAngle').textContent = `${item.target_angle_deg}° → 12:00`;
+          document.getElementById('hudCadence').innerHTML = item.has_stroke 
+            ? '<span style="color: #059669; font-weight: 600;">Stroke Rest (2&mu;)</span>' 
+            : 'None (1&mu;)';
+
+          inspectGroup(item.group_id);
+
+          // 4. Step through each sign in the group
+          for (let sIdx = 0; sIdx < item.signs.length; sIdx++) {
+            if (!teleprompterRunning) break;
+            while (teleprompterPaused) {
+              await new Promise(r => setTimeout(r, 100));
+              if (!teleprompterRunning) return;
+            }
+
+            const sign = item.signs[sIdx];
+            updateHagiaSync(item.group_id, sign.sign_id);
+            const circleEl = document.getElementById(`circle-${item.group_id}-${sIdx}`);
+            if (circleEl) circleEl.classList.add('sign-current-mora');
+
+            playPluckedString(sign.freq, sign.duration_ms);
+
+            if (sign.stroke) {
+              playStrokeClick();
+            }
+
+            const signWait = sign.duration_ms / playbackSpeed;
+            elapsedMs += sign.duration_ms;
+            updateProgressBar(elapsedMs, totalDurationMs);
+
+            await new Promise(r => setTimeout(r, signWait));
+            if (circleEl) circleEl.classList.remove('sign-current-mora');
+          }
+
+          // 5. Inter-group pause
+          const pauseWait = item.pause_ms / playbackSpeed;
+          elapsedMs += item.pause_ms;
+          updateProgressBar(elapsedMs, totalDurationMs);
+          await new Promise(r => setTimeout(r, pauseWait));
         }
 
-        // 5. Inter-group pause
-        const pauseWait = item.pause_ms / playbackSpeed;
-        elapsedMs += item.pause_ms;
-        updateProgressBar(elapsedMs, totalDurationMs);
-        await new Promise(r => setTimeout(r, pauseWait));
-      }
-
-      if (teleprompterRunning && teleprompterMode === 'FULL' && currentSide === 'A') {
-        document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #92400E;">RITUAL TURNOVER GONG</strong>';
-        playBronzeGong();
-        await new Promise(r => setTimeout(r, 2500 / playbackSpeed));
-        switchSide('B');
-        currentSchedule = PAYLOAD.schedule_b;
-        currentStepIndex = 0;
-        await runScheduleLoop();
-      } else if (teleprompterRunning) {
-        document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #059669;">HYMN RECITATION COMPLETE</strong>';
-        teleprompterRunning = false;
-        setPlaybackButtonState(false);
-      } else {
-        setPlaybackButtonState(false);
+        if (teleprompterRunning && teleprompterMode === 'FULL' && currentSide === 'A') {
+          document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #92400E;">RITUAL TURNOVER GONG</strong>';
+          playBronzeGong();
+          await new Promise(r => setTimeout(r, 2500 / playbackSpeed));
+          switchSide('B');
+          currentSchedule = PAYLOAD.schedule_b;
+          currentStepIndex = 0;
+          await runScheduleLoop();
+        } else if (teleprompterRunning) {
+          document.getElementById('hudActiveGroup').innerHTML = '<strong style="color: #059669;">HYMN RECITATION COMPLETE</strong>';
+          teleprompterRunning = false;
+          currentStepIndex = 0;
+          setPlaybackButtonState(false);
+        }
+      } finally {
+        if (!teleprompterRunning) {
+          setPlaybackButtonState(false);
+        }
       }
     }
 
@@ -2015,12 +2018,16 @@
         pillsContainer.innerHTML = pillsHtml;
       }
 
-      // 3. Highlight thumbnail in strip and auto-scroll
+      // 3. Highlight thumbnail in strip and auto-scroll within container only
       document.querySelectorAll('.hagia-thumb-item').forEach(el => el.classList.remove('active'));
       const activeThumb = document.getElementById('thumb-' + cropId);
       if (activeThumb) {
         activeThumb.classList.add('active');
-        activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        const stripEl = document.getElementById('hagiaThumbStrip');
+        if (stripEl) {
+          const scrollLeft = activeThumb.offsetLeft - (stripEl.clientWidth / 2) + (activeThumb.clientWidth / 2);
+          stripEl.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
+        }
       }
 
       // 4. If clicked by user (centerDisc = true), highlight matching signs and rotate disc
