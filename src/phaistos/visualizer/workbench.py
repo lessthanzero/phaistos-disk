@@ -143,7 +143,8 @@ def generate_workbench_html(
 ) -> str:
     """Generate the comprehensive self-contained HTML workbench file.
 
-    ``pages_safe=True`` omits third-party photo embeds for GitHub Pages hosting.
+    ``pages_safe=True`` uses relative CC BY-SA Commons disc facsimiles (no local
+    museum WebP data-URIs / Hagia embeds) for GitHub Pages hosting.
     """
     # 1. Run all frontier analytical modules
     stroke_res = evaluate_oblique_strokes(corpus)
@@ -177,6 +178,11 @@ def generate_workbench_html(
             crop["thumb_data_uri"] = ""
             crop.pop("file_path", None)
 
+    # Pages-safe: relative URLs under site/media/ (see docs/media/ATTRIBUTION.md).
+    # Full local builds embed optional undocumented museum WebPs as data URIs.
+    pages_photo_a = "../media/facsimiles/side_a.jpg"
+    pages_photo_b = "../media/facsimiles/side_b.jpg"
+
     data_payload = {
         "hagia_gallery": hagia_gallery,
         "homology_manifest": get_all_groups_homology_manifest(corpus),
@@ -188,8 +194,8 @@ def generate_workbench_html(
         "side_b": groups_b,
         "schedule_a": schedule_a,
         "schedule_b": schedule_b,
-        "photo_disc_a": "" if pages_safe else _get_image_data_uri(Path("reports/visuals/photos/disc_photo_a.webp")),
-        "photo_disc_b": "" if pages_safe else _get_image_data_uri(Path("reports/visuals/photos/disc_photo_b.webp")),
+        "photo_disc_a": pages_photo_a if pages_safe else _get_image_data_uri(Path("reports/visuals/photos/disc_photo_a.webp")),
+        "photo_disc_b": pages_photo_b if pages_safe else _get_image_data_uri(Path("reports/visuals/photos/disc_photo_b.webp")),
         "arkalochori_photo": "" if pages_safe else _get_image_data_uri(Path("reports/visuals/comparative/arkalochori_axe_hm584.webp")),
         "pages_safe": pages_safe,
         "frontier_a": {
@@ -1155,6 +1161,18 @@ def generate_workbench_html(
       gap: 4px;
       margin-top: 6px;
     }}
+    .media-credit {{
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--editorial-border);
+      font-family: 'Geist Mono', 'SF Mono', ui-monospace, monospace;
+      font-size: 11px;
+      line-height: 1.55;
+      color: var(--ink-muted);
+    }}
+    .media-credit a {{
+      color: var(--ink-secondary);
+    }}
   </style>
 </head>
 <body>
@@ -1421,6 +1439,8 @@ def generate_workbench_html(
       </div>
     </div>
   </div>
+
+  {"<footer class=\"media-credit\" id=\"facsimileCredit\">Disc facsimiles: photographs by <a href=\"https://commons.wikimedia.org/wiki/User:C_messier\">C messier</a>, crops by Bammesk; <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a> via Wikimedia Commons (<a href=\"https://commons.wikimedia.org/wiki/File:Phaistos_Disc_-_Side_A_-_6380_-_crop1.jpg\">Side A</a>, <a href=\"https://commons.wikimedia.org/wiki/File:Phaistos_Disc_-_Side_B_-_6381_-_crop1.jpg\">Side B</a>). See <code>docs/media/ATTRIBUTION.md</code>.</footer>" if pages_safe else "<!-- facsimile credit omitted (local build may use non-Commons photos) -->"}
 
   <script>
     const PAYLOAD = {raw_json};

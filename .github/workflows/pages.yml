@@ -25,9 +25,15 @@ jobs:
       - run: uv sync --group dev
       - name: Build pages-safe workbench
         run: |
-          mkdir -p site/workbench
+          mkdir -p site/workbench site/media
           cp docs/index.html docs/.nojekyll site/ 2>/dev/null || true
+          # CC BY-SA Commons facsimiles + ATTRIBUTION (relative URLs from workbench/)
+          cp -R docs/media/. site/media/
           uv run phaistos workbench --output site/workbench/index.html --pages-safe --no-open-browser
+          test -f site/media/facsimiles/side_a.jpg
+          test -f site/media/facsimiles/side_b.jpg
+          grep -q '../media/facsimiles/side_a.jpg' site/workbench/index.html
+          grep -q 'facsimileCredit' site/workbench/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

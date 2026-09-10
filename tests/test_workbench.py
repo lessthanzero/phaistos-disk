@@ -28,3 +28,7 @@ def test_generate_workbench_html(tmp_path: Path):
     assert "hudActiveGroup" in html
     assert "playBronzeGong" in html
     assert "5.7 RPM" in html
+    assert "../media/facsimiles/side_a.jpg" in html
+    assert "../media/facsimiles/side_b.jpg" in html
+    assert "facsimileCredit" in html
+    assert "CC BY-SA 4.0" in html

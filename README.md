@@ -7,6 +7,8 @@
 
 **Version 0.2.0 — research preview**
 
+[![Interactive workbench](docs/media/workbench-cover.webp)](https://lessthanzero.github.io/phaistos-disk/workbench/)
+
 A small local-first side project for exploring the Phaistos Disc: interactive inspection, corpus tooling, and statistics that try hard not to fool themselves. This is **not** a decipherment claim and **not** an academic monograph.
 
 Primary fun feature: generate and open the interactive workbench with `phaistos workbench`.
@@ -70,17 +72,21 @@ Falsifications of popular claims (Saros calculator, Mehen board, modern forgery,
 
 ## Interactive workbench
 
+[Live demo on GitHub Pages](https://lessthanzero.github.io/phaistos-disk/workbench/)
+
+![~10s teleprompter / triad playback (synthetic audio; interpretive “hymn” framing)](docs/media/workbench-hymn-playback.gif)
+
 ```bash
 uv run phaistos workbench --output reports/workbench.html
-# Public / GitHub Pages build (no third-party photo embeds):
+# Public / GitHub Pages build (Commons CC BY-SA disc facsimiles; no local museum WebPs):
 uv run phaistos workbench --output site/workbench/index.html --pages-safe --no-open-browser
 ```
 
-Opens a standalone HTML explorer (dual-face SVG spiral, group inspection, optional Karplus–Strong-style audio hooks). Full local builds are typically ~850 KB; `--pages-safe` builds are smaller (~380 KB) because museum/Wikimedia photo embeds are omitted.
+Opens a standalone HTML explorer (dual-face SVG spiral, group inspection, optional Karplus–Strong-style audio hooks). Full local builds may embed optional undocumented museum photos as data URIs; `--pages-safe` builds use relative Wikimedia Commons disc facsimiles (CC BY-SA 4.0 — see [docs/media/ATTRIBUTION.md](docs/media/ATTRIBUTION.md)) and omit Hagia Triada embeds.
 
 After the repo is on GitHub, enable **Settings → Pages → Source: GitHub Actions**. The `pages.yml` workflow deploys a rights-safe demo to `https://{owner}.github.io/phaistos-disk/`.
 
-Third-party museum photographs and some Wikimedia-derived crops are **excluded from the public default tree**; see [NOTICE](NOTICE). Generate visuals locally; do not assume MIT covers third-party media.
+Third-party museum photographs under `reports/visuals/photos/` remain **excluded from the public default tree**; see [NOTICE](NOTICE). Do not assume MIT covers third-party media.
 
 ---
 
@@ -89,7 +95,7 @@ Third-party museum photographs and some Wikimedia-derived crops are **excluded f
 Requires Python **3.12** or **3.13** and [`uv`](https://docs.astral.sh/uv/).
 
 ```bash
-git clone https://github.com/alexanderkatin/phaistos-disk.git
+git clone https://github.com/lessthanzero/phaistos-disk.git
 cd phaistos-disk
 uv sync
 uv run pytest
@@ -168,6 +174,12 @@ Raw corpus under `corpus/` is treated as immutable evidence encoding — do not 
 - **Media carve-outs**: third-party photos and some Wikimedia-derived material are **not** MIT-relicensed and may be absent from the public tree. See [NOTICE](NOTICE).
 
 Keep NOTICE with redistributions.
+
+---
+
+## Acknowledgments
+
+Release hygiene and tooling were assisted by **Cursor Agent (Composer)**, **Codex (GPT-5.6)** (peer-review / critique), **Antigravity 3.8 Flash**, and local **Ollama** models (`qwen2.5`, `gemma2`, `qwen2.5-coder`) for adversarial review. Scientific claims remain the author’s; see [docs/OUTREACH_DRAFTS.md](docs/OUTREACH_DRAFTS.md).
 
 ---
 

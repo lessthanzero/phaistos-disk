@@ -28,6 +28,8 @@ Replace `https://github.com/lessthanzero/phaistos-disk · https://github.com/les
 This release prep and outreach drafting were done with help from:
 
 - **Cursor Agent (Auto / Composer)** — repository audit, claim hygiene, license/PII scrub, docs, CI/Pages wiring, and these outreach drafts
+- **Codex (GPT-5.6)** — peer-review / critique assistance during release hygiene
+- **Antigravity 3.8 Flash** — additional agent assistance
 - **Local Ollama on the homelab worker** — adversarial review passes used during the pre-release audit:
   - `qwen2.5:7b` (statistician critique)
   - `gemma2:9b` (archaeologist / epigrapher critique)
@@ -53,7 +55,7 @@ If you have a moment, I’d genuinely appreciate critical feedback on whether th
 - Source: https://github.com/lessthanzero/phaistos-disk · https://github.com/lessthanzero/linear-a · https://github.com/lessthanzero/ancient-text-lab
 - Live workbench (browser): https://lessthanzero.github.io/phaistos-disk/ · https://lessthanzero.github.io/linear-a/
 
-(Release prep and drafting were assisted by Cursor’s coding agent, with local open-source models used for hostile review passes — happy to say more if useful.)
+(Release prep and drafting were assisted by Cursor’s coding agent, Codex (GPT-5.6) for critique, Antigravity 3.8 Flash, and local open-source models for hostile review passes — happy to say more if useful.)
 
 No need for a long reply — even a blunt “this bit is wrong” would help.
 
@@ -91,7 +93,7 @@ I’d rather get torn apart on method and presentation than quietly overclaim. I
 Repos: https://github.com/lessthanzero/phaistos-disk · https://github.com/lessthanzero/linear-a · https://github.com/lessthanzero/ancient-text-lab  
 Live workbench: https://lessthanzero.github.io/phaistos-disk/ · https://lessthanzero.github.io/linear-a/
 
-Built with a lot of help from Cursor’s coding agent; pre-release critique also used local Ollama models (`qwen2.5`, `gemma2`, `qwen2.5-coder`) as hostile reviewers. Mistakes remain mine.
+Built with a lot of help from Cursor’s coding agent, Codex (GPT-5.6) for peer-review critique, and Antigravity 3.8 Flash; pre-release critique also used local Ollama models (`qwen2.5`, `gemma2`, `qwen2.5-coder`) as hostile reviewers. Mistakes remain mine.
 
 Happy to answer technical questions about the workbench / CLI. Please don’t read this as “AI deciphered Minoan.”
 
@@ -108,7 +110,7 @@ The repos are computational labs, not a journal paper:
 
 The most straightforward structural finding I’m comfortable highlighting is a repeated sign-group sequence on the Disc. Anything about genre or religious reading stays labeled as hypothesis.
 
-Release prep was assisted by Cursor’s coding agent, with local open-source models used for adversarial review — humans still own the claims (and the bugs).
+Release prep was assisted by Cursor’s coding agent, Codex (GPT-5.6), Antigravity 3.8 Flash, and local open-source models used for adversarial review — humans still own the claims (and the bugs).
 
 Feedback welcome once the GitHub + Pages links are up: https://github.com/lessthanzero/phaistos-disk · https://github.com/lessthanzero/linear-a · https://github.com/lessthanzero/ancient-text-lab · https://lessthanzero.github.io/phaistos-disk/ · https://lessthanzero.github.io/linear-a/
 
