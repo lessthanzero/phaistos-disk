@@ -16,6 +16,8 @@ def test_ollama_client_instantiation():
 def test_skeptic_fallback_when_offline():
     # Force offline client to test deterministic fallback
     offline_client = OllamaClient(host="http://127.0.0.1:9999")
+    # Unit-test traffic must not enter the production-only local metrics ledger.
+    offline_client.telemetry = None
 
     dummy_res = DeciphermentResult(
         hypothesis_id="H_TEST",
