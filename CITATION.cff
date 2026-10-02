@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software or interactive workbench, please cite it as below."
+authors:
+  - family-names: "Katin"
+    given-names: "Alexander"
+title: "Phaistos Disc Lab: Computational Research Lab and Interactive Workbench for the Phaistos Disc"
+version: 0.2.0
+date-released: 2026-09-10
+url: "https://github.com/lessthanzero/phaistos-disk"
+repository-code: "https://github.com/lessthanzero/phaistos-disk"
+license: MIT
+keywords:
+  - "Phaistos Disc"
+  - "Aegean scripts"
+  - "computational archaeology"
+  - "digital epigraphy"
+  - "corpus linguistics"
+  - "reproducible research"
+  - "interactive visualization"
